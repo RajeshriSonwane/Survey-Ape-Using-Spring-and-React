@@ -77,7 +77,7 @@ fetch(`${api}/creategeneral`, {
     'Content-Type': 'application/json'
   },
   //credentials:'include',
-  body: payload
+  body: JSON.stringify(payload)
 }).then(res=>res.json())
 .then(res => {
   return res;

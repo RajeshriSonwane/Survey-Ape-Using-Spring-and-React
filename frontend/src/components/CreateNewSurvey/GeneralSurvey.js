@@ -8,7 +8,7 @@ class GeneralSurvey extends Component {
   }
 
   createNewSurvey(){
-    var x=this.state.surveyTitle;
+    var x={title:this.state.surveyTitle,questions:this.state.questions};
         API.createGeneral(x)
             .then((output) => {
               console.log("CHECK THIS: "+output);
