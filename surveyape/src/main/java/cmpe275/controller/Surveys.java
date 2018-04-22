@@ -25,6 +25,7 @@ public class Surveys {
 	
 	// call sessions from Users class
 	Users obj=new Users();
+	@Autowired 
 	HttpSession session=obj.session;
 	
 	// create general survey

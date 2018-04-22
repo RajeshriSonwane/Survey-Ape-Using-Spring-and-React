@@ -3,11 +3,11 @@ import * as API from '../../api/API';
 
 class GeneralSurvey extends Component {
   state={
-    surveyTitle:''
+    surveyTitle:'',
+    questions:[],
   }
 
-  createNewSurvey()
-  {
+  createNewSurvey(){
     var x=this.state.surveyTitle;
         API.createGeneral(x)
             .then((output) => {
@@ -15,6 +15,10 @@ class GeneralSurvey extends Component {
             });
   }
 
+  nextQuestion(){
+    console.log(this.state.questions);
+    this.refs.ques.value="";
+  }
 
 
     render() {
@@ -27,7 +31,13 @@ class GeneralSurvey extends Component {
           <form>
           Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{
                                    this.setState({surveyTitle: event.target.value});}}/><br/>
-          <button className="button1" type="button" onClick={() => this.createNewSurvey(this.state)}>Submit</button>
+          Enter question:
+          <input type="text" id="question" ref="ques" onBlur={(event)=>{
+                                   this.setState({questions: this.state.questions.concat(event.target.value)});}}/><br/>
+
+          <button className="button1" type="button" onClick={() => this.nextQuestion()}>Add next question</button><br/>
+          <br/><br/>
+          Submit Survey: <button className="button1" type="button" onClick={() => this.createNewSurvey(this.state)}>Submit</button>
           </form>
 
          </div>
