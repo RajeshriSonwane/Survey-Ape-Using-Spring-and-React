@@ -1,5 +1,6 @@
 package cmpe275.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -8,14 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cmpe275.entity.Survey;
 import cmpe275.service.SurveyService;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
+
 
 import java.io.IOException;
 
@@ -38,11 +35,11 @@ public class Surveys {
 	
 	// create general survey
     @PostMapping(path="/creategeneral",consumes = MediaType.APPLICATION_JSON_VALUE) 
-    public  ResponseEntity<?> createGeneralSurvey(@RequestBody JSONObject ns) throws JsonParseException, JsonMappingException, IOException {
+    public  ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws IOException {
     //	Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
     	Integer uid=1;
-    	System.out.println("New t: "+ns);
-  
+    	System.out.println("json string: "+ns.getTitle());
+
    // 	Survey s=new Survey(uid,ns.title,1);
     //	surveyService.addSurvey(s);
         return new ResponseEntity(1,HttpStatus.CREATED);
@@ -59,5 +56,17 @@ public class Surveys {
 
 class Newsurvey{
 	String title;
-	String qarr[];
+	String questions[];
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String[] getQuestions() {
+		return questions;
+	}
+	public void setQuestions(String[] questions) {
+		this.questions = questions;
+	}
 }

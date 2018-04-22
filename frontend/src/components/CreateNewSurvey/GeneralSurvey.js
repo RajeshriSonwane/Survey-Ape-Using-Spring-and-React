@@ -8,8 +8,8 @@ class GeneralSurvey extends Component {
   }
 
   createNewSurvey(){
-    var x={title:this.state.surveyTitle,questions:this.state.questions};
-        API.createGeneral(x)
+    var data={title:this.state.surveyTitle,questions:this.state.questions};
+        API.createGeneral(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
             });
