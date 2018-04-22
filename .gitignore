@@ -25,4 +25,5 @@ typings/
 .env
 
 *.class
+*.properties
 
