@@ -57,3 +57,32 @@ export const logout = () =>
                     console.log("This is error");
                     return error;
                 });
+
+
+
+
+
+
+
+
+
+
+
+// create general survey
+export const createGeneral = (payload) =>
+fetch(`${api}/creategeneral`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  body: payload
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is login error");
+  return error;
+});
