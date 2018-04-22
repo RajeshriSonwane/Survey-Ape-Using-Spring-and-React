@@ -38,10 +38,13 @@ public class Surveys {
     public  ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws IOException {
     //	Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
     	Integer uid=1;
-    	System.out.println("json string: "+ns.getTitle());
+    	Survey s=new Survey(uid,ns.getTitle(),1);
+    	surveyService.addSurvey(s);
+    /*	System.out.println("json string: "+ns.getTitle());
+    	String[] arr=ns.getQuestions();
+    	System.out.println("arr: "+arr[0]);
+    	System.out.println("json string: "+arr[0]);*/
 
-   // 	Survey s=new Survey(uid,ns.title,1);
-    //	surveyService.addSurvey(s);
         return new ResponseEntity(1,HttpStatus.CREATED);
     }
     
