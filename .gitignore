@@ -27,3 +27,4 @@ typings/
 *.class
 *.properties
 
+*.iml
