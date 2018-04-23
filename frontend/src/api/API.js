@@ -65,9 +65,6 @@ export const logout = () =>
 
 
 
-
-
-
 // create general survey
 export const createGeneral = (payload) =>
 fetch(`${api}/creategeneral`, {
@@ -83,6 +80,25 @@ fetch(`${api}/creategeneral`, {
   return res;
 })
 .catch(error => {
-  console.log("This is login error");
+  console.log("This is create general survey error");
+  return error;
+});
+
+// get general survey by id
+export const getGeneral = (payload) =>
+fetch(`${api}/getsurvey/`+payload, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  //body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
   return error;
 });

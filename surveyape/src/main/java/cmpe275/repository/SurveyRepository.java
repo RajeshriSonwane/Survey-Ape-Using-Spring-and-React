@@ -6,5 +6,5 @@ import cmpe275.entity.Survey;
 
 
 public interface SurveyRepository extends CrudRepository<Survey, String>{
-
+	Survey findBySurveyId(Integer id);
 }

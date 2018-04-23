@@ -32,18 +32,19 @@ class Home extends Component {
           <br/>
 
           <div className="col-xxs-12 col-xs-12 mt">
+          <div className="col-sm-1 col-md-1 col-lg-1"></div>
 
-          <div className="col-xxs-12 col-xs-3 mt">
+          <div className="col-sm-3 col-md-3 col-lg-3 col-xs-4 mt">
           <button type="button" className="btn btn-primary btn-block"
                   value="General" onClick={() => this.generalShow()}>General Survey</button>
           </div>
 
-          <div className="col-xxs-12 col-xs-3 mt">
+          <div className="col-sm-3 col-md-3 col-lg-3 col-xs-4 mt">
           <button type="button" className="btn btn-primary btn-block"
                   value="Closed" onClick={() => this.closedShow()}>Closed Survey</button>
           </div>
 
-          <div className="col-xxs-12 col-xs-3 mt">
+          <div className="col-sm-3 col-md-3 col-lg-3 col-xs-4 mt">
           <button type="button" className="btn btn-primary btn-block"
                   value="Open" onClick={() => this.openShow()}>Open Survey</button>
           </div>

@@ -1,9 +1,14 @@
 package cmpe275.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Survey {
@@ -17,6 +22,10 @@ public class Survey {
     private String surveyTitle;
     // 1-general 2-closed 3-open
     private Integer type;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyId")
+    //@JoinColumn(name = "post_id");
+    private List<Question> questions;
     
     public Survey(){  	
     }
@@ -51,4 +60,11 @@ public class Survey {
 	public void setType(Integer type) {
 		this.type = type;
 	}
+	public List<Question> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+	
 }

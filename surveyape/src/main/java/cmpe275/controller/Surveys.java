@@ -53,10 +53,13 @@ public class Surveys {
         return new ResponseEntity(1,HttpStatus.CREATED);
     }
     
-    // provide general survey
-    @GetMapping(path="/generalsurvey/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getGeneralSurvey(@PathVariable long id) {
-	   return null;
+    // get survey by id
+    @GetMapping(path="/getsurvey/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
+    //return	surveyService.getSurvey(id);
+    	System.out.println("Survey id: "+id);
+    	Survey s=surveyService.getSurvey(id);
+    	return new ResponseEntity(s,HttpStatus.FOUND);
     }
     
 }
