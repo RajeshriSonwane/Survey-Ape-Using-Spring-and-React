@@ -26,5 +26,6 @@ typings/
 
 *.class
 *.properties
+*.lst
 
 *.iml
