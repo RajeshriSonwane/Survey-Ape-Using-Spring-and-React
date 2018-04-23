@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
+const queryString = require('query-string');
 
 class GeneralSurvey extends Component {
   state={
     surveyTitle:'',
     questions:[],
-  }
+  };
 
   createNewSurvey(){
     var data={title:this.state.surveyTitle,questions:this.state.questions};
@@ -19,6 +20,11 @@ class GeneralSurvey extends Component {
     console.log(this.state.questions);
     this.refs.ques.value="";
   }
+
+    componentWillMount() {
+        const parsed = queryString.parse(window.location.search);
+        console.log(parsed);
+    }
 
 
     render() {

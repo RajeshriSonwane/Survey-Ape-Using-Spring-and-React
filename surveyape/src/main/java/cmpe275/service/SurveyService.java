@@ -12,8 +12,8 @@ public class SurveyService {
     @Autowired
     private SurveyRepository surveyRepository;
     
-    public void addSurvey(Survey s){
-    	surveyRepository.save(s);
+    public Survey addSurvey(Survey s){
+    	return surveyRepository.save(s);
     }
 
 }
