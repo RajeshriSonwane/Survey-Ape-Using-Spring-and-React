@@ -9,8 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
+import cmpe275.entity.Question;
 import cmpe275.entity.Survey;
+import cmpe275.service.QuestionService;
 import cmpe275.service.SurveyService;
 
 
@@ -27,6 +28,9 @@ public class Surveys {
 	
     @Autowired
     private SurveyService surveyService;
+    
+    @Autowired
+    private QuestionService questionService;
 	
 	// call sessions from Users class
 	Users obj=new Users();
@@ -39,12 +43,13 @@ public class Surveys {
     //	Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
     	Integer uid=1;
     	Survey s=new Survey(uid,ns.getTitle(),1);
-    	surveyService.addSurvey(s);
-    /*	System.out.println("json string: "+ns.getTitle());
+    Survey s1=surveyService.addSurvey(s);
     	String[] arr=ns.getQuestions();
-    	System.out.println("arr: "+arr[0]);
-    	System.out.println("json string: "+arr[0]);*/
-
+    	int l= arr.length;
+    	for(int i=0;i<l;i++) {
+    		Question q=new Question(arr[i],s1.getSurveyId());
+    		questionService.addQuestion(q);
+    	}
         return new ResponseEntity(1,HttpStatus.CREATED);
     }
     
