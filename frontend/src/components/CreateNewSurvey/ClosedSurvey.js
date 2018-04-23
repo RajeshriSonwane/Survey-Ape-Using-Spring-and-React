@@ -6,11 +6,13 @@ class ClosedSurvey extends Component {
     state={
         surveyTitle:'',
         questions:[],
+        users:[],
+        surveyid: '2',
     };
 
     createNewSurvey(){
-        var data={title:this.state.surveyTitle,questions:this.state.questions};
-        API.createGeneral(data)
+        var data={title:this.state.surveyTitle,questions:this.state.questions,users:this.state.users};
+        API.createClosed(data)
             .then((output) => {
                 console.log("CHECK THIS: "+output);
             });
@@ -19,6 +21,11 @@ class ClosedSurvey extends Component {
     nextQuestion(){
         console.log(this.state.questions);
         this.refs.ques.value="";
+    }
+
+    nextUser(){
+        console.log(this.state.users);
+        this.refs.users.value="";
     }
 
     componentWillMount() {
@@ -37,6 +44,13 @@ class ClosedSurvey extends Component {
                 <form>
                     Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{
                     this.setState({surveyTitle: event.target.value});}}/><br/>
+
+                    Enter User:
+                    <input type="text" id="users" ref="users" onBlur={(event)=>{
+                        this.setState({users: this.state.users.concat(event.target.value)});}}/><br/>
+
+                    <button className="button1" type="button" onClick={() => this.nextUser()}>Add next user</button><br/>
+
                     Enter question:
                     <input type="text" id="question" ref="ques" onBlur={(event)=>{
                         this.setState({questions: this.state.questions.concat(event.target.value)});}}/><br/>

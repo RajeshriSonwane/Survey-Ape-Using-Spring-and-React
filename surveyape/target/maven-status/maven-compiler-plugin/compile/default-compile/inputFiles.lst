@@ -1,9 +1,11 @@
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/entity/Question.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/entity/Survey.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/controller/Users.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/App.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/controller/Surveys.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/service/QuestionService.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/repository/QuestionRepository.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/service/SurveyService.java
-/Users/anjana/Desktop/cmpe275_SurveyApe/surveyape/src/main/java/cmpe275/repository/SurveyRepository.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\Users.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\entity\User.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\SurveyService.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\entity\Question.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\entity\Survey.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\repository\SurveyRepository.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\SendInvitation.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\QuestionService.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\App.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\Surveys.java
+C:\Users\Ujjval\Desktop\Desktop\SJSU\Courses\275\Final Project\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\repository\QuestionRepository.java

@@ -62,6 +62,11 @@ class Home extends Component {
 
           {/* div to display closed survey */}
           <div>
+              {
+                  this.state.visibleClosed
+                      ? <ClosedSurvey/>
+                      : null
+              }
           </div>
 
           {/* div to display open survey */}

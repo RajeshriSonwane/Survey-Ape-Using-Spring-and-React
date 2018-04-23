@@ -84,6 +84,26 @@ fetch(`${api}/creategeneral`, {
   return error;
 });
 
+
+// create general survey
+export const createClosed = (payload) =>
+    fetch(`${api}/createclosed`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        //credentials:'include',
+        body: JSON.stringify(payload)
+    }).then(res=>res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is create closed survey error");
+            return error;
+        });
+
 // get general survey by id
 export const getGeneral = (payload) =>
 fetch(`${api}/getsurvey/`+payload, {
