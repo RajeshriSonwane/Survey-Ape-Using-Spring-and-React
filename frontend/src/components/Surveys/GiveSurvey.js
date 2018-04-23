@@ -29,7 +29,7 @@ class GiveSurvey extends Component {
         return (
           <div className="w3-container">
           <br/><br/>
-          <h2>Welcome</h2>
+          <h3 align="center">Submit your reponses</h3>
           <br/><br/>
           Survey Title: {this.state.surveyTitle}
           <br/><br/>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route, Link} from 'react-router-dom';
 import GeneralSurvey from './GeneralSurvey';
 import ClosedSurvey from './ClosedSurvey';
-
+import OpenSurvey from './OpenSurvey';
 
 class Home extends Component {
 
@@ -13,15 +13,15 @@ class Home extends Component {
   }
 
   generalShow() {
-    this.setState({visibleGeneral: !this.state.visible,visibleClosed: false,visibleOpen: false});
+    this.setState({visibleGeneral: !this.state.visibleGeneral,visibleClosed: false,visibleOpen: false});
   }
 
   closedShow() {
-    this.setState({visibleClosed: !this.state.visible,visibleGeneral: false,visibleOpen: false});
+    this.setState({visibleClosed: !this.state.visibleClosed,visibleGeneral: false,visibleOpen: false});
   }
 
   openShow() {
-    this.setState({visibleOpen: !this.state.visible,visibleClosed: false,visibleGeneral: false});
+    this.setState({visibleOpen: !this.state.visibleOpen,visibleClosed: false,visibleGeneral: false});
   }
 
 
@@ -71,6 +71,11 @@ class Home extends Component {
 
           {/* div to display open survey */}
           <div>
+          {
+              this.state.visibleOpen
+                  ? <OpenSurvey/>
+                  : null
+          }
           </div>
 
          </div>

@@ -6,7 +6,13 @@ class GeneralSurvey extends Component {
   state={
     surveyTitle:'',
     questions:[],
+    users:[]
   };
+
+  componentWillMount() {
+      const parsed = queryString.parse(window.location.search);
+      console.log(parsed);
+  }
 
   createNewSurvey(){
     var data={title:this.state.surveyTitle,questions:this.state.questions};
@@ -21,10 +27,10 @@ class GeneralSurvey extends Component {
     this.refs.ques.value="";
   }
 
-    componentWillMount() {
-        const parsed = queryString.parse(window.location.search);
-        console.log(parsed);
-    }
+  nextUser(){
+      console.log(this.state.users);
+      this.refs.users.value="";
+  }
 
 
     render() {
@@ -36,13 +42,21 @@ class GeneralSurvey extends Component {
 
           <form>
           Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{
-                                   this.setState({surveyTitle: event.target.value});}}/><br/>
+                                   this.setState({surveyTitle: event.target.value});}}/>
+          <br/><br/>
+
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
-                                   this.setState({questions: this.state.questions.concat(event.target.value)});}}/><br/>
-
-          <button className="button1" type="button" onClick={() => this.nextQuestion()}>Add next question</button><br/>
+                                   this.setState({questions: this.state.questions.concat(event.target.value)});}}/>
+          <button className="button1" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
           <br/><br/>
+
+          Enter Participant:
+          <input type="text" id="users" ref="users" onBlur={(event)=>{
+              this.setState({users: this.state.users.concat(event.target.value)});}}/>
+          <button className="button1" type="button" onClick={() => this.nextUser()}>Add next participant</button>
+          <br/><br/><br/>
+
           Submit Survey: <button className="button1" type="button" onClick={() => this.createNewSurvey(this.state)}>Submit</button>
           </form>
 

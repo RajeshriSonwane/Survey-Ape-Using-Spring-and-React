@@ -15,7 +15,8 @@ class Home extends Component {
           <div className="col-sm-3 col-md-3 col-lg-3"><h5>Welcome {this.props.user}</h5></div>
           <div> <Link to='/'></Link></div>
           <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/newsurvey'>Create Survey</Link></div>
-          <div className="col-sm-2 col-md-2 col-lg-2" ><Link to='/givesurvey'>Give survey</Link></div>
+          <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/givesurvey'></Link></div>
+          <div className="col-sm-3 col-md-3 col-lg-3"></div>
           <div className="col-sm-2 col-md-2 col-lg-2"><button className="w3-btn w3-white w3-border w3-border-blue w3-round" onClick={() => this.props.handleLogout()}>Logout</button></div>
           </div>
 

@@ -52,7 +52,7 @@ public class Surveys {
     		questionService.addQuestion(q);
     	}
     	
-    	String[] participants = ns.getUsers();
+    	String[] participants = ns.getParticipants();
     	l= participants.length;
     	for(int i=0;i<l;i++) {
     		int p = Integer.parseInt(participants[i]);	
@@ -78,7 +78,7 @@ public class Surveys {
     	Integer uid=1;
     	Survey s=new Survey(uid,ns.getTitle(),2);
     	Survey s1=surveyService.addSurvey(s);    	
-    	String[] participants = ns.getUsers();
+    	String[] participants = ns.getParticipants();
     	int l= participants.length;
     	for(int i=0;i<l;i++) {
     		int p = Integer.parseInt(participants[i]);	
@@ -101,13 +101,13 @@ public class Surveys {
 class Newsurvey{
 	String title;
 	String questions[];
-	String users[];
+	String participants[];
 	
-	public String[] getUsers() {
-		return users;
+	public String[] getParticipants() {
+		return participants;
 	}
-	public void setUsers(String[] users) {
-		this.users = users;
+	public void setParticipants(String[] participants) {
+		this.participants = participants;
 	}
 	public String getTitle() {
 		return title;

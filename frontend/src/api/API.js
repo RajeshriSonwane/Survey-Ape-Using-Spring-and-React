@@ -85,7 +85,7 @@ fetch(`${api}/creategeneral`, {
 });
 
 
-// create general survey
+// create closed survey
 export const createClosed = (payload) =>
     fetch(`${api}/createclosed`, {
         method: 'POST',

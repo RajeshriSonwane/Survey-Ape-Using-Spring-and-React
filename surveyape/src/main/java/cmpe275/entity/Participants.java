@@ -23,34 +23,22 @@ public class Participants {
     	surveyId=sid;
     }
     
-
 	public Integer getParticipantsId() {
 		return participantsId;
 	}
-
 	public void setParticipantsId(Integer participantsId) {
 		this.participantsId = participantsId;
 	}
-
 	public Integer getSurveyId() {
 		return surveyId;
 	}
-
 	public void setSurveyId(Integer surveyId) {
 		this.surveyId = surveyId;
 	}
-
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-    
-    
-    
-    
-
-
 }
