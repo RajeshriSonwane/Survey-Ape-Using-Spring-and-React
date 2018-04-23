@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -21,10 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
 
-public class Surveys {
+public class Surveys { 
 	
     @Autowired
     private SurveyService surveyService;
