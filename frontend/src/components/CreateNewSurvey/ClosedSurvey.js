@@ -6,12 +6,12 @@ class ClosedSurvey extends Component {
     state={
         surveyTitle:'',
         questions:[],
-        users:[],
+        participants:[],
         surveyid: '2',
     };
 
     createNewSurvey(){
-        var data={title:this.state.surveyTitle,questions:this.state.questions,users:this.state.users};
+        var data={title:this.state.surveyTitle,questions:this.state.questions,participants:this.state.participants};
         API.createClosed(data)
             .then((output) => {
                 console.log("CHECK THIS: "+output);
@@ -24,7 +24,7 @@ class ClosedSurvey extends Component {
     }
 
     nextUser(){
-        console.log(this.state.users);
+        console.log(this.state.participants);
         this.refs.users.value="";
     }
 
@@ -54,7 +54,7 @@ class ClosedSurvey extends Component {
 
                     Enter User:
                     <input type="text" id="users" ref="users" onBlur={(event)=>{
-                        this.setState({users: this.state.users.concat(event.target.value)});}}/>
+                        this.setState({participants: this.state.participants.concat(event.target.value)});}}/>
                     <button className="button1" type="button" onClick={() => this.nextUser()}>Add next user</button>
                     <br/><br/><br/>
 

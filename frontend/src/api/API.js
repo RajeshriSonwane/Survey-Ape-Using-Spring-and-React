@@ -122,3 +122,23 @@ fetch(`${api}/getsurvey/`+payload, {
   console.log("This is get survey error");
   return error;
 });
+
+
+// get all surveys created by a user
+export const allSurveys = (payload) =>
+fetch(`${api}/getallsurveys/`, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  //body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
+  return error;
+});

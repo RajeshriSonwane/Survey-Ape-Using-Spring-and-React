@@ -16,6 +16,9 @@ import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
 import cmpe275.service.SurveyService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -31,7 +34,7 @@ public class Surveys {
     private QuestionService questionService;
     
     @Autowired
-    private ParticipantsService ParticipantsService;
+    private ParticipantsService participantsService;
 	
 	// call sessions from Users class
 	Users obj=new Users();
@@ -55,9 +58,9 @@ public class Surveys {
     	String[] participants = ns.getParticipants();
     	l= participants.length;
     	for(int i=0;i<l;i++) {
-    		int p = Integer.parseInt(participants[i]);	
-    		Participants pq= new Participants(p, s1.getSurveyId());
-    		ParticipantsService.addParticipant(pq);
+    		//int p = Integer.parseInt(participants[i]);	
+    		Participants pq= new Participants(participants[i], s1.getSurveyId());
+    		participantsService.addParticipant(pq);
     	}
         return new ResponseEntity(1,HttpStatus.CREATED);
     }
@@ -77,24 +80,46 @@ public class Surveys {
     //	Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
     	Integer uid=1;
     	Survey s=new Survey(uid,ns.getTitle(),2);
-    	Survey s1=surveyService.addSurvey(s);    	
-    	String[] participants = ns.getParticipants();
-    	int l= participants.length;
-    	for(int i=0;i<l;i++) {
-    		int p = Integer.parseInt(participants[i]);	
-    		Participants pq= new Participants(p, s1.getSurveyId());
-    		ParticipantsService.addParticipant(pq);
-    	}
+    	Survey s1=surveyService.addSurvey(s);
     	
     	String[] questions = ns.getQuestions();
-    	 l= questions.length;
+    	int l= questions.length;
     	for(int i=0;i<l;i++) {
     		Question q=new Question(questions[i],s1.getSurveyId());
     		questionService.addQuestion(q);
     	}
+    	String[] participants = ns.getParticipants();
+    	System.out.println("check title: "+ns.getTitle());
+    	System.out.println("check par: "+ns.getParticipants()[0]);
+   	l= participants.length;
+    	for(int i=0;i<l;i++) {
+    		//int p = Integer.parseInt(participants[i]);	
+    		Participants pq= new Participants(participants[i], s1.getSurveyId());
+    		participantsService.addParticipant(pq);
+    	}
         return new ResponseEntity(1,HttpStatus.CREATED);
-    }
+    }  
     
+    
+    
+    
+    
+    // get all surveys created by a user
+    @GetMapping(path="/getallsurveys",produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Iterable<Survey> getAllSurveys() {
+    	//Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
+    	Integer uid=1;
+    	List<Survey> res=new ArrayList<Survey>();
+    	List<Survey> surveylist=surveyService.getAllSurveys();
+    	System.out.println("check survey: "+surveylist.get(0).getSurveyTitle());
+       	for(int i=0;i<surveylist.size();i++) {
+    		Survey temp=surveylist.get(i);
+    		if(temp.getUserID()==uid)
+    			res.add(temp);
+    	}
+    //	return new ResponseEntity(res,HttpStatus.FOUND);
+       	return res;
+    }
 }
 
 
@@ -103,12 +128,6 @@ class Newsurvey{
 	String questions[];
 	String participants[];
 	
-	public String[] getParticipants() {
-		return participants;
-	}
-	public void setParticipants(String[] participants) {
-		this.participants = participants;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -120,5 +139,11 @@ class Newsurvey{
 	}
 	public void setQuestions(String[] questions) {
 		this.questions = questions;
+	}
+	public String[] getParticipants() {
+		return participants;
+	}
+	public void setParticipants(String[] participants) {
+		this.participants = participants;
 	}
 }

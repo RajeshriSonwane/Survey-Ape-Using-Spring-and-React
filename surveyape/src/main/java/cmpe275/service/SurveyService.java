@@ -1,5 +1,7 @@
 package cmpe275.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +22,10 @@ public class SurveyService {
     
     public Survey getSurvey(Integer id) {
     	return surveyRepository.findBySurveyId(id);
+    }
+    
+    public List<Survey> getAllSurveys() {
+    	return surveyRepository.findAll();
     }
 
 }
