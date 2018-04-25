@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Survey;
+import cmpe275.repository.SurveyRepository;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
 import cmpe275.service.SurveyService;
@@ -39,7 +40,6 @@ public class Surveys {
 
 	@Autowired
 	HttpSession session;
-
 	
 	
 	
@@ -48,7 +48,7 @@ public class Surveys {
 	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws IOException {
 		// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
 		Integer uid = 1;
-		Survey s = new Survey(uid, ns.getTitle(), 1);
+		Survey s = new Survey(uid, ns.getTitle(), 1,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		int l = questions.length;
@@ -74,7 +74,7 @@ public class Surveys {
 	public ResponseEntity<?> createClosedSurvey(@RequestBody Newsurvey ns) throws Exception {
 		// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
 		Integer uid = 1;
-		Survey s = new Survey(uid, ns.getTitle(), 2);
+		Survey s = new Survey(uid, ns.getTitle(),2,0);
 		Survey s1 = surveyService.addSurvey(s);
 
 		String[] questions = ns.getQuestions();
@@ -98,13 +98,41 @@ public class Surveys {
 	}
 	
 	
+	
+	// publish survey
+	@PostMapping(path = "/publish", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> publishSurvey(@RequestBody Integer id) throws Exception {
+		System.out.println("Survey id: " + id);
+		Survey s = surveyService.getSurvey(id);
+		s.setStatus(1);
+		surveyService.saveSurvey(s);
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
+	
+	
+	// close survey
+	@PostMapping(path = "/close", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> closeSurvey(@RequestBody Integer id) throws Exception {
+		System.out.println("Survey id: " + id);
+		Survey s = surveyService.getSurvey(id);
+		s.setStatus(0);
+		surveyService.saveSurvey(s);
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+	
+	
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
 		// return surveyService.getSurvey(id);
 		System.out.println("Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
-		return new ResponseEntity(s, HttpStatus.FOUND);
+		System.out.println("check: " + s);
+		if(s!=null && s.getStatus()==1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 	
 	
@@ -114,7 +142,10 @@ public class Surveys {
 		// return surveyService.getSurvey(id);
 		System.out.println("Survey user: " + user);
 		Survey s = surveyService.getSurvey(id);
-		return new ResponseEntity(s, HttpStatus.FOUND);
+		if(s.getStatus()==1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
 

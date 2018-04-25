@@ -19,8 +19,12 @@ public class Survey {
     private Integer userID;
     
     private String surveyTitle;
+    
     // 1-general 2-closed 3-open
     private Integer type;
+    
+    // 0-closed 1-published
+    private Integer status;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyId")
     //@JoinColumn(name = "post_id");
@@ -29,10 +33,11 @@ public class Survey {
     public Survey(){  	
     }
     
-    public Survey(Integer uid,String stitle,Integer t){
+    public Survey(Integer uid,String stitle,Integer t, Integer s){
     	userID=uid;
     	surveyTitle=stitle;
     	type=t;
+    	status=s;
     }
     
 	public Integer getSurveyId() {
@@ -65,5 +70,10 @@ public class Survey {
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
-	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}	
 }

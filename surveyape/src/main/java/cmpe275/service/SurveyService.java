@@ -20,6 +20,10 @@ public class SurveyService {
     	return surveyRepository.save(s);
     }
     
+    public void saveSurvey(Survey s){
+    	 surveyRepository.save(s);
+    }
+    
     public Survey getSurvey(Integer id) {
     	return surveyRepository.findBySurveyId(id);
     }

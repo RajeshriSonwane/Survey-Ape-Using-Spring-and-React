@@ -146,6 +146,44 @@ fetch(`${api}/getsurvey/`+sid+"?user="+uid, {
 });
 
 
+// publish survey
+export const publishSurvey = (payload) =>
+fetch(`${api}/publish`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is create publish survey error");
+  return error;
+});
+
+
+// close survey
+export const closeSurvey = (payload) =>
+fetch(`${api}/close`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is end survey error");
+  return error;
+});
 
 // get all surveys created by a user
 export const allSurveys = (payload) =>

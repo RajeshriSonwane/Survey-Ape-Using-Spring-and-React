@@ -8,11 +8,6 @@ class OpenSurvey extends Component {
         questions:[]
     };
 
-    componentWillMount() {
-        const parsed = queryString.parse(window.location.search);
-        console.log(parsed);
-    }
-
     createNewSurvey(){
     }
 
@@ -29,8 +24,19 @@ class OpenSurvey extends Component {
 
                 <h3 align="center">Create Open Survey</h3>
 
+                <form>
+                Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{
+                                         this.setState({surveyTitle: event.target.value});}}/>
+                <br/><br/>
 
+                Enter question:
+                <input type="text" id="question" ref="ques" onBlur={(event)=>{
+                                         this.setState({questions: this.state.questions.concat(event.target.value)});}}/>
+                <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+                <br/><br/>
 
+                Save Survey: <button className="btn btn-info" type="button" onClick={() => this.createNewSurvey(this.state)}>Save</button>
+                </form>
 
             </div>
         );

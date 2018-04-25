@@ -33,15 +33,26 @@ class EditSurvey extends Component {
         return (
           <div className="w3-container">
           <br/><br/>
-          <h3 align="center">Submit your reponses</h3>
+          <h3 align="center">Edit Survey</h3>
           <br/><br/>
-          Survey Title:
+          <div className="col-xxs-12 col-xs-12 mt">
+          <div className="col-sm-1 col-md-1 col-lg-1 col-xs-1 mt"></div>
+          <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
+          <b>Survey Title</b>
+          </div>
+          </div>
           <br/><br/>
 
           {this.state.surveys.map(s => {
-            return ( <div key={Math.random()}>
+            return (
+                    <div className="col-xxs-12 col-xs-12 mt" key={Math.random()}>
+                    <div className="col-sm-1 col-md-1 col-lg-1 col-xs-1 mt"></div>
+                    <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                     <b>{(s.surveyTitle)}</b>
-                    <button className="button1" type="button" onClick={() => this.handleEdit(s.surveyId)}>edit</button>
+                    </div>
+                    <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                    <button className="btn btn-warning" type="button" onClick={() => this.handleEdit(s.surveyId)}>Edit</button>
+                    </div><br/><br/>
                     </div>
                   )
                 })
@@ -88,23 +99,23 @@ class EditForm extends Component{
   render() {
     return (
       <div>
-      HELLO {this.props.sid}
-
+      <br/><br/><br/><br/><br/>
+      Add questions/participants
+      <br/><br/>
       <form>
-
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
               this.setState({questions: this.state.questions.concat(event.target.value)});}}/>
-          <button className="button1" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
           <br/><br/>
 
           Enter User:
           <input type="text" id="users" ref="users" onBlur={(event)=>{
               this.setState({participants: this.state.participants.concat(event.target.value)});}}/>
-          <button className="button1" type="button" onClick={() => this.nextUser()}>Add next user</button>
+          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next user</button>
           <br/><br/><br/>
 
-          Submit Survey: <button className="button1" type="button" onClick={() => this.editSurvey()}>Submit</button>
+          Submit Survey: <button className="btn btn-info" type="button" onClick={() => this.editSurvey()}>Save</button>
       </form>
 
       </div>

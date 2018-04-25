@@ -9,11 +9,6 @@ class GeneralSurvey extends Component {
     participants:[]
   };
 
-  componentWillMount() {
-      const parsed = queryString.parse(window.location.search);
-      console.log(parsed);
-  }
-
   createNewSurvey(){
     var data={title:this.state.surveyTitle,questions:this.state.questions,participants:this.state.participants};
         API.createGeneral(data)
@@ -48,16 +43,16 @@ class GeneralSurvey extends Component {
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
                                    this.setState({questions: this.state.questions.concat(event.target.value)});}}/>
-          <button className="button1" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
           <br/><br/>
 
           Enter Participant:
           <input type="text" id="users" ref="users" onBlur={(event)=>{
               this.setState({participants: this.state.participants.concat(event.target.value)});}}/>
-          <button className="button1" type="button" onClick={() => this.nextUser()}>Add next participant</button>
+          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next participant</button>
           <br/><br/><br/>
 
-          Submit Survey: <button className="button1" type="button" onClick={() => this.createNewSurvey(this.state)}>Submit</button>
+          Save Survey: <button className="btn btn-info" type="button" onClick={() => this.createNewSurvey(this.state)}>Save</button>
           </form>
 
          </div>
