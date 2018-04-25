@@ -10,29 +10,29 @@ import javax.mail.internet.MimeMessage;
 
 @Controller
 public class SendInvitation {
-	
+
 	// SET SENDER EMAIL AND PASSWORD IN application.properties
-	
-    @Autowired
-    private JavaMailSender sender;
 
-    @RequestMapping("/simpleemail")
-    @ResponseBody
-    String home() {
-        try {
-            sendEmail("anjanap1308@gmail.com","Provide survey","Click on the following link to give the survey!");
-            return "Email Sent!";
-        }catch(Exception ex) {
-            return "Error in sending email: "+ex;
-        }
-    }
+	@Autowired
+	private JavaMailSender sender;
 
-    private void sendEmail(String to, String subject, String text) throws Exception{
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);        
-        helper.setTo(to);
-        helper.setText(text);
-        helper.setSubject(subject);       
-        sender.send(message);
-    }
+	@RequestMapping("/simpleemail")
+	@ResponseBody
+	String home() {
+		try {
+			sendEmail("anjanap1308@gmail.com", "Provide survey", "Click on the following link to give the survey!");
+			return "Email Sent!";
+		} catch (Exception ex) {
+			return "Error in sending email: " + ex;
+		}
+	}
+
+	public void sendEmail(String to, String subject, String text) throws Exception {
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setTo(to);
+		helper.setText(text);
+		helper.setSubject(subject);
+		sender.send(message);
+	}
 }

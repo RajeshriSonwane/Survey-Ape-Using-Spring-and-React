@@ -104,6 +104,7 @@ export const createClosed = (payload) =>
             return error;
         });
 
+
 // get general survey by id
 export const getGeneral = (payload) =>
 fetch(`${api}/getsurvey/`+payload, {
@@ -124,6 +125,28 @@ fetch(`${api}/getsurvey/`+payload, {
 });
 
 
+
+// get closed survey by survey id and user
+export const getClosed = (sid,uid) =>
+fetch(`${api}/getsurvey/`+sid+"?user="+uid, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  //body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
+  return error;
+});
+
+
+
 // get all surveys created by a user
 export const allSurveys = (payload) =>
 fetch(`${api}/getallsurveys/`, {
@@ -140,5 +163,25 @@ fetch(`${api}/getallsurveys/`, {
 })
 .catch(error => {
   console.log("This is get survey error");
+  return error;
+});
+
+
+// edit survey - add more questions/users
+export const editSurvey = (payload,sid) =>
+fetch(`${api}/editsurvey/`+sid, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  //credentials:'include',
+  body: JSON.stringify(payload)
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is edit survey error");
   return error;
 });

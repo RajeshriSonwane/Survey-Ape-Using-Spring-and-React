@@ -12,7 +12,10 @@ class GiveSurvey extends Component {
     componentWillMount() {
         const parsed = queryString.parse(window.location.search);
         console.log(parsed.id);
+        console.log(parsed.user);
 
+        if(parsed.user==null){
+          console.log(parsed.user+": general");
         API.getGeneral(parsed.id)
             .then((output) => {
                 console.log("CHECK THIS: "+output.surveyId);
@@ -22,6 +25,20 @@ class GiveSurvey extends Component {
                     console.log("No data");
                 }
             });
+          }
+
+          else{
+            console.log(parsed.user+": closed");
+            API.getClosed(parsed.id,parsed.user)
+                .then((output) => {
+                    console.log("CHECK THIS: "+output.surveyId);
+                    if (output) {
+                      this.setState({surveyTitle:output.surveyTitle, questions:output.questions});
+                    } else {
+                        console.log("No data");
+                    }
+                });
+          }
     }
 
 
