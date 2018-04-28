@@ -14,6 +14,8 @@ public class Question {
     
     private String description;
     
+    private String type;
+    
     private Integer surveyId;
     
     public Question() {
@@ -21,6 +23,12 @@ public class Question {
     
     public Question(String d, Integer sid) {
     	description=d;
+    	surveyId=sid;
+    }
+    
+    public Question(String d, String t,Integer sid) {
+    	description=d;
+    	type=t;
     	surveyId=sid;
     }
     
@@ -46,5 +54,14 @@ public class Question {
 
 	public void setSurveyId(Integer surveyId) {
 		this.surveyId = surveyId;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	
 	}
 }

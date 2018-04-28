@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Route, Link, Switch} from 'react-router-dom';
 import * as API from '../api/API';
 import Home from './Home';
-import LoginSignUp from "./LoginSignUp";
+import LoginSignUp from "./LoginSignup";
 
 
 class MainPage extends Component {

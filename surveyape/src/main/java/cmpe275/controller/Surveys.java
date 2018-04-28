@@ -97,6 +97,23 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 	
+	// create open survey
+		@PostMapping(path = "/createopen", consumes = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
+			// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
+			Integer uid = 1;
+			Survey s = new Survey(uid, ns.getTitle(),2,0);
+			Survey s1 = surveyService.addSurvey(s);
+
+			String[] questions = ns.getQuestions();
+			int l = questions.length;
+			for (int i = 0; i < l; i++) {
+				Question q = new Question(questions[i], s1.getSurveyId());
+				questionService.addQuestion(q);
+			}
+			
+			return new ResponseEntity(1, HttpStatus.CREATED);
+		}
 	
 	
 	// publish survey
