@@ -1,28 +1,26 @@
 import React, {Component} from 'react';
 import * as API from '../api/API';
 import {Route, Link, Switch, withRouter} from 'react-router-dom';
-import Login from './Login';
-import PropTypes from 'prop-types';
+import ValidateUser from './ValidateUser';
+
 
 class SignUp extends Component {
 
     state = {
-        username: '',
+        firstname: '',
         lastname: '',
         phoneNo: '',
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
     };
 
     componentWillMount() {
         this.setState({
-            username: '',
+            firstname: '',
             lastname: '',
             phoneNo: '',
             email: '',
-            password: '',
-            confirmPassword: ''
+            password: ''
         });
     }
 
@@ -36,7 +34,7 @@ class SignUp extends Component {
             //   showAlert("Enter password for sign up", "error", this);
             return;
         }
-        if (userdata.username === "") {
+        if (userdata.firstname === "") {
             // showAlert("Enter First Name for sign up", "error", this);
             return;
         }
@@ -49,19 +47,7 @@ class SignUp extends Component {
             return;
         }
         if (userdata.email !== "") {
-            API.signup(userdata)
-                .then((status) => {
-                    if (status === 201) {
-                        this.setState({
-                            isLoggedIn: false,
-                            message: "Something's wrong, Try again..!!"
-                        });
-
-                    } else {
-                        //   showAlert("Sign Up successfully", "info", this);
-                        this.props.history.push("/Login");
-                    }
-                });
+            this.props.handleSignUp(userdata);
         }
     };
 
@@ -90,10 +76,10 @@ class SignUp extends Component {
                                             <div class="form-group">
                                                 <input type="text" name="username" id="username" tabindex="1"
                                                        class="form-control" label="First Name"
-                                                       placeholder="First Name" value={this.state.username}
+                                                       placeholder="First Name" value={this.state.firstname}
                                                        onChange={(event) => {
                                                            this.setState({
-                                                               username: event.target.value
+                                                               firstname: event.target.value
                                                            });
                                                        }}/>
                                             </div>
@@ -138,17 +124,6 @@ class SignUp extends Component {
                                                        }}/>
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" name="confirm-password" id="confirm-password"
-                                                       tabindex="2" class="form-control"
-                                                       placeholder="Confirm Password"
-                                                       value={this.state.confirmPassword}
-                                                       onChange={(event) => {
-                                                           this.setState({
-                                                               confirmPassword: event.target.value
-                                                           });
-                                                       }}/>
-                                            </div>
-                                            <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-6 col-sm-offset-3">
                                                         <input type="submit" name="register-submit"
@@ -159,7 +134,6 @@ class SignUp extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -167,6 +141,14 @@ class SignUp extends Component {
                         </div>
                     </div>
                 </div>
+                /*    <Route exact path="/ValidateUser" render={() => (
+                        <div>
+                            <ValidateUser email={this.state.email} password={this.state.password}/>
+                        </div>
+                    )}/>*/
+                {/*<Route path="/" component={ValidateUser} />*/}
+                {/*<Route path="/ValidateUser"*/}
+                       {/*render={() => (<ValidateUser email={this.state.email} password={this.state.password}/>)}/>*/}
             </div>
         );
     }
