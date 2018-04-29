@@ -141,14 +141,6 @@ class SignUp extends Component {
                         </div>
                     </div>
                 </div>
-                /*    <Route exact path="/ValidateUser" render={() => (
-                        <div>
-                            <ValidateUser email={this.state.email} password={this.state.password}/>
-                        </div>
-                    )}/>*/
-                {/*<Route path="/" component={ValidateUser} />*/}
-                {/*<Route path="/ValidateUser"*/}
-                       {/*render={() => (<ValidateUser email={this.state.email} password={this.state.password}/>)}/>*/}
             </div>
         );
     }
