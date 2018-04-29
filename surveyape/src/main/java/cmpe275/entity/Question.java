@@ -1,9 +1,13 @@
 package cmpe275.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -14,9 +18,13 @@ public class Question {
     
     private String description;
     
+    // text check radio
     private String type;
     
     private Integer surveyId;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionId")
+    private List<Answer> answerss;
     
     public Question() {
     }
