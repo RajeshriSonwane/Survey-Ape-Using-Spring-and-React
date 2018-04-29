@@ -20,6 +20,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User getUser(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public List<User> login(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);
     }

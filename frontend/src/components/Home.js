@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Link, Switch} from 'react-router-dom';
+import {Route, Link, Switch,withRouter} from 'react-router-dom';
 import NewSurvey from './CreateNewSurvey/NewSurvey';
 import GiveSurvey from './Surveys/GiveSurvey';
 import EditSurvey from './Surveys/EditSurvey';
@@ -16,8 +16,7 @@ class Home extends Component {
 
     state = {
         email: '',
-        message: '',
-
+        message: ''
     };
 
     componentWillMount() {
@@ -26,9 +25,9 @@ class Home extends Component {
         });
     }
 
-    constructor() {
-        super();
-    }
+    handleLogout = (userdata) => {
+        this.props.handleLogout(userdata);
+    };
 
     render() {
         return (
@@ -44,15 +43,13 @@ class Home extends Component {
                     <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/givesurvey'></Link></div>
                     <div className="col-sm-2 col-md-2 col-lg-2">
                         <button className="w3-btn w3-white w3-border w3-border-blue w3-round"
-                                onClick={() => this.props.handleLogout()}>Logout
+                                onClick={() => this.props.handleLogout(this.state)}>Logout
                         </button>
                     </div>
                 </div>
-
-
             </div>
         );
     }
 }
 
-export default Home;
+export default withRouter(Home);
