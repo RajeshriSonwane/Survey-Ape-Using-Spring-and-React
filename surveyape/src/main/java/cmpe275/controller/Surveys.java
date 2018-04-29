@@ -51,9 +51,10 @@ public class Surveys {
 		Survey s = new Survey(uid, ns.getTitle(), 1,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
+		String[] type = ns.getQtype();
 		int l = questions.length;
 		for (int i = 0; i < l; i++) {
-			Question q = new Question(questions[i], s1.getSurveyId());
+			Question q = new Question(questions[i],type[i] ,s1.getSurveyId());
 			questionService.addQuestion(q);
 		}
 		String[] participants = ns.getParticipants();
@@ -61,7 +62,7 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId());
 			participantsService.addParticipant(pq);
-			/*String text="Click on the follwing link to give the survey: http://localhost:3000/givesurvey?id="+s1.getSurveyId();
+			/*String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject="Inviation for survey";
 			sendInvitation.sendEmail(participants[i],subject,text);*/
 		}
@@ -76,11 +77,11 @@ public class Surveys {
 		Integer uid = 1;
 		Survey s = new Survey(uid, ns.getTitle(),2,0);
 		Survey s1 = surveyService.addSurvey(s);
-
 		String[] questions = ns.getQuestions();
+		String[] type = ns.getQtype();
 		int l = questions.length;
 		for (int i = 0; i < l; i++) {
-			Question q = new Question(questions[i], s1.getSurveyId());
+			Question q = new Question(questions[i],type[i] ,s1.getSurveyId());
 			questionService.addQuestion(q);
 		}
 		String[] participants = ns.getParticipants();
@@ -90,7 +91,7 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId());
 			participantsService.addParticipant(pq);
-			/*String text="Click on the following link to give the survey: http://localhost:3000/givesurvey?id="+s1.getSurveyId()+"&user=12";
+			/*String text="Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
 			String subject="Inviation for survey";
 			sendInvitation.sendEmail(participants[i],subject,text);*/
 		}
@@ -104,11 +105,11 @@ public class Surveys {
 			Integer uid = 1;
 			Survey s = new Survey(uid, ns.getTitle(),2,0);
 			Survey s1 = surveyService.addSurvey(s);
-
 			String[] questions = ns.getQuestions();
+			String[] type = ns.getQtype();
 			int l = questions.length;
 			for (int i = 0; i < l; i++) {
-				Question q = new Question(questions[i], s1.getSurveyId());
+				Question q = new Question(questions[i], type[i], s1.getSurveyId());
 				questionService.addQuestion(q);
 			}
 			
@@ -190,10 +191,11 @@ public class Surveys {
 		System.out.println("edit id: "+surId);
 		Survey s = surveyService.getSurvey(surId);
 		String[] questions = ns.getQuestions();
+		String[] type = ns.getQtype();
 		String[] participants = ns.getParticipants();
 		int l=questions.length;
 		for (int i = 0; i < l; i++) {
-			Question q = new Question(questions[i], surId);
+			Question q = new Question(questions[i],type[i], surId);
 			questionService.addQuestion(q);
 		}
 		l=participants.length;
@@ -202,13 +204,13 @@ public class Surveys {
 			participantsService.addParticipant(pq);
 			// for general survey
 			if(s.getType()==1) {
-				/*String text="Click on the follwing link to give the survey: http://localhost:3000/givesurvey?id="+s.getSurveyId();
+				/*String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId();
 				String subject="Inviation for survey";
 				sendInvitation.sendEmail(participants[i],subject,text);*/
 			}
 			// for closed survey
 			else if(s.getType()==2) {
-				/*String text="Click on the following link to give the survey: http://localhost:3000/givesurvey?id="+s1.getSurveyId()+"&user=12";
+				/*String text="Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
 				String subject="Inviation for survey";
 				sendInvitation.sendEmail(participants[i],subject,text);*/
 			}
@@ -220,6 +222,7 @@ public class Surveys {
 class Newsurvey {
 	String title;
 	String questions[];
+	String qtype[];
 	String participants[];
 
 	public String getTitle() {
@@ -233,6 +236,12 @@ class Newsurvey {
 	}
 	public void setQuestions(String[] questions) {
 		this.questions = questions;
+	}
+	public String[] getQtype() {
+		return qtype;
+	}
+	public void setQtype(String[] qtype) {
+		this.qtype = qtype;
 	}
 	public String[] getParticipants() {
 		return participants;

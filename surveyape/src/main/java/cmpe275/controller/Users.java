@@ -42,9 +42,9 @@ public class Users {
     public ResponseEntity<?> login(@RequestBody String user, HttpSession session) throws JSONException {
         System.out.println("Login Hit");
         JSONObject jsonObject = new JSONObject(user);
-        session.setAttribute("name", jsonObject.getString("username"));
+        session.setAttribute("name", jsonObject.getString("email"));
 
-        List<User> b = userService.login(jsonObject.getString("username"), jsonObject.getString("password"));
+        List<User> b = userService.login(jsonObject.getString("email"), jsonObject.getString("password"));
         if (b.isEmpty()) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         } else {

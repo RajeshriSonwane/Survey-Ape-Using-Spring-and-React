@@ -6,7 +6,8 @@ class EditSurvey extends Component {
   state={
     surveys:[],
     visible:false,
-    surId:''
+    surId:'',
+    surTy:''
   };
 
 
@@ -22,9 +23,10 @@ class EditSurvey extends Component {
             });
     }
 
-    handleEdit = (sid) => {
+    handleEdit = (sid,ty) => {
       console.log("edit id: "+sid);
-      this.setState({surId: sid});
+      console.log("edit type: "+ty);
+      this.setState({surId: sid,surTy:ty});
       this.setState({visible: !this.state.visible});
     };
 
@@ -51,7 +53,7 @@ class EditSurvey extends Component {
                     <b>{(s.surveyTitle)}</b>
                     </div>
                     <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
-                    <button className="btn btn-warning" type="button" onClick={() => this.handleEdit(s.surveyId)}>Edit</button>
+                    <button className="btn btn-warning" type="button" onClick={() => this.handleEdit(s.surveyId,s.type)}>Edit</button>
                     </div><br/><br/>
                     </div>
                   )
@@ -61,7 +63,7 @@ class EditSurvey extends Component {
               <div>
                 {
                   this.state.visible
-                    ? <EditForm sid={this.state.surId}/>
+                    ? <EditForm sid={this.state.surId} st={this.state.surTy}/>
                     : null
                 }
               </div>
@@ -75,11 +77,14 @@ class EditSurvey extends Component {
 class EditForm extends Component{
   state={
       questions:[],
-      participants:[]
+      qtype:[],
+      participants:[],
+      newq:false,
+      newp:false
   };
 
   editSurvey(){
-      var data={title:'',questions:this.state.questions,participants:this.state.participants};
+      var data={title:'',questions:this.state.questions,qtype:this.state.qtype,participants:this.state.participants};
       API.editSurvey(data,this.props.sid)
           .then((output) => {
               console.log("CHECK THIS: "+output);
@@ -88,12 +93,22 @@ class EditForm extends Component{
 
   nextQuestion(){
       console.log(this.state.questions);
+      this.setState({newq:false});
       this.refs.ques.value="";
   }
 
   nextUser(){
       console.log(this.state.participants);
+      this.setState({newp:false});
       this.refs.users.value="";
+  }
+
+  validatePar(value) {
+    this.setState({newp: value.length !== 0});
+  }
+
+  validateQues(value) {
+    this.setState({newq: value.length !== 0});
   }
 
   render() {
@@ -105,15 +120,24 @@ class EditForm extends Component{
       <form>
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
-              this.setState({questions: this.state.questions.concat(event.target.value)});}}/>
-          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+              this.setState({questions: this.state.questions.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                         this.setState(() => { this.validateQues(value) });}}/>
+              <select onChange={(event)=>{this.setState({qtype: this.state.qtype.concat(event.target.value)})}}>
+              <option value="text" selected>Text</option>
+              <option value="check">Checkbox</option>
+              <option value="radio">Radio</option>
+              </select>
+          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
           <br/><br/>
 
-          Enter User:
-          <input type="text" id="users" ref="users" onBlur={(event)=>{
-              this.setState({participants: this.state.participants.concat(event.target.value)});}}/>
-          <button className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next user</button>
-          <br/><br/><br/>
+          {
+            this.props.st!==3 ? (<div>
+            Enter user: <input type="text" id="users" ref="users" onBlur={(event)=>{
+                this.setState({participants: this.state.participants.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                    this.setState(() => { this.validatePar(value) });}}/>
+            <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next user</button>
+            <br/><br/><br/></div>) : null}
+
 
           Submit Survey: <button className="btn btn-info" type="button" onClick={() => this.editSurvey()}>Save</button>
       </form>

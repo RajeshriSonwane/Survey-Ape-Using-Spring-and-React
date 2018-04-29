@@ -14,16 +14,12 @@ public class Question {
     
     private String description;
     
+    // text check radio
     private String type;
     
     private Integer surveyId;
     
     public Question() {
-    }
-    
-    public Question(String d, Integer sid) {
-    	description=d;
-    	surveyId=sid;
     }
     
     public Question(String d, String t,Integer sid) {
