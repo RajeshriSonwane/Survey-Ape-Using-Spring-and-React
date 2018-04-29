@@ -42,13 +42,17 @@ public class Users {
     public ResponseEntity<?> login(@RequestBody String user, HttpSession session) throws JSONException {
         System.out.println("Login Hit");
         JSONObject jsonObject = new JSONObject(user);
-        session.setAttribute("name", jsonObject.getString("username"));
+        session.setAttribute("name", jsonObject.getString("email"));
 
-        List<User> b = userService.login(jsonObject.getString("username"), jsonObject.getString("password"));
+        List<User> b = userService.login(jsonObject.getString("email"), jsonObject.getString("password"));
         if (b.isEmpty()) {
+            System.out.println("Login Hit - forbidden");
             return new ResponseEntity(HttpStatus.FORBIDDEN);
+
         } else {
+            System.out.println("Login Hit - ok");
             return new ResponseEntity(HttpStatus.OK);
+
         }
     }
 
@@ -77,7 +81,6 @@ public class Users {
         List<User> b = userService.login(jsonObject.getString("email"), jsonObject.getString("password"));
         System.out.println(b.isEmpty());
         if (b.isEmpty()) {
-
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         } else {
             System.out.println(b.get(0).getValidCode());
@@ -89,6 +92,9 @@ public class Users {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                User u=userService.getUser(jsonObject.getString("email"));
+                u.setIsActive("true");
+                userService.addUser(u);
                 return new ResponseEntity(HttpStatus.OK);
             }
             else{
@@ -113,5 +119,4 @@ public class Users {
         session.invalidate();
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

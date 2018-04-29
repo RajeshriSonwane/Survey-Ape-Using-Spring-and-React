@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Route, Link, Switch, withRouter} from 'react-router-dom';
 import * as API from '../api/API';
 import ValidateUser from "./ValidateUser";
-import PropTypes from 'prop-types';
 import SignUp from './SignUp';
 import Login from './Login';
 import Home from './Home';
@@ -32,7 +31,8 @@ class MainPage extends Component {
                 this.setState({
                     email: userdata.email,
                     password: userdata.password,
-                    islogged: 'true'
+                    islogged: 'true',
+                    message: "SignUp Successful..!!"
                 });
                 if (status === 201) {
                 } else {
@@ -42,28 +42,34 @@ class MainPage extends Component {
     }
 
     handleLogin(userdata) {
-        console.log("inside singn")
+        console.log("inside singn");
         API.checklogin(userdata)
             .then((status) => {
-                this.setState({
-                    email: userdata.email,
-                    password: userdata.password,
-                    islogged: 'true'
-                });
-                if (status === 201) {
-                } else {
+                if (status === 200) {
+                    this.setState({
+                        email: userdata.email,
+                        password: userdata.password,
+                        islogged: 'true',
+                        message: "Login Successful...!!"
+                    });
                     this.props.history.push("/Home");
+                } else if (status === 403) {
+                    this.setState({
+                        isLoggedIn: false,
+                        message: "Wrong username or password. Try again..!!"
+                    });
                 }
             });
     }
 
-    handleLogout = () => {
+    handleLogout = (userdata) => {
         console.log('logout called');
-        API.logout()
+        API.logout(userdata)
             .then((status) => {
                 if (status === 200) {
                     this.setState({
-                        isLogged: false
+                        isLogged: false,
+                        email:'Guest'
                     });
                     this.props.history.push("/");
                 }
@@ -110,10 +116,10 @@ class MainPage extends Component {
                 </div>
 
                 <Route exact path="/Login" render={() => (
-                    <Login handleLogin={this.handleLogin}/>
+                    <Login handleLogin={this.handleLogin} message={this.state.message} />
                 )}/>
                 <Route exact path="/SignUp" render={() => (
-                    <SignUp handleSignUp={this.handleSignUp}/>
+                    <SignUp handleSignUp={this.handleSignUp} message={this.state.message}/>
                 )}/>
                 <Route exact path="/ValidateUser" render={() => (
                     <ValidateUser handleVerifyUser={this.handleVerifyUser}
