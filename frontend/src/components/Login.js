@@ -5,10 +5,11 @@ import SignUp from './SignUp';
 import Home from './Home';
 import MainPage from './MainPage';
 
+
 class Login extends Component {
 
     state = {
-        username: '',
+        email: '',
         password: '',
         islogged: '',
         user: '',
@@ -17,7 +18,7 @@ class Login extends Component {
 
     componentWillMount() {
         this.setState({
-            username: '',
+            email: '',
             password: '',
             islogged: '',
             user: '',
@@ -25,41 +26,12 @@ class Login extends Component {
         });
     }
 
-    handleSubmit = (userdata) => {
-        console.log('userdata before do:', userdata.username);
-        if (userdata.username === "") {
-            //   showAlert("Enter username used for sign in", "error", this);
-            return;
-        }
-
-        if (userdata.password === "") {
-            //  showAlert("Enter password used for sign in", "error", this);
-            return;
-        }
-        API.checklogin(userdata)
-            .then((status) => {
-                if (status === 200) {
-                    this.setState({
-                        islogged: true,
-                        message: "Welcome to my App..!!",
-                        user: userdata.username
-                    });
-                    this.props.history.push("/Home");
-                } else if (status === 403) {
-                    this.setState({
-                        islogged: false,
-                        message: "Wrong username or password. Try again..!!"
-                    });
-                }
-            });
-    };
-
     handleLogin = (userdata) => {
         this.props.handleLogin(userdata);
     };
 
     componentWillMount() {
-        this.setState({username: '', password: '', islogged: 'false', message: ''});
+        this.setState({email: '', password: '', islogged: 'false', message: ''});
     }
 
     render() {
@@ -90,9 +62,9 @@ class Login extends Component {
                                                     <input type="text" name="username" id="username"
                                                            tabindex="1"
                                                            class="form-control" placeholder="Username"
-                                                           value={this.state.username} onChange={(event) => {
+                                                           value={this.state.email} onChange={(event) => {
                                                         this.setState({
-                                                            username: event.target.value
+                                                            email: event.target.value
                                                         });
                                                     }}/>
                                                 </div>
