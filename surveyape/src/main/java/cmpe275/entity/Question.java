@@ -29,11 +29,6 @@ public class Question {
     public Question() {
     }
     
-    public Question(String d, Integer sid) {
-    	description=d;
-    	surveyId=sid;
-    }
-    
     public Question(String d, String t,Integer sid) {
     	description=d;
     	type=t;

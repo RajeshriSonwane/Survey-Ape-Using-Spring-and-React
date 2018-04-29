@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as API from '../api/API';
 import {Route, Link, Switch, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Home from './Home';
 
 class ValidateUser extends Component {
 
@@ -12,30 +13,29 @@ class ValidateUser extends Component {
 
     constructor(props) {
         super(props);
-        console.log("this.props.email ::",this.props.email);
+        console.log("this.props.email ::", this.props.email);
         this.state = {
             email: this.props.email,
-            password:this.props.password,
-            verificationCode:'',
-            message: ''
+            password: this.props.password,
+            verificationCode: '',
+            message: '',
+            isValidated: 'false'
         };
     }
 
-    handleVerifyUser = (x) => {
-        console.log("state :",this.state);
-        API.verifyUser(x)
-            .then((output) => {
-                if (output === 200) {
-                    this.setState({
-                        islogged: 'true'
-                    });
-                    console.log("Success verify= " + this.state.islogged);
-                } else {
-                    this.setState({
-                        islogged: 'false',
-                        message: "Invalid credentials. Login again."
-                    });
-                    console.log("Wrong login: " + this.state.islogged);
+    handleVerifyUser = (userdata) => {
+        console.log("inside handle verify user");
+        API.verifyUser(userdata)
+            .then((status) => {
+                this.setState({
+                    email: userdata.email,
+                    //  password: userdata.password
+                    islogged: 'true',
+                    message: "Successfully vefified !!"
+                });
+                if (status === 200) {
+                    console.log("message result 200 ");
+                    this.props.history.push("/Home");
                 }
             });
     };
@@ -47,6 +47,7 @@ class ValidateUser extends Component {
     render() {
         return (
             <div>
+
                 <div className="w3-container w3-panel">
                     <div class="container">
                         <div class="row">
@@ -54,13 +55,14 @@ class ValidateUser extends Component {
                                 <div class="panel panel-login">
                                     <div class="panel-body">
                                         <div class="row">
-                                            {this.props.email}
-                                            {this.props.password}
+                                            <h4 style={{marginLeft: "20px"}}>Username - {this.props.email}</h4>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <input type="text" name="username" id="username" tabindex="1"
+                                                    <input type="text" name="username" id="username"
+                                                           tabindex="1"
                                                            class="form-control" label="First Name"
-                                                           placeholder="Verification Code " value={this.state.verificationCode}
+                                                           placeholder="Verification Code "
+                                                           value={this.state.verificationCode}
                                                            onChange={(event) => {
                                                                this.setState({
                                                                    verificationCode: event.target.value
@@ -78,6 +80,7 @@ class ValidateUser extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {this.state.message}
                                             </div>
                                         </div>
                                     </div>
@@ -86,9 +89,12 @@ class ValidateUser extends Component {
                         </div>
                     </div>
                 </div>
+                <Route exact path="/Home" render={() => (
+                    <Home email={this.state.email} message={this.state.message} handleLogout={this.handleLogout}/>
+                )}/>
             </div>
         );
     }
 }
 
-export default ValidateUser;
+export default withRouter(ValidateUser);
