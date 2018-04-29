@@ -96,31 +96,31 @@ class Login extends Component {
         return (
             <div>
                 <div className="w3-container w3-panel">
-                    <div class="container">
-                        <div class="row">
+                    <div className="container">
+                        <div className="row">
                             <br/><br/>
-                            <div class="col-md-6 col-md-offset-3">
+                            <div className="col-md-6 col-md-offset-3">
                                 <div className="demoForm">
-                                    <div class="panel panel-login">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <a href="/Login" class="active">Login</a>
+                                    <div className="panel panel-login">
+                                        <div className="panel-heading">
+                                            <div className="row">
+                                                <div className="col-xs-6">
+                                                    <a href="/Login" className="active">Login</a>
                                                 </div>
-                                                <div class="col-xs-6">
+                                                <div className="col-xs-6">
                                                     <Link to='/SignUp'>Register</Link>
                                                 </div>
                                             </div>
                                             <hr/>
                                         </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-lg-12">
+                                        <div className="panel-body">
+                                            <div className="row">
+                                                <div className="col-lg-12">
                                                     <div
                                                         className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
                                                         <input type="text" name="email"
                                                                tabindex="1"
-                                                               class="form-control" placeholder="Username"
+                                                               className="form-control" placeholder="Username"
                                                                value={this.state.email}
                                                                onChange={this.handleUserInput}/>
 
@@ -130,36 +130,36 @@ class Login extends Component {
                                                         className={`form-group ${this.errorClass(this.state.formErrors.password)}`}>
                                                         <input type="password" name="password" id="password"
                                                                tabindex="2"
-                                                               class="form-control" placeholder="Password"
+                                                               className="form-control" placeholder="Password"
                                                                value={this.state.password}
                                                                onChange={this.handleUserInput}/>
 
                                                     </div>
-                                                    <div class="form-group text-center">
+                                                    <div className="form-group text-center">
                                                         <input type="checkbox" tabindex="3" class="" name="remember"
                                                                id="remember"/>
                                                         <label for="remember"> Remember Me</label>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-sm-6 col-sm-offset-3">
+                                                    <div className="form-group">
+                                                        <div className="row">
+                                                            <div className="col-sm-6 col-sm-offset-3">
 
                                                                 <input type="submit" name="login-submit"
                                                                        id="login-submit"
                                                                        tabindex="4"
-                                                                       class="form-control btn btn-login"
+                                                                       className="form-control btn btn-login"
                                                                        value="Log In" disabled={!this.state.formValid}
                                                                        onClick={() => this.handleLogin(this.state)}/>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="text-center">
+                                                    <div className="form-group">
+                                                        <div className="row">
+                                                            <div clclassNameass="col-lg-12">
+                                                                <div className="text-center">
                                                                     <a href="https://phpoll.com/recover"
                                                                        tabindex="5"
-                                                                       class="forgot-password">Forgot Password?</a>
+                                                                       className="forgot-password">Forgot Password?</a>
                                                                 </div>
                                                             </div>
                                                         </div>

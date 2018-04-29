@@ -90,13 +90,21 @@ class MainPage extends Component {
         var partial;
         if (this.state.islogged === "false") {
             partial = <div>
-                <div className="col-sm-2 col-md-2 col-lg-1"><Link to='/Login'>Login</Link></div>
-                <div className="col-sm-2 col-md-2 col-lg-1"><Link to='/SignUp'>Register</Link>
+            <div className="col-sm-2 col-md-2 col-lg-2"></div>
+                <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/Login'>Login</Link></div>
+                <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/SignUp'>Register</Link>
                 </div>
             </div>
         }
         else {
-            partial = <div className="col-sm-2 col-md-2 col-lg-1"><Link to='/'>Logout</Link></div>
+            partial = <div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='#'></Link></div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/newsurvey'>Create Survey</Link></div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/editsurvey'>Edit Survey</Link></div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Unpublish</Link></div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/givesurvey'></Link></div>
+                      <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/'>Logout</Link></div>
+                      </div>
         }
         return (
             <div className="w3-container w3-panel" style={{}}>
@@ -104,13 +112,12 @@ class MainPage extends Component {
                     <h1 align="center">SURVEY APE</h1>
                     <br/><br/>
                     <div className="row">
-                        <div className="col-sm-1 col-md-1 col-lg-1"></div>
-                        <div className="col-sm-2 col-md-2 col-lg-8"><h5>Welcome {this.state.email}</h5></div>
-                        {partial}
+                    <div className="col-sm-1 col-md-1 col-lg-1"></div>
+                    <div className="col-sm-2 col-md-2 col-lg-2"><h5>Welcome {this.state.email}</h5></div>
+                    {partial}
+                    <div className="col-sm-2 col-md-2 col-lg-2"><Link to='#'>Click here to
+                        participate in open survey</Link>
                     </div>
-                    <div className="row w3-cell-row" style={{marginLeft: "1300px"}}><Link to='#'>Click here to
-                        participate in open
-                        survey</Link>
                     </div>
                     <hr/>
                 </div>
