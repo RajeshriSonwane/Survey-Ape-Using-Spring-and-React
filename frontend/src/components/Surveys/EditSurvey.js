@@ -14,7 +14,6 @@ class EditSurvey extends Component {
     componentWillMount() {
         API.allSurveys()
             .then((output) => {
-                console.log("CHECK THIS: "+output[0].surveyTitle);
                 if (output) {
                   this.setState({surveys:output});
                 } else {

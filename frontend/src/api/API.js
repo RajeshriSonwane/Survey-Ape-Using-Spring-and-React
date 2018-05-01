@@ -12,6 +12,7 @@ export const signup = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
+          credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -30,6 +31,7 @@ export const checklogin = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
+          credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => {
         console.log(res);
@@ -47,6 +49,7 @@ export const verifyUser = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
+          credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => {
         console.log(res);
@@ -82,7 +85,7 @@ export const createGeneral = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -162,7 +165,7 @@ export const publishSurvey = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -201,7 +204,7 @@ export const allSurveys = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include'
         //body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {

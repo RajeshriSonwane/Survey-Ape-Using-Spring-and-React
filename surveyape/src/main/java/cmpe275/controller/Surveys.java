@@ -22,7 +22,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000",allowCredentials="true")
 
 public class Surveys {
 
@@ -39,15 +39,15 @@ public class Surveys {
 	private SendInvitation sendInvitation;
 
 	@Autowired
-	HttpSession session;
+	private HttpSession session;
 	
 	
 	
 	// create general survey
 	@PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws IOException {
-		// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
-		Integer uid = 1;
+		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Survey s = new Survey(uid, ns.getTitle(), 1,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
@@ -73,8 +73,8 @@ public class Surveys {
 	// create closed survey
 	@PostMapping(path = "/createclosed", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createClosedSurvey(@RequestBody Newsurvey ns) throws Exception {
-		// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
-		Integer uid = 1;
+		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Survey s = new Survey(uid, ns.getTitle(),2,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
@@ -101,8 +101,8 @@ public class Surveys {
 	// create open survey
 		@PostMapping(path = "/createopen", consumes = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
-			// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
-			Integer uid = 1;
+			Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+			System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 			Survey s = new Survey(uid, ns.getTitle(),2,0);
 			Survey s1 = surveyService.addSurvey(s);
 			String[] questions = ns.getQuestions();
@@ -143,7 +143,6 @@ public class Surveys {
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
-		// return surveyService.getSurvey(id);
 		System.out.println("Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
 		System.out.println("check: " + s);
@@ -157,7 +156,6 @@ public class Surveys {
 	// get closed survey by id
 	@GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id,@RequestParam(value = "user") Integer user) {
-		// return surveyService.getSurvey(id);
 		System.out.println("Survey user: " + user);
 		Survey s = surveyService.getSurvey(id);
 		if(s.getStatus()==1)
@@ -170,17 +168,15 @@ public class Surveys {
 	// get all surveys created by a user
 	@GetMapping(path = "/getallsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Iterable<Survey> getAllSurveys() {
-		// Integer uid=Integer.parseInt((session.getAttribute("userid")).toString());
-		Integer uid = 1;
+		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + uid);
 		List<Survey> res = new ArrayList<Survey>();
 		List<Survey> surveylist = surveyService.getAllSurveys();
-		System.out.println("check survey: " + surveylist.get(0).getSurveyTitle());
 		for (int i = 0; i < surveylist.size(); i++) {
 			Survey temp = surveylist.get(i);
-			if (temp.getUserID() == uid)
+			if ((temp.getUserID()).equals(uid))
 				res.add(temp);
 		}
-		// return new ResponseEntity(res,HttpStatus.FOUND);
 		return res;
 	}
 

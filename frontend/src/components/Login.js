@@ -136,7 +136,7 @@ class Login extends Component {
 
                                                     </div>
                                                     <div className="form-group text-center">
-                                                        <input type="checkbox" tabindex="3" class="" name="remember"
+                                                        <input type="checkbox" tabindex="3" className="" name="remember"
                                                                id="remember"/>
                                                         <label for="remember"> Remember Me</label>
                                                     </div>
@@ -155,7 +155,7 @@ class Login extends Component {
                                                     </div>
                                                     <div className="form-group">
                                                         <div className="row">
-                                                            <div clclassNameass="col-lg-12">
+                                                            <div className="col-lg-12">
                                                                 <div className="text-center">
                                                                     <a href="https://phpoll.com/recover"
                                                                        tabindex="5"

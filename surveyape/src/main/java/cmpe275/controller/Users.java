@@ -14,15 +14,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
 import org.json.JSONObject;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000",allowCredentials="true")
 @RequestMapping(path = "/user")
 public class Users {
 
@@ -31,6 +28,10 @@ public class Users {
 
     @Autowired
     private JavaMailSender sender;
+    
+	@Autowired
+	HttpSession session;
+
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -39,10 +40,9 @@ public class Users {
     }
 
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody String user, HttpSession session) throws JSONException {
+    public ResponseEntity<?> login(@RequestBody String user) throws JSONException {
         System.out.println("Login Hit");
         JSONObject jsonObject = new JSONObject(user);
-        session.setAttribute("name", jsonObject.getString("email"));
 
         List<User> b = userService.login(jsonObject.getString("email"), jsonObject.getString("password"));
         if (b.isEmpty()) {
@@ -51,6 +51,9 @@ public class Users {
 
         } else {
             System.out.println("Login Hit - ok");
+            session.setAttribute("sess_userid", b.get(0).getUserId());
+            session.setAttribute("sess_email", jsonObject.getString("email").toString());
+            System.out.println("set sess: " + session.getAttribute("sess_userid"));
             return new ResponseEntity(HttpStatus.OK);
 
         }
@@ -71,7 +74,7 @@ public class Users {
     }
 
     @PostMapping(path = "/verifyUser", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> verifyUser(@RequestBody String user, HttpSession session) throws JSONException {
+    public ResponseEntity<?> verifyUser(@RequestBody String user) throws JSONException {
         System.out.println("verify Hit");
             JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject.getString("email"));
@@ -101,7 +104,7 @@ public class Users {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
         }
-    }
+    } 
 
     public void sendEmail(String to, String subject, String text) throws Exception {
         MimeMessage message = sender.createMimeMessage();

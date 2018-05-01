@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Route, Link, Switch,withRouter} from 'react-router-dom';
-import NewSurvey from './CreateNewSurvey/NewSurvey';
-import GiveSurvey from './Surveys/GiveSurvey';
-import EditSurvey from './Surveys/EditSurvey';
-import PublishSurvey from './Surveys/PublishSurvey';
-import * as API from '../api/API';
+// import NewSurvey from './CreateNewSurvey/NewSurvey';
+// import GiveSurvey from './Surveys/GiveSurvey';
+// import EditSurvey from './Surveys/EditSurvey';
+// import PublishSurvey from './Surveys/PublishSurvey';
+// import * as API from '../api/API';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
