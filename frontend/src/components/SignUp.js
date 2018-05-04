@@ -29,15 +29,19 @@ class SignUp extends Component {
             message: ''
         });
     }
+
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
             message: '',
-            formErrors: {email: '', password: ''},
+            formErrors: {email: '', password: '', firstname: '', lastname: '', phoneNo: ''},
             emailValid: false,
             passwordValid: false,
+            firstnameValid: false,
+            lastnameValid: false,
+            phoneValid: false,
             formValid: false
         }
     }
@@ -57,10 +61,25 @@ class SignUp extends Component {
 
     validateField(fieldName, value) {
         let fieldValidationErrors = this.state.formErrors;
+        let firstnameValid = this.state.firstnameValid;
+        let lastnameValid = this.state.lastnameValid;
+        let phoneValid = this.state.phoneValid;
         let emailValid = this.state.emailValid;
         let passwordValid = this.state.passwordValid;
 
         switch (fieldName) {
+            case 'firstname':
+                firstnameValid = value.match(/^([\w]{5,})$/i);
+                fieldValidationErrors.firstname = firstnameValid ? '' : ' is invalid';
+                break;
+            case 'lastname':
+                lastnameValid = value.match(/^([\w]{1,})$/i);
+                fieldValidationErrors.lastname = lastnameValid ? '' : ' is invalid';
+                break;
+            case 'phoneNo':
+                phoneValid = value.match(/^([2-9]\d{2}-\d{3}-\d{4})$/i);
+                fieldValidationErrors.phoneNo = phoneValid ? '' : ' is invalid';
+                break;
             case 'email':
                 emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
                 fieldValidationErrors.email = emailValid ? '' : ' is invalid';
@@ -74,13 +93,16 @@ class SignUp extends Component {
         }
         this.setState({
             formErrors: fieldValidationErrors,
+            firstnameValid: firstnameValid,
+            lastnameValid: lastnameValid,
+            phoneValid: phoneValid,
             emailValid: emailValid,
             passwordValid: passwordValid
         }, this.validateForm);
     }
 
     validateForm() {
-        this.setState({formValid: this.state.emailValid && this.state.passwordValid});
+        this.setState({formValid: this.state.emailValid && this.state.passwordValid && this.state.firstnameValid && this.state.lastnameValid && this.state.phoneValid});
     }
 
     errorClass(error) {
@@ -109,35 +131,26 @@ class SignUp extends Component {
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <input type="text" name="username" id="username" tabindex="1"
+                                            <div
+                                                className={`form-group ${this.errorClass(this.state.formErrors.firstname)}`}>
+                                                <input type="text" name="firstname" tabindex="1"
                                                        class="form-control" label="First Name"
                                                        placeholder="First Name" value={this.state.firstname}
-                                                       onChange={(event) => {
-                                                           this.setState({
-                                                               firstname: event.target.value
-                                                           });
-                                                       }}/>
+                                                       onChange={this.handleUserInput}/>
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" name="username" tabindex="1"
+                                            <div
+                                                className={`form-group ${this.errorClass(this.state.formErrors.lastname)}`}>
+                                                <input type="text" name="lastname" tabindex="1"
                                                        class="form-control" label="Last Name"
                                                        placeholder="Last Name" value={this.state.lastname}
-                                                       onChange={(event) => {
-                                                           this.setState({
-                                                               lastname: event.target.value
-                                                           });
-                                                       }}/>
+                                                       onChange={this.handleUserInput}/>
                                             </div>
-                                            <div class="form-group">
+                                            <div
+                                                className={`form-group ${this.errorClass(this.state.formErrors.phoneNo)}`}>
                                                 <input type="text" name="phoneNo" tabindex="1"
                                                        class="form-control" label="Phone Number "
                                                        placeholder="Phone Number" value={this.state.phoneNo}
-                                                       onChange={(event) => {
-                                                           this.setState({
-                                                               phoneNo: event.target.value
-                                                           });
-                                                       }}/>
+                                                       onChange={this.handleUserInput}/>
                                             </div>
                                             <div
                                                 className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
@@ -165,7 +178,8 @@ class SignUp extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br/><br/> <h5 style={{color: 'Red',textAlign:'center'}}>{this.props.message}</h5>
+                                            <br/><br/> <h5
+                                            style={{color: 'Red', textAlign: 'center'}}>{this.props.message}</h5>
                                             <div className="panel panel-default">
                                                 <FormErrors formErrors={this.state.formErrors}/>
                                             </div>

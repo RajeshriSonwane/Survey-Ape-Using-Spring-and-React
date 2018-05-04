@@ -84,7 +84,7 @@ body {
 .btn-login {
   background-color: #59B2E0;
   outline: none;
-  color: #fff;
+  color: midnightblue;
   font-size: 14px;
   height: auto;
   font-weight: normal;
@@ -94,7 +94,7 @@ body {
 }
 .btn-login:hover,
 .btn-login:focus {
-  color: #fff;
+  color: black;
   background-color: #53A3CD;
   border-color: #53A3CD;
 }
@@ -111,7 +111,7 @@ body {
 .btn-register {
   background-color: #1CB94E;
   outline: none;
-  color: #fff;
+  color: darkslateblue;
   font-size: 14px;
   height: auto;
   font-weight: normal;

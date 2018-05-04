@@ -58,7 +58,6 @@ class GiveSurvey extends Component {
                   )
                 })
               }
-
          </div>
         );
     }

@@ -9,10 +9,10 @@ import org.springframework.context.ApplicationContext;
  *
  */
 @SpringBootApplication
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-    		SpringApplication.run(App.class, args);
+        SpringApplication.run(App.class, args);
     }
 }

@@ -39,7 +39,7 @@ class OpenSurvey extends Component {
 
                 <h3 align="center">Create Open Survey</h3>
 
-                <form>
+                <form style={{marginLeft: "750px",  marginTop: "50px"}}>
                 Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{const value=event.target.value
                                          this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
                 <br/><br/>
