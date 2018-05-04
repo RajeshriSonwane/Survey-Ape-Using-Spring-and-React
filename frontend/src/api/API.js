@@ -57,22 +57,38 @@ export const verifyUser = (payload) =>
             return error;
         });
 
-//logout
-export const logout = () =>
-    fetch(`${api}/logout`, {
+export const registerUser = (payload) =>
+    fetch(`${api}/user/registerUser`, {
         method: 'POST',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        credentials: 'include'
+        body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is signup error");
+            return error;
+        });
+
+//logout
+export const logout = () =>
+    fetch(`${api}/user/logout`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+
     }).then(res => {
         return res;
     }).catch(error => {
-        console.log("This is error");
+        console.log("This is error"+error);
         return error;
     });
-
 
 // create general survey
 export const createGeneral = (payload) =>
@@ -133,6 +149,27 @@ export const getGeneral = (payload) =>
             return error;
         });
 
+// get general survey by id
+export const getOpenSurveys = (payload) =>
+    fetch(`${api}/getOpenSurveys`, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            console.log(res);
+            console.log("JSON result -"+ res[0].surveyTitle+ res[0].surveyId);
+            return res;
+        })
+        .catch(error => {
+            console.log("This is get open survey error"+error);
+            return error;
+        });
+
+
 
 // get closed survey by survey id and user
 export const getClosed = (sid, uid) =>
@@ -172,7 +209,6 @@ export const publishSurvey = (payload) =>
             console.log("This is create publish survey error");
             return error;
         });
-
 
 // close survey
 export const closeSurvey = (payload) =>
@@ -229,5 +265,23 @@ export const editSurvey = (payload, sid) =>
         })
         .catch(error => {
             console.log("This is edit survey error");
+            return error;
+        });
+
+export const getOpenSurveyQuestion = (payload, sid) =>
+    fetch(`${api}/getOpenSurveyQuestion/` + sid, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+    }).then(res => res.json())
+        .then(res => {
+            console.log(res);
+            console.log("JSON result -"+ +res[0].questionId+"-"+res[0].description);
+            return res;
+        })
+        .catch(error => {
+            console.log("This is getOpenSurveyQuestion survey error"+error);
             return error;
         });

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 class Login extends Component {
     static propTypes = {
         message: PropTypes.string.isRequired,
-        handleLogout: PropTypes.func.isRequired
+        handleLogin: PropTypes.func.isRequired
     };
 
     state = {
