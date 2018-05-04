@@ -92,9 +92,6 @@ public class Users {
             if (code == b.get(0).getValidCode()) {
                 try {
                     sendEmail(jsonObject.getString("email"), "Email ID verification Successful", "Congratz.. Account validated");
-                    session.setAttribute("sess_userid", b.get(0).getUserId());
-                    session.setAttribute("sess_email", jsonObject.getString("email").toString());
-                    System.out.println("set sess: " + session.getAttribute("sess_userid"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
