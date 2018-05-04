@@ -69,7 +69,7 @@ class SignUp extends Component {
 
         switch (fieldName) {
             case 'firstname':
-                firstnameValid = value.match(/^([\w]{5,})$/i);
+                firstnameValid = value.match(/^([\w]{1,})$/i);
                 fieldValidationErrors.firstname = firstnameValid ? '' : ' is invalid';
                 break;
             case 'lastname':
