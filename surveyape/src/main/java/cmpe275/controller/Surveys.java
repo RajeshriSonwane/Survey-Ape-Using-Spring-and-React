@@ -200,15 +200,25 @@ public class Surveys {
 			participantsService.addParticipant(pq);
 			// for general survey
 			if(s.getType()==1) {
-				/*String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId();
+				String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId();
 				String subject="Inviation for survey";
-				sendInvitation.sendEmail(participants[i],subject,text);*/
+				try {
+					sendInvitation.sendEmail(participants[i],subject,text);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			// for closed survey
 			else if(s.getType()==2) {
-				/*String text="Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
+				String text="Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId()+"&user=12";
 				String subject="Inviation for survey";
-				sendInvitation.sendEmail(participants[i],subject,text);*/
+				try {
+					sendInvitation.sendEmail(participants[i],subject,text);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
