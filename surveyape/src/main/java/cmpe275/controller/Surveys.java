@@ -188,11 +188,14 @@ public class Surveys {
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
 		Boolean flag = false;
 		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
-		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		//change after sessions
+		//Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		
 		if(participantslist!=null) {
 		for (int i = 0; i < participantslist.size(); i++) 
 		{
-			if(participantslist.get(i).getParticipantsId() == uid){
+			//change after sessions
+			if(participantslist.get(i).getParticipantsId() == 17){
 				flag = true;
 				break;
 			}
@@ -200,11 +203,19 @@ public class Surveys {
 		}
 		
 		if(flag == true) {
+
 			System.out.println("Survey id: " + id);
 			Survey s = surveyService.getSurvey(id);
+			System.out.println("Survey start time: " + s.getStartDate());
+			System.out.println("Survey end time: " + s.getEndDate());
+			System.out.println("Current Time: " + LocalDateTime.now());
+			if(LocalDateTime.now().isAfter(s.getStartDate()) && LocalDateTime.now().isBefore(s.getEndDate())) {
 			System.out.println("check: " + s);
 			if(s!=null && s.getStatus()==1)
 				return new ResponseEntity(s, HttpStatus.FOUND);
+			else
+				return new ResponseEntity(false, HttpStatus.FOUND);
+			}
 			else
 				return new ResponseEntity(false, HttpStatus.FOUND);
 		}
