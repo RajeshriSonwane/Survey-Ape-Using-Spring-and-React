@@ -13,6 +13,7 @@ import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Survey;
 import cmpe275.repository.SurveyRepository;
+import cmpe275.repository.ParticipantsRepository;
 import cmpe275.service.OptionService;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
@@ -40,6 +41,7 @@ public class Surveys {
 
 	@Autowired
 	private ParticipantsService participantsService;
+	private ParticipantsRepository participantsrepository;
 	
 	@Autowired
 	private SendInvitation sendInvitation;
@@ -79,9 +81,20 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId());
 			participantsService.addParticipant(pq);
+
+			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
+			String subject="Inviation for survey";
+			try {
+				sendInvitation.sendEmail(participants[i],subject,text);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 //			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 //			String subject="Inviation for survey";
 //			sendInvitation.sendEmail(participants[i],subject,text);
+
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -173,25 +186,49 @@ public class Surveys {
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
-		System.out.println("Survey id: " + id);
-		Survey s = surveyService.getSurvey(id);
-		System.out.println("check: " + s);
-		if(s!=null && s.getStatus()==1)
-			return new ResponseEntity(s, HttpStatus.FOUND);
+		Boolean flag = false;
+		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
+		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		if(participantslist!=null) {
+		for (int i = 0; i < participantslist.size(); i++) 
+		{
+			if(participantslist.get(i).getParticipantsId() == uid){
+				flag = true;
+				break;
+			}
+		}
+		}
+		
+		if(flag == true) {
+			System.out.println("Survey id: " + id);
+			Survey s = surveyService.getSurvey(id);
+			System.out.println("check: " + s);
+			if(s!=null && s.getStatus()==1)
+				return new ResponseEntity(s, HttpStatus.FOUND);
+			else
+				return new ResponseEntity(false, HttpStatus.FOUND);
+		}
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
+
 	}
 	
 	
 	// get closed survey by id
 	@GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id,@RequestParam(value = "user") Integer user) {
-		System.out.println("Survey user: " + user);
-		Survey s = surveyService.getSurvey(id);
-		if(s.getStatus()==1)
-			return new ResponseEntity(s, HttpStatus.FOUND);
+		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		if(uid == user) {
+			System.out.println("Survey user: " + user);
+			Survey s = surveyService.getSurvey(id);
+			if(s.getStatus()==1)
+				return new ResponseEntity(s, HttpStatus.FOUND);
+			else
+				return new ResponseEntity(false, HttpStatus.FOUND);
+		}
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
+		
 	}
 
 
