@@ -26,13 +26,7 @@ class SurveyStats extends Component {
           <h3 align="center">Survey Stats</h3>
           <br/><br/>
 
-          // Select survey:
-          // <select onChange={(event)=>{this.getChartData({"year":"",type:"usertracking","userid":event.target.value})}}>
-          // <option value="" disabled selected>Select User</option>
-          // {this.state.users.map(s =>
-          //   <option key={s.surveyId} value={id.user_id}>{s.title }</option>
-          // )};
-          // </select>
+
 
          </div>
         );
