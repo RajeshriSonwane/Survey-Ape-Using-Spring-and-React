@@ -11,4 +11,5 @@ import cmpe275.entity.Survey;
 public interface ParticipantsRepository extends CrudRepository<Participants, String> {
 	List<Participants> findAll();
 	List<Participants> findBySurveyId(Integer s);
+	Participants findByparticipantsId(Integer user);
 }

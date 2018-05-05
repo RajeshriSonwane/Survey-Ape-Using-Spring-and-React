@@ -25,5 +25,9 @@ public class ParticipantsService {
     public List<Participants> getAllParticipantsBySurveryId(Integer s) {
     	return participantsRepository.findBySurveyId(s);
     }
+    
+    public Participants getParticipantsById(Integer user) {
+    	return participantsRepository.findByparticipantsId(user);
+    }
 
 }

@@ -78,7 +78,7 @@ public class Surveys {
 		String[] participants = ns.getParticipants();
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
-			Participants pq = new Participants(participants[i], s1.getSurveyId());
+			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
 			participantsService.addParticipant(pq);
 
 			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
@@ -119,7 +119,7 @@ public class Surveys {
 		System.out.println("check par: " + ns.getParticipants()[0]);
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
-			Participants pq = new Participants(participants[i], s1.getSurveyId());
+			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
 			participantsService.addParticipant(pq);
 			String text="Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
 			String subject="Inviation for survey";
@@ -214,12 +214,20 @@ public class Surveys {
 	// get closed survey by id
 	@GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id,@RequestParam(value = "user") Integer user) {
-		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
-		if(uid == user) {
-			System.out.println("Survey user: " + user);
-			Survey s = surveyService.getSurvey(id);
-			if(s.getStatus()==1)
-				return new ResponseEntity(s, HttpStatus.FOUND);
+		//Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		Integer uid = 14;
+		if(uid == 14) {
+			Participants p = participantsService.getParticipantsById(user);
+			if(p.getGiven() == 0) {
+				p.setGiven(1);
+				participantsService.addParticipant(p);;
+				System.out.println("Survey user: " + user);
+				Survey s = surveyService.getSurvey(id);
+				if(s.getStatus()==1)
+					return new ResponseEntity(s, HttpStatus.FOUND);
+				else
+					return new ResponseEntity(false, HttpStatus.FOUND);
+			}
 			else
 				return new ResponseEntity(false, HttpStatus.FOUND);
 		}
@@ -260,7 +268,7 @@ public class Surveys {
 		}
 		l=participants.length;
 		for (int i = 0; i < l; i++) {
-			Participants pq = new Participants(participants[i], surId);
+			Participants pq = new Participants(participants[i], surId,0);
 			participantsService.addParticipant(pq);
 			// for general survey
 			if(s.getType()==1) {

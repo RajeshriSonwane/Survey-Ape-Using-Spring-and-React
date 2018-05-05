@@ -13,16 +13,26 @@ public class Participants {
     
     private Integer surveyId;
     
+    private Integer given;
+    
     //private Integer userId;
     
-    private String participantEmail;
+    public Integer getGiven() {
+		return given;
+	}
+
+	public void setGiven(Integer given) {
+		this.given = given;
+	}
+	private String participantEmail;
     
     public Participants() {
     }
     
-    public Participants(String em, Integer sid) {
+    public Participants(String em, Integer sid, Integer g) {
     	participantEmail=em;
     	surveyId=sid;
+    	given = g;
     }
     
 	public Integer getParticipantsId() {
