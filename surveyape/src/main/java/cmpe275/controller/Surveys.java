@@ -164,7 +164,8 @@ public class Surveys {
 		System.out.println("Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
 		s.setStatus(1);
-		s.setStartDate(LocalDateTime.now());
+		if(s.getStartDate()== null)
+			s.setStartDate(LocalDateTime.now());
 		surveyService.saveSurvey(s);
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -216,8 +217,10 @@ public class Surveys {
 			else
 				return new ResponseEntity(false, HttpStatus.FOUND);
 			}
-			else
+			else {
+				s.setStatus(0);
 				return new ResponseEntity(false, HttpStatus.FOUND);
+			}
 		}
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
