@@ -6,15 +6,18 @@ class GeneralSurvey extends Component {
   state={
     surveyTitle:'',
     questions:[],
+    temp:[],
+    options:[],
     qtype:[],
     participants:[],
     formValid:false,
     newq:false,
     newp:false,
+    newo:false
   };
 
   createNewSurvey(){
-    var data={title:this.state.surveyTitle,questions:this.state.questions,qtype:this.state.qtype,participants:this.state.participants};
+    var data={title:this.state.surveyTitle,questions:this.state.questions,qtype:this.state.qtype,options:this.state.options,participants:this.state.participants};
         API.createGeneral(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
@@ -22,10 +25,21 @@ class GeneralSurvey extends Component {
   }
 
   nextQuestion(){
-    console.log(this.state.questions);
-    console.log(this.state.qtype);
+    this.setState({options: this.state.options.concat("BREAK")});
+    console.log("q: "+this.state.questions);
+    console.log("qt: "+this.state.qtype);
+    console.log("o: "+this.state.options);
     this.setState({newq:false});
+    this.setState({newo:false});
+    this.setState({temp:[]});
     this.refs.ques.value="";
+    this.refs.opt.value="";
+  }
+
+  nextOption(){
+    console.log(this.state.options);
+    this.setState({newo:false});
+    this.refs.opt.value="";
   }
 
   nextUser(){
@@ -46,6 +60,10 @@ class GeneralSurvey extends Component {
     this.setState({newp: value.length !== 0});
   }
 
+  validateOpt(value) {
+    this.setState({newo: value.length !== 0});
+  }
+
 
     render() {
         return (
@@ -57,7 +75,7 @@ class GeneralSurvey extends Component {
           <form>
           Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{const value=event.target.value
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
-          <br/><br/>
+          <br/><br/><br/>
 
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
@@ -65,12 +83,22 @@ class GeneralSurvey extends Component {
                                    onChange={(event)=>{const value=event.target.value
                                               this.setState(() => { this.validateQues(value) });}}/>
           <select onChange={(event)=>{this.setState({qtype: this.state.qtype.concat(event.target.value)});}}>
-          <option value="text" selected>Text</option>
+          <option value="text" defaultValue>Text</option>
           <option value="check">Checkbox</option>
           <option value="radio">Radio</option>
           </select>
-          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+
           <br/><br/>
+
+          Enter options:
+          <input type="text" id="option" ref="opt" onBlur={(event)=>{
+                                   this.setState({options: this.state.options.concat(event.target.value)});}}
+                                   onChange={(event)=>{const value=event.target.value
+                                              this.setState(() => { this.validateOpt(value) });}}/>
+          <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
+          <br/>
+          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+          <br/><br/><br/>
 
           Enter Participant:
           <input type="text" id="users" ref="users" onBlur={(event)=>{

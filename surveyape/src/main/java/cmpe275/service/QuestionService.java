@@ -12,7 +12,7 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
     
-    public void addQuestion(Question q){
-    	questionRepository.save(q);
+    public Question addQuestion(Question q){
+    	return questionRepository.save(q);
     }
 }

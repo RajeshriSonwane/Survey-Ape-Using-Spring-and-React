@@ -132,6 +132,24 @@ export const createClosed = (payload) =>
             return error;
         });
 
+export const createOpen = (payload) =>
+fetch(`${api}/createopen`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials:'include',
+  body: JSON.stringify(payload)
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is create closed survey error");
+  return error;
+});
+
 
 // get general survey by id
 export const getGeneral = (payload) =>
