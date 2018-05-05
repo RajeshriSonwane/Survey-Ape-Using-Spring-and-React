@@ -14,14 +14,14 @@ class GeneralSurvey extends Component {
     newq:false,
     newp:false,
     newo:false,
-    start:'',
-    end:''
+      starttime:'',
+    endtime:''
   };
 
   createNewSurvey(){
     var data={title:this.state.surveyTitle,questions:this.state.questions,
               qtype:this.state.qtype,options:this.state.options,
-              participants:this.state.participants,start:this.state.start,end:this.state.end};
+              participants:this.state.participants,starttime:this.state.starttime,endtime:this.state.endtime};
         API.createGeneral(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
@@ -81,9 +81,9 @@ class GeneralSurvey extends Component {
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
           <br/><br/><br/>
 
-          Enter start: <input id="datetime" type="datetime-local" onChange={(event)=>{this.setState({start: event.target.value});}} />
+          Enter start: <input id="datetime" type="datetime-local" onChange={(event)=>{this.setState({starttime: event.target.value});}} />
           <br/><br/>
-          Enter end: <input id="datetime" type="datetime-local" onChange={(event)=>{this.setState({end: event.target.value});}} />
+          Enter end: <input id="datetime1" type="datetime-local" onChange={(event)=>{this.setState({endtime: event.target.value});}} />
           <br/><br/><br/>
 
           Enter question:
