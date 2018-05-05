@@ -227,13 +227,14 @@ export const publishSurvey = (payload) =>
             return res;
         })
         .catch(error => {
-            console.log("This is create publish survey error");
+            console.log("This is publish survey error");
             return error;
         });
 
-// close survey
-export const closeSurvey = (payload) =>
-    fetch(`${api}/close`, {
+
+// unpublish survey
+export const unpublishSurvey = (payload) =>
+    fetch(`${api}/unpublish`, {
         method: 'POST',
         headers: {
             ...headers,
@@ -246,9 +247,32 @@ export const closeSurvey = (payload) =>
             return res;
         })
         .catch(error => {
-            console.log("This is end survey error");
+            console.log("This is unpublish survey error");
             return error;
         });
+
+
+
+// close survey
+export const closeSurvey = (payload) =>
+fetch(`${api}/close`, {
+  method: 'POST',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials:'include',
+  body: JSON.stringify(payload)
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is end survey error");
+  return error;
+});
+
+
 
 // get all surveys created by a user
 export const allSurveys = (payload) =>

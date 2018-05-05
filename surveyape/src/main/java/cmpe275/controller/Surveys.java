@@ -57,7 +57,7 @@ public class Surveys {
 		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		System.out.println("Start: "+ns.getStarttime()+" End: "+ns.getEndtime());
-		Survey s = new Survey(uid, ns.getTitle(), 1,0);
+		Survey s = new Survey(uid, ns.getTitle(), 1,0,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		String[] options = ns.getOptions();
@@ -85,16 +85,7 @@ public class Surveys {
 
 			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject="Inviation for survey";
-			try {
-				sendInvitation.sendEmail(participants[i],subject,text);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-//			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-//			String subject="Inviation for survey";
-//			sendInvitation.sendEmail(participants[i],subject,text);
+			sendInvitation.sendEmail(participants[i],subject,text);
 
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
@@ -107,7 +98,7 @@ public class Surveys {
 		System.out.println("Check ses: "+session.getAttribute("sess_userid").toString());
 		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Survey s = new Survey(uid, ns.getTitle(),2,0);
+		Survey s = new Survey(uid, ns.getTitle(),2,0,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		String[] type = ns.getQtype();
@@ -135,7 +126,7 @@ public class Surveys {
 		public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
 			Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 			System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-			Survey s = new Survey(uid, ns.getTitle(), 3,0);
+			Survey s = new Survey(uid, ns.getTitle(), 3,0,0);
 			Survey s1 = surveyService.addSurvey(s);
 			String[] questions = ns.getQuestions();
 			String[] options = ns.getOptions();
@@ -171,15 +162,25 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	// unpublish survey
+	@PostMapping(path = "/unpublish", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> unpublishSurvey(@RequestBody Integer id) throws Exception {
+		System.out.println("Survey id: " + id);
+		Survey s = surveyService.getSurvey(id);
+		s.setStatus(0);
+		surveyService.saveSurvey(s);
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
 	
 	
 	// close survey
 	@PostMapping(path = "/close", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> closeSurvey(@RequestBody Integer id) throws Exception {
-		System.out.println("Survey id: " + id);
+		System.out.println("Closed Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
+		s.setClosed(1);
 		s.setStatus(0);
-		s.setEndDate(LocalDateTime.now());
+		//s.setEndDate(LocalDateTime.now());
 		surveyService.saveSurvey(s);
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -189,15 +190,22 @@ public class Surveys {
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
 		Boolean flag = false;
-		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
-		//change after sessions
-		//Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		
+		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
+		Survey s = surveyService.getSurvey(id);
+		if(s!=null && s.getStatus()==1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
+		
+		//change after sessions
+//		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		/*
 		if(participantslist!=null) {
 		for (int i = 0; i < participantslist.size(); i++) 
 		{
 			//change after sessions
-			if(participantslist.get(i).getParticipantsId() == 17){
+			if(participantslist.get(i).getParticipantsId() == uid){
 				flag = true;
 				break;
 			}
@@ -225,6 +233,7 @@ public class Surveys {
 		}
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
+			*/
 
 	}
 	
@@ -233,22 +242,27 @@ public class Surveys {
 	@GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id,@RequestParam(value = "user") Integer user) {
 		//Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
-		Integer uid = 14;
-		if(uid == 14) {
-			Participants p = participantsService.getParticipantsById(user);
-			if(p.getGiven() == 0) {
-				p.setGiven(1);
-				participantsService.addParticipant(p);;
-				System.out.println("Survey user: " + user);
-				Survey s = surveyService.getSurvey(id);
-				if(s.getStatus()==1)
-					return new ResponseEntity(s, HttpStatus.FOUND);
-				else
-					return new ResponseEntity(false, HttpStatus.FOUND);
-			}
-			else
-				return new ResponseEntity(false, HttpStatus.FOUND);
-		}
+//		Integer uid = 14;
+//		if(uid == 14) {
+//			Participants p = participantsService.getParticipantsById(user);
+//			if(p.getGiven() == 0) {
+//				p.setGiven(1);
+//				participantsService.addParticipant(p);;
+//				System.out.println("Survey user: " + user);
+//				Survey s = surveyService.getSurvey(id);
+//				if(s.getStatus()==1)
+//					return new ResponseEntity(s, HttpStatus.FOUND);
+//				else
+//					return new ResponseEntity(false, HttpStatus.FOUND);
+//			}
+//			else
+//				return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
+//		else
+//			return new ResponseEntity(false, HttpStatus.FOUND);
+		Survey s = surveyService.getSurvey(id);
+		if(s.getStatus()==1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
 		

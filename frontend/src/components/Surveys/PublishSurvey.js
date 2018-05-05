@@ -28,6 +28,15 @@ class PublishSurvey extends Component {
           });
     };
 
+    handleUnpublish = (sid) => {
+      console.log("unpublish id: "+sid);
+      API.unpublishSurvey(sid)
+          .then((output) => {
+              console.log("CHECK THIS: "+output);
+              alert("Survey unpublished!");
+          });
+    };
+
     handleClose = (sid) => {
       console.log("close id: "+sid);
       API.closeSurvey(sid)
@@ -59,16 +68,20 @@ class PublishSurvey extends Component {
                     <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                     <b>{(s.surveyTitle)}</b>
                     </div>
-
+<div>
                     {
                       s.status===0 ?
                       (<div>
                         <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
-                        <button className="btn btn-success" type="button" onClick={() => this.handlePublish(s.surveyId)}>PUBLISH</button>
+                        <button disabled={s.closed===1 ? true : false} className="btn btn-success" type="button" onClick={() => this.handlePublish(s.surveyId)}>PUBLISH</button>
                         </div>
                         <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
-                        <button disabled={true} className="btn btn-danger" type="button" onClick={() => this.handleClose(s.surveyId)}>CLOSE</button>
-                        </div><br/><br/>
+                        <button disabled={true} className="btn btn-warning" type="button" onClick={() => this.handleUnpublish(s.surveyId)}>UNPUBLISH</button>
+                        </div>
+                        <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                        <button disabled={s.closed===0 ? false : true}  className="btn btn-danger" type="button" onClick={() => this.handleClose(s.surveyId)}>CLOSE</button>
+                        </div>
+                        <br/><br/>
                         </div>
                       )
                      :(<div>
@@ -76,11 +89,17 @@ class PublishSurvey extends Component {
                        <button disabled={true} className="btn btn-success" type="button" onClick={() => this.handlePublish(s.surveyId)}>PUBLISH</button>
                        </div>
                        <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
-                       <button className="btn btn-danger" type="button" onClick={() => this.handleClose(s.surveyId)}>CLOSE</button>
-                       </div><br/><br/>
+                       <button disabled={s.closed===1 ? true : false} className="btn btn-warning" type="button" onClick={() => this.handleUnpublish(s.surveyId)}>UNPUBLISH</button>
                        </div>
+                       <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                       <button disabled={s.closed===0 ? false : true} className="btn btn-danger" type="button" onClick={() => this.handleClose(s.surveyId)}>CLOSE</button>
+                       </div>
+                       <br/><br/>
+                       </div>
+
                      )
                    }
+</div>
 
                     </div>
                   )

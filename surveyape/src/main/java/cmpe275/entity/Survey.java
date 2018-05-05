@@ -26,8 +26,11 @@ public class Survey {
     // 1-general 2-closed 3-open
     private Integer type;
     
-    // 0-closed 1-published
+    // 0-unpublished 1-published
     private Integer status;
+    
+    // 0-not closed 1-closed
+    private Integer closed;
 
     private LocalDateTime startDate;
     
@@ -40,11 +43,12 @@ public class Survey {
     public Survey(){  	
     }
     
-    public Survey(Integer uid,String stitle,Integer t, Integer s){
+    public Survey(Integer uid,String stitle,Integer t, Integer s, Integer c){
     	userID=uid;
     	surveyTitle=stitle;
     	type=t;
     	status=s;
+    	closed=c;
     }
     
 	public Integer getSurveyId() {
@@ -94,6 +98,12 @@ public class Survey {
 	}
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
+	}
+	public Integer getClosed() {
+		return closed;
+	}
+	public void setClosed(Integer closed) {
+		this.closed = closed;
 	}	
 	
 }
