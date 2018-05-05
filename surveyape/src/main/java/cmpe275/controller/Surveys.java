@@ -56,6 +56,7 @@ public class Surveys {
 	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		System.out.println("Start: "+ns.getStarttime()+" End: "+ns.getEndtime());
 		Survey s = new Survey(uid, ns.getTitle(), 1,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
@@ -317,6 +318,8 @@ class Newsurvey {
 	String options[];
 	String qtype[];
 	String participants[];
+	String starttime;
+	String endtime;
 
 	public String getTitle() {
 		return title;
@@ -347,5 +350,17 @@ class Newsurvey {
 	}
 	public void setOptions(String[] options) {
 		this.options = options;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 }
