@@ -6,13 +6,20 @@ import org.springframework.stereotype.Service;
 import cmpe275.entity.Question;
 import cmpe275.repository.QuestionRepository;
 
+import java.util.List;
+
 
 @Service
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
-    
-    public Question addQuestion(Question q){
-    	return questionRepository.save(q);
+
+    public Question addQuestion(Question q) {
+        return questionRepository.save(q);
+    }
+
+
+    public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
     }
 }

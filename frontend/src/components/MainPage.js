@@ -21,7 +21,8 @@ class MainPage extends Component {
             email: '',
             password: '',
             message: '',
-            surveyId: ''
+            surveyId: '',
+            islogged: false
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.handleSignUp = this.handleSignUp.bind(this);
@@ -35,7 +36,7 @@ class MainPage extends Component {
                 this.setState({
                     email: userdata.email,
                     password: userdata.password,
-                    islogged: 'true',
+                    islogged: true,
                     message: "SignUp Successful..!!"
                 });
                 if (status === 201) {
@@ -53,10 +54,10 @@ class MainPage extends Component {
                     this.setState({
                         email: userdata.email,
                         password: userdata.password,
-                        islogged: 'true',
+                        islogged: true,
                         message: "Login Successful...!!"
                     });
-                    this.props.history.push("/Home");
+                    this.props.history.push("/home");
                 } else if (status === 403) {
                     this.setState({
                         isLoggedIn: false,
@@ -66,18 +67,21 @@ class MainPage extends Component {
             });
     }
 
-    handleLogout = (userdata) => {
+    handleLogout = () => {
         console.log('logout called');
-        API.logout(userdata)
+        API.logout()
             .then((status) => {
-                if (status === 200) {
-                    this.setState({
-                        isLogged: false,
-                        email: 'Guest'
-                    });
-                    this.props.history.push("/");
-                }
+                console.log('logout data status', status);
+                //   if (status === 200) {
+                this.setState({
+                    islogged: false,
+                    email: 'Guest'
+                });
+                // }
+                this.props.history.push("/");
+                console.log('logout data', this.state.islogged);
             });
+
     };
 
     componentWillMount() {
@@ -85,14 +89,14 @@ class MainPage extends Component {
             email: 'Guest',
             password: '',
             user: '',
-            islogged: 'false',
+            islogged: false,
             message: ''
         });
     }
 
     render() {
         var partial;
-        if (this.state.islogged === "false") {
+        if (this.state.islogged === false) {
             partial = <div>
                 <div className="col-sm-2 col-md-2 col-lg-2"></div>
                 <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/Login'>Login</Link></div>
@@ -105,11 +109,14 @@ class MainPage extends Component {
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='#'></Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/newsurvey'>Create Survey</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/editsurvey'>Edit Survey</Link></div>
-                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Unpublish</Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Unpublish</Link>
+                </div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/listsurvey'>ListAll</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/stats'>Stats</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/givesurvey'></Link></div>
-                <div className="col-sm-1 col-md-1 col-lg-1"><button onClick={() => this.handleLogout(this.state)} >Logout</button></div>
+                <div className="col-sm-1 col-md-1 col-lg-1">
+                    <button onClick={() => this.handleLogout(this.state)}>Logout</button>
+                </div>
             </div>
         }
         return (
@@ -149,7 +156,8 @@ class MainPage extends Component {
                 <Route exact path="/home/publishsurvey" component={() => <PublishSurvey data={this.props.email}/>}/>
                 <Route exact path="/home/listsurvey" component={() => <ListSurvey data={this.props.email}/>}/>
                 <Route exact path="/home/stats" component={() => <SurveyStats data={this.props.email}/>}/>
-                <Route exact path="/FetchOpenSurvey" render={() => <FetchOpenSurvey/>}/>
+                <Route exact path="/FetchOpenSurvey" render={() =>
+                    <FetchOpenSurvey islogged={this.state.islogged}/>}/>
 
             </div>
         );

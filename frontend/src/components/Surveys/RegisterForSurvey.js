@@ -8,18 +8,31 @@ class RegisterForSurvey extends Component {
 
     state = {
         email: '',
-        message: ''
+        surId: this.props.surId
     };
 
+    static propTypes = {
+        surId: PropTypes.number.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+        console.log("props in register open ",props);
+        this.State = {
+            surId: this.props.surId,
+            email:''
+        }
+        //  this.handleRegisterUser = this.handleRegisterUser.bind(this);
+        console.log("register for survey ID survey", this.props.surId);
+    }
+
     handleRegisterUser = (userdata) => {
-        console.log("inside handle verify user");
-        API.registerUser(userdata)
+        console.log("inside handle handleRegisterUser user");
+        API.registerOpenUser(userdata)
             .then((status) => {
                 this.setState({
                     email: userdata.email,
-                    //  password: userdata.password
-                    islogged: 'true',
-                    message: "Successfully vefified !!"
+                    message: "Successful !!"
                 });
             });
     };

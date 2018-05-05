@@ -107,7 +107,23 @@ public class Users {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
         }
-    } 
+    }
+
+    @PostMapping(path = "/registerOpenUser", consumes = MediaType.APPLICATION_JSON_VALUE) // Map
+    public ResponseEntity<?> registerOpenUser(@RequestBody String user) {
+        System.out.println("registerOpenUser Hit" + user);
+
+        JSONObject jsonObject = new JSONObject(user);
+        System.out.println(jsonObject.getString("email"));
+        System.out.println(jsonObject.get("surId"));
+
+        try {
+            sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id=" + jsonObject.get("surId"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     public void sendEmail(String to, String subject, String text) throws Exception {
         MimeMessage message = sender.createMimeMessage();
@@ -121,7 +137,8 @@ public class Users {
     @PostMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> logout(HttpSession session) {
-        System.out.println(session.getAttribute("name"));
+        System.out.println("logout hit");
+        System.out.println(session.getAttribute("sess_userid"));
         session.invalidate();
         return new ResponseEntity(HttpStatus.OK);
     }
