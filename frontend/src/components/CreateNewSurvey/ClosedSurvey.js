@@ -70,7 +70,12 @@ class ClosedSurvey extends Component {
                 <form>
                     Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{const value=event.target.value
                                              this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
+                    <br/><br/><br/>
+
+                    Enter start: <input id="datetime" type="datetime-local" />
                     <br/><br/>
+                    Enter end: <input id="datetime" type="datetime-local" />
+                    <br/><br/><br/>
 
                     Enter question:
                     <input type="text" id="question" ref="ques" onBlur={(event)=>{
@@ -93,7 +98,7 @@ class ClosedSurvey extends Component {
                     <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
                     <br/><br/>
 
-                    Enter User:
+                    Enter Participant:
                     <input type="text" id="users" ref="users" onBlur={(event)=>{
                         this.setState({participants: this.state.participants.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
                             this.setState(() => { this.validatePar(value) });}}/>
