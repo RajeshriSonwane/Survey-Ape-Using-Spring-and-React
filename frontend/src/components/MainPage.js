@@ -9,6 +9,8 @@ import NewSurvey from './CreateNewSurvey/NewSurvey';
 import GiveSurvey from './Surveys/GiveSurvey';
 import EditSurvey from './Surveys/EditSurvey';
 import PublishSurvey from './Surveys/PublishSurvey';
+import ListSurvey from './Surveys/ListSurvey';
+import SurveyStats from './Surveys/SurveyStats';
 import FetchOpenSurvey from './Surveys/FetchOpenSurvey';
 
 class MainPage extends Component {
@@ -103,8 +105,9 @@ class MainPage extends Component {
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='#'></Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/newsurvey'>Create Survey</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/editsurvey'>Edit Survey</Link></div>
-                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Unpublish</Link>
-                </div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Unpublish</Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/listsurvey'>ListAll</Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/stats'>Stats</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/givesurvey'></Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><button onClick={() => this.handleLogout(this.state)} >Logout</button></div>
             </div>
@@ -144,6 +147,8 @@ class MainPage extends Component {
                 <Route exact path="/home/givesurvey" component={() => <GiveSurvey data={this.props.email}/>}/>
                 <Route exact path="/home/editsurvey" component={() => <EditSurvey data={this.props.email}/>}/>
                 <Route exact path="/home/publishsurvey" component={() => <PublishSurvey data={this.props.email}/>}/>
+                <Route exact path="/home/listsurvey" component={() => <ListSurvey data={this.props.email}/>}/>
+                <Route exact path="/home/stats" component={() => <SurveyStats data={this.props.email}/>}/>
                 <Route exact path="/FetchOpenSurvey" render={() => <FetchOpenSurvey/>}/>
 
             </div>
