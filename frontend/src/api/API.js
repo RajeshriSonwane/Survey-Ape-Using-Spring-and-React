@@ -121,7 +121,7 @@ export const createClosed = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -159,7 +159,7 @@ export const getGeneral = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         //body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -200,7 +200,7 @@ export const getClosed = (sid, uid) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         //body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -239,7 +239,7 @@ export const closeSurvey = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -278,7 +278,7 @@ export const editSurvey = (payload, sid) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        //credentials:'include',
+        credentials:'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
