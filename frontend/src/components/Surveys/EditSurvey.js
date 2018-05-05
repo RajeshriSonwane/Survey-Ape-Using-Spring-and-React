@@ -15,13 +15,11 @@ class EditSurvey extends Component {
     componentWillMount() {
         API.allSurveys()
             .then((output) => {
-
-                console.log("CHECK THIS: " + output[0].surveyTitle);
-
-                if (output) {
+                if (output!=false) {
                     this.setState({surveys: output});
                 } else {
                     console.log("No data");
+                    alert("No surveys found!");
                 }
             });
     }

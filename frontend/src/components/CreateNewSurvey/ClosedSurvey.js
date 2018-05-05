@@ -7,6 +7,7 @@ class ClosedSurvey extends Component {
         surveyTitle:'',
         questions:[],
         participants:[],
+        options:[],
         surveyid: '2',
         formValid:false,
         qtype:[],
@@ -15,7 +16,7 @@ class ClosedSurvey extends Component {
     };
 
     createNewSurvey(){
-        var data={title:this.state.surveyTitle,questions:this.state.questions,qtype:this.state.qtype,participants:this.state.participants};
+        var data={title:this.state.surveyTitle,questions:this.state.questions,options:this.state.options,qtype:this.state.qtype,participants:this.state.participants};
         API.createClosed(data)
             .then((output) => {
                 console.log("CHECK THIS: "+output);
@@ -23,10 +24,18 @@ class ClosedSurvey extends Component {
     }
 
     nextQuestion(){
+      this.setState({options: this.state.options.concat("BREAK")});
         console.log(this.state.questions);
         console.log(this.state.qtype);
         this.setState({newq:false});
         this.refs.ques.value="";
+        this.refs.opt.value="";
+    }
+
+    nextOption(){
+      console.log(this.state.options);
+      this.refs.opt.value="";
+      this.refs.opt.value="";
     }
 
     nextUser(){
@@ -45,6 +54,10 @@ class ClosedSurvey extends Component {
 
     validatePar(value) {
       this.setState({newp: value.length !== 0});
+    }
+
+    validateOpt(value) {
+      this.setState({newo: value.length !== 0});
     }
 
     render() {
@@ -68,6 +81,15 @@ class ClosedSurvey extends Component {
                     <option value="check">Checkbox</option>
                     <option value="radio">Radio</option>
                     </select>
+                    <br/><br/>
+
+                    Enter options:
+                    <input type="text" id="option" ref="opt" onBlur={(event)=>{
+                                             this.setState({options: this.state.options.concat(event.target.value)});}}
+                                             onChange={(event)=>{const value=event.target.value
+                                                        this.setState(() => { this.validateOpt(value) });}}/>
+                    <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
+                    <br/>
                     <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
                     <br/><br/>
 

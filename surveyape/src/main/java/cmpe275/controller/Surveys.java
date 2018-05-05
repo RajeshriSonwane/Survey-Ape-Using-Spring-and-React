@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Survey;
 import cmpe275.repository.SurveyRepository;
 import cmpe275.repository.ParticipantsRepository;
+import cmpe275.service.OptionService;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
 import cmpe275.service.SurveyService;
@@ -32,6 +34,9 @@ public class Surveys {
 
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private OptionService optionService;
 
 	@Autowired
 	private ParticipantsService participantsService;
@@ -47,23 +52,35 @@ public class Surveys {
 	
 	// create general survey
 	@PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws IOException {
+	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Survey s = new Survey(uid, ns.getTitle(), 1,0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
+		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
+		int temp=0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i],type[i] ,s1.getSurveyId());
-			questionService.addQuestion(q);
+			Question newq=questionService.addQuestion(q);
+			if(type[i].equalsIgnoreCase("text")==false) {
+			while(options[temp].equalsIgnoreCase("break")==false) {
+				System.out.println(options[temp]+"  " + newq.getQuestionId());
+				Options o=new Options(options[temp],newq.getQuestionId());
+				optionService.addOption(o);
+				temp++;
+			}
+			}
+			temp++;
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId());
 			participantsService.addParticipant(pq);
+
 			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject="Inviation for survey";
 			try {
@@ -72,6 +89,11 @@ public class Surveys {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+//			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
+//			String subject="Inviation for survey";
+//			sendInvitation.sendEmail(participants[i],subject,text);
+
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -80,6 +102,7 @@ public class Surveys {
 	// create closed survey
 	@PostMapping(path = "/createclosed", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createClosedSurvey(@RequestBody Newsurvey ns) throws Exception {
+		System.out.println("Check ses: "+session.getAttribute("sess_userid").toString());
 		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Survey s = new Survey(uid, ns.getTitle(),2,0);
@@ -110,16 +133,26 @@ public class Surveys {
 		public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
 			Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 			System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-			Survey s = new Survey(uid, ns.getTitle(),2,0);
+			Survey s = new Survey(uid, ns.getTitle(), 3,0);
 			Survey s1 = surveyService.addSurvey(s);
 			String[] questions = ns.getQuestions();
+			String[] options = ns.getOptions();
 			String[] type = ns.getQtype();
 			int l = questions.length;
+			int temp=0;
 			for (int i = 0; i < l; i++) {
-				Question q = new Question(questions[i], type[i], s1.getSurveyId());
-				questionService.addQuestion(q);
+				Question q = new Question(questions[i],type[i] ,s1.getSurveyId());
+				Question newq=questionService.addQuestion(q);
+				if(type[i].equalsIgnoreCase("text")==false) {
+				while(temp<options.length && options[temp].equalsIgnoreCase("break")==false) {
+					System.out.println(options[temp]+"  " + newq.getQuestionId());
+					Options o=new Options(options[temp],newq.getQuestionId());
+					optionService.addOption(o);
+					temp++;
+				}
+				}
+				temp++;
 			}
-			
 			return new ResponseEntity(1, HttpStatus.CREATED);
 		}
 	
@@ -259,6 +292,7 @@ public class Surveys {
 class Newsurvey {
 	String title;
 	String questions[];
+	String options[];
 	String qtype[];
 	String participants[];
 
@@ -285,5 +319,11 @@ class Newsurvey {
 	}
 	public void setParticipants(String[] participants) {
 		this.participants = participants;
+	}
+	public String[] getOptions() {
+		return options;
+	}
+	public void setOptions(String[] options) {
+		this.options = options;
 	}
 }
