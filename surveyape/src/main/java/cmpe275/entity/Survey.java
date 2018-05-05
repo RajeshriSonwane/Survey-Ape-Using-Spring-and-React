@@ -1,5 +1,6 @@
 package cmpe275.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Survey {
@@ -25,6 +28,10 @@ public class Survey {
     
     // 0-closed 1-published
     private Integer status;
+
+    private LocalDateTime startDate;
+    
+    private LocalDateTime endDate;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyId")
     //@JoinColumn(name = "post_id");
@@ -75,5 +82,18 @@ public class Survey {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public LocalDateTime getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(LocalDateTime startDate) {
+		this.startDate = startDate;
+	}
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
 	}	
+	
 }

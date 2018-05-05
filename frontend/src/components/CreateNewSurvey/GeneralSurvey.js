@@ -77,6 +77,11 @@ class GeneralSurvey extends Component {
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
           <br/><br/><br/>
 
+          Enter start: <input id="datetime" type="datetime-local" />
+          <br/><br/>
+          Enter end: <input id="datetime" type="datetime-local" />
+          <br/><br/><br/>
+
           Enter question:
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
                                    this.setState({questions: this.state.questions.concat(event.target.value)});}}

@@ -18,6 +18,7 @@ import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
 import cmpe275.service.SurveyService;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,6 +151,7 @@ public class Surveys {
 		System.out.println("Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
 		s.setStatus(1);
+		s.setStartDate(LocalDateTime.now());
 		surveyService.saveSurvey(s);
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -162,6 +164,7 @@ public class Surveys {
 		System.out.println("Survey id: " + id);
 		Survey s = surveyService.getSurvey(id);
 		s.setStatus(0);
+		s.setEndDate(LocalDateTime.now());
 		surveyService.saveSurvey(s);
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
