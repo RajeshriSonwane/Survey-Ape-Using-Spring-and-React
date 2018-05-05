@@ -79,7 +79,7 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
-<<<<<<< HEAD
+
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
 			participantsService.addParticipant(pq);
@@ -89,7 +89,7 @@ public class Surveys {
 			sendInvitation.sendEmail(participants[i],subject,text);
 
 		}
-=======
+
 //		for (int i = 0; i < l; i++) {
 //			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
 //			participantsService.addParticipant(pq);
@@ -108,7 +108,7 @@ public class Surveys {
 ////			sendInvitation.sendEmail(participants[i],subject,text);
 //
 //		}
->>>>>>> d196fe2650c86331236e3134743b26ba39ad85aa
+
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 	
