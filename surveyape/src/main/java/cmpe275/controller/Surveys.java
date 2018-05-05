@@ -79,6 +79,7 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
+<<<<<<< HEAD
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
 			participantsService.addParticipant(pq);
@@ -88,6 +89,26 @@ public class Surveys {
 			sendInvitation.sendEmail(participants[i],subject,text);
 
 		}
+=======
+//		for (int i = 0; i < l; i++) {
+//			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
+//			participantsService.addParticipant(pq);
+//
+//			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
+//			String subject="Inviation for survey";
+//			try {
+//				sendInvitation.sendEmail(participants[i],subject,text);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+////			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
+////			String subject="Inviation for survey";
+////			sendInvitation.sendEmail(participants[i],subject,text);
+//
+//		}
+>>>>>>> d196fe2650c86331236e3134743b26ba39ad85aa
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 	
