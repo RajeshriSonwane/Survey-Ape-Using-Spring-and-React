@@ -83,7 +83,9 @@ class EditForm extends Component {
         questions: [],
         qtype: [],
         participants: [],
+        options:[],
         newq: false,
+        newo: false,
         newp: false
     };
 
@@ -92,6 +94,7 @@ class EditForm extends Component {
             title: '',
             questions: this.state.questions,
             qtype: this.state.qtype,
+            options:this.state.options,
             participants: this.state.participants
         };
         API.editSurvey(data, this.props.sid)
@@ -101,9 +104,14 @@ class EditForm extends Component {
     }
 
     nextQuestion() {
-        console.log(this.state.questions);
+      this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
+      this.setState({options: this.state.options.concat("BREAK")});
+
         this.setState({newq: false});
+        this.setState({newo: false});
+        this.setState({temp: []});
         this.refs.ques.value = "";
+        this.refs.opt.value = "";
     }
 
     nextUser() {
@@ -112,12 +120,22 @@ class EditForm extends Component {
         this.refs.users.value = "";
     }
 
+    nextOption() {
+        console.log(this.state.options);
+        this.setState({newo: false});
+        this.refs.opt.value = "";
+    }
+
     validatePar(value) {
         this.setState({newp: value.length !== 0});
     }
 
     validateQues(value) {
         this.setState({newq: value.length !== 0});
+    }
+
+    validateOpt(value) {
+        this.setState({newo: value.length !== 0});
     }
 
     render() {
@@ -136,16 +154,23 @@ class EditForm extends Component {
                             this.validateQues(value)
                         });
                     }}/>
-                    <select onChange={(event) => {
-                        this.setState({qtype: this.state.qtype.concat(event.target.value)})
-                    }}>
-                        <option value="text" selected>Text</option>
+                    <select ref="qt">
+                        <option value="text" defaultValue>Text</option>
                         <option value="check">Checkbox</option>
                         <option value="radio">Radio</option>
                     </select>
+                    <br/><br/>
+
+                    Enter options:
+                    <input type="text" id="option" ref="opt" onBlur={(event)=>{
+                                             this.setState({options: this.state.options.concat(event.target.value)});}}
+                                             onChange={(event)=>{const value=event.target.value
+                                                        this.setState(() => { this.validateOpt(value) });}}/>
+                    <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
+                    <br/>
+
                     <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
-                            onClick={() => this.nextQuestion()}>Add next question
-                    </button>
+                            onClick={() => this.nextQuestion()}>Save & Add next</button>
                     <br/><br/>
 
                     {

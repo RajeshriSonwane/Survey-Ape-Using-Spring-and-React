@@ -10,13 +10,15 @@ class OpenSurvey extends Component {
     options:[],
     qtype:[],
     formValid:false,
+    endtime: '',
     newq:false,
     newp:false,
     newo:false
   };
 
   createNewSurvey(){
-    var data={title:this.state.surveyTitle,questions:this.state.questions,qtype:this.state.qtype,options:this.state.options};
+    var data={title:this.state.surveyTitle,questions:this.state.questions,
+              qtype:this.state.qtype,options:this.state.options,endtime: this.state.endtime};
         API.createOpen(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
@@ -24,6 +26,8 @@ class OpenSurvey extends Component {
   }
 
   nextQuestion(){
+    this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
+    console.log("ch: "+this.refs.qt.value);
     this.setState({options: this.state.options.concat("BREAK")});
     console.log("q: "+this.state.questions);
     console.log("qt: "+this.state.qtype);
@@ -72,9 +76,8 @@ class OpenSurvey extends Component {
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
           <br/><br/><br/>
 
-          Enter start: <input id="datetime" type="datetime-local" />
-          <br/><br/>
-          Enter end: <input id="datetime" type="datetime-local" />
+          Enter end: <input id="datetime" type="datetime-local"
+                      onChange={(event) => {this.setState({endtime: event.target.value});}}/>
           <br/><br/><br/>
 
           Enter question:
@@ -82,11 +85,12 @@ class OpenSurvey extends Component {
                                    this.setState({questions: this.state.questions.concat(event.target.value)});}}
                                    onChange={(event)=>{const value=event.target.value
                                               this.setState(() => { this.validateQues(value) });}}/>
-          <select onChange={(event)=>{this.setState({qtype: this.state.qtype.concat(event.target.value)});}}>
-          <option value="text" defaultValue>Text</option>
-          <option value="check">Checkbox</option>
-          <option value="radio">Radio</option>
-          </select>
+
+                                              <select ref="qt">
+                                                  <option value="text" defaultValue>Text</option>
+                                                  <option value="check">Checkbox</option>
+                                                  <option value="radio">Radio</option>
+                                              </select>
 
           <br/><br/>
 
@@ -97,7 +101,7 @@ class OpenSurvey extends Component {
                                               this.setState(() => { this.validateOpt(value) });}}/>
           <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
           <br/>
-          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Save & Add next</button>
           <br/><br/><br/>
 
 

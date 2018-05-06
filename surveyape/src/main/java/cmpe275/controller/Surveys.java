@@ -14,7 +14,6 @@ import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
-import cmpe275.repository.SurveyRepository;
 import cmpe275.repository.ParticipantsRepository;
 import cmpe275.service.AnswerService;
 import cmpe275.service.OptionService;
@@ -46,6 +45,7 @@ public class Surveys {
 
 	@Autowired
 	private ParticipantsService participantsService;
+
 	private ParticipantsRepository participantsrepository;
 	
 	@Autowired
@@ -53,6 +53,7 @@ public class Surveys {
 	
 	@Autowired
 	private AnswerService answerService;
+
 
 	@Autowired
 	private SendInvitation sendInvitation;
@@ -72,12 +73,13 @@ public class Surveys {
 		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
+		System.out.println("check len: "+l);
 		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
 			Question newq = questionService.addQuestion(q);
 			if (type[i].equalsIgnoreCase("text") == false) {
-				while (options[temp].equalsIgnoreCase("break") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
 					System.out.println(options[temp] + "  " + newq.getQuestionId());
 					Options o = new Options(options[temp], newq.getQuestionId());
 					optionService.addOption(o);
@@ -88,39 +90,15 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
-
+		System.out.println("check len: "+l);
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			participantsService.addParticipant(pq);
-
-			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
-					+ s1.getSurveyId();
+			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 
 		}
-
-		// for (int i = 0; i < l; i++) {
-		// Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
-		// participantsService.addParticipant(pq);
-		//
-		// String text="Click on the follwing link to give the survey:
-		// http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-		// String subject="Inviation for survey";
-		// try {
-		// sendInvitation.sendEmail(participants[i],subject,text);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		//// String text="Click on the follwing link to give the survey:
-		// http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-		//// String subject="Inviation for survey";
-		//// sendInvitation.sendEmail(participants[i],subject,text);
-		//
-		// }
-
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
@@ -133,11 +111,22 @@ public class Surveys {
 		Survey s = new Survey(uid, ns.getTitle(), 2, 0, 0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
+		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
+		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
-			questionService.addQuestion(q);
+			Question newq =questionService.addQuestion(q);
+			if (type[i].equalsIgnoreCase("text") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
+					System.out.println(options[temp] + "  " + newq.getQuestionId());
+					Options o = new Options(options[temp], newq.getQuestionId());
+					optionService.addOption(o);
+					temp++;
+				}
+			}
+			temp++;
 		}
 		String[] participants = ns.getParticipants();
 		System.out.println("check title: " + ns.getTitle());
@@ -145,9 +134,8 @@ public class Surveys {
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
-			participantsService.addParticipant(pq);
-			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
-					+ s1.getSurveyId() + "&user=12";
+			Participants np=participantsService.addParticipant(pq);
+			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user="+np.getParticipantsId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 		}
@@ -308,16 +296,28 @@ public class Surveys {
 		Survey s = surveyService.getSurvey(surId);
 		String[] questions = ns.getQuestions();
 		String[] type = ns.getQtype();
+		String[] options = ns.getOptions();
 		String[] participants = ns.getParticipants();
 		int l = questions.length;
+		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], surId);
-			questionService.addQuestion(q);
-		}
+			Question newq=questionService.addQuestion(q);
+			if (type[i].equalsIgnoreCase("text") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
+					System.out.println(options[temp] + "  " + newq.getQuestionId());
+					Options o = new Options(options[temp], newq.getQuestionId());
+					optionService.addOption(o);
+					temp++;
+				}
+			}
+			temp++;
+		}	
+		
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], surId, 0);
-			participantsService.addParticipant(pq);
+			Participants np= participantsService.addParticipant(pq);
 			// for general survey
 			if (s.getType() == 1) {
 				String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
@@ -332,8 +332,7 @@ public class Surveys {
 			}
 			// for closed survey
 			else if (s.getType() == 2) {
-				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
-						+ s.getSurveyId() + "&user=12";
+				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId() +"&user="+np.getParticipantsId();
 				String subject = "Inviation for survey";
 				try {
 					sendInvitation.sendEmail(participants[i], subject, text);
@@ -346,7 +345,7 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
-	// get open survey by id
+	// get all open surveys by id
 	@GetMapping(path = "/getOpenSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Iterable<Survey> getOpenSurveys() {
 		List<Survey> res = new ArrayList<Survey>();
@@ -392,15 +391,13 @@ public class Surveys {
 			if (temp.getSurveyId() == id)
 				res.add(temp);
 		}
-		// return res;
-
 		if (res != null)
 			return new ResponseEntity(res, HttpStatus.FOUND);
 		else
 			return new ResponseEntity(res, HttpStatus.FOUND);
-
 	}
 	
+
 	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
 		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
@@ -441,6 +438,9 @@ public class Surveys {
 
 }
 
+
+
+// model for API request
 class Newsurvey {
 	String title;
 	String questions[];
