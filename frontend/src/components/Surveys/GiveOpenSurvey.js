@@ -6,8 +6,10 @@ import 'survey-react/survey.css';
 const queryString = require('query-string');
 
 class GiveOpenSurvey extends Component {
+
     state = {
-        questions: []
+        questions: [],
+        surveyId: ''
     };
 
     componentWillMount() {
@@ -19,7 +21,8 @@ class GiveOpenSurvey extends Component {
                 console.log("giveOpenSurvey CHECK THIS: ", output);
                 if (output) {
                     this.setState({
-                        questions: output.questions
+                        questions: output,
+                        surveyId: parsed.id
                     });
                 } else {
                     console.log("No data");
@@ -30,11 +33,13 @@ class GiveOpenSurvey extends Component {
     render() {
 
         return (
-            <div className="w3-container w3-panel">
+            <div className="w3-container w3-panel" style={{marginLeft: "450px"}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            {this.state.questions}
+                            <h3 style={{marginLeft: "300px"}}>Open Survey - {this.state.surveyId}</h3>
+                            <br/><br/>
+                            {console.log("questions-", this.state.questions)}
                             {this.state.questions.map((question, index) =>
                                 (
                                     <div className="col-xxs-12 col-xs-12 mt">
