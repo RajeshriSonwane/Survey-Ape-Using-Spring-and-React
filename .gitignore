@@ -32,3 +32,5 @@ typings/
 *.properties
 *.class
 *.class
+*.class
+*.MF
