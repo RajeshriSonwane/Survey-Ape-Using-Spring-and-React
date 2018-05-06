@@ -40,6 +40,10 @@ public class Survey {
     //@JoinColumn(name = "post_id");
     private List<Question> questions;
     
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "surveyId")
+    //@JoinColumn(name = "post_id");
+    private List<Response> responses;
+    
     public Survey(){  	
     }
     
@@ -104,6 +108,16 @@ public class Survey {
 	}
 	public void setClosed(Integer closed) {
 		this.closed = closed;
+	}
+
+	public List<Response> getResponses() {
+		return responses;
+	}
+
+	public void setResponses(List<Response> responses) {
+		this.responses = responses;
 	}	
+	
+	
 	
 }

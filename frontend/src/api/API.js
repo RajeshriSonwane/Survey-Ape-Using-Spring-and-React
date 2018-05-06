@@ -363,3 +363,47 @@ export const getOpenSurveyQuestion = (payload, sid) =>
             console.log("This is getOpenSurveyQuestion survey error" + error);
             return error;
         });
+
+
+
+
+/* SURVEY STATS APIs */
+
+// get survey by id
+export const getSurveyDetails = (id) =>
+    fetch(`${api}/getsurveydetails/`+ id, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      //  body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(error => {
+            console.log("This is get open survey error" + error);
+            return error;
+        });
+
+// save response
+export const saveResponse = (payload) =>
+    fetch(`${api}/createResponse`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is create general survey error");
+            return error;
+        });

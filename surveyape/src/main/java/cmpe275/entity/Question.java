@@ -24,7 +24,10 @@ public class Question {
     private Integer surveyId;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionId")
-    private List<Answer> answerss;
+    private List<Answer> answers;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionId")
+    private List<Options> options;
     
     public Question() {
     }
@@ -67,4 +70,23 @@ public class Question {
 		this.type = type;
 	
 	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<Options> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Options> options) {
+		this.options = options;
+	}
+	
+	
+	
 }
