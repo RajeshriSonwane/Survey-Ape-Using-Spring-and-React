@@ -14,9 +14,20 @@ public class Answer {
     private String answer;
     
     private Integer questionId;
+    
+    private Integer responseId;
+    
+    public Answer() {
+    	
+    }
 
-	public Answer(Integer answerId, String answer, Integer questionId) {
-		this.answerId = answerId;
+    public Answer(Integer responseId, Integer questionId) {
+    	this.setResponseId(responseId);
+    	this.questionId = questionId;
+    	
+    }
+	public Answer( Integer responseId, Integer questionId, String answer) {
+		this.setResponseId(responseId);
 		this.answer = answer;
 		this.questionId = questionId;
 	}
@@ -43,6 +54,14 @@ public class Answer {
 
 	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
+	}
+
+	public Integer getResponseId() {
+		return responseId;
+	}
+
+	public void setResponseId(Integer responseId) {
+		this.responseId = responseId;
 	}
     
     

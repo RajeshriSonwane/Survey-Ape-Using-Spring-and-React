@@ -7,6 +7,7 @@ const queryString = require('query-string');
 
 class GiveSurvey extends Component {
     state = {
+        surveyId: '',
         surveyTitle: '',
         questions: [],
         surveyJSON: []
@@ -45,6 +46,33 @@ class GiveSurvey extends Component {
 
     surveySendResult = function (sender) {
         console.log("DONE"+  JSON.stringify(sender.data));
+        console.log(sender.data[0]);
+        var data = {
+            surveyId: this.state.surveyId,
+            questions: [],
+            response: [sender.data]
+        };
+        API.saveResponse(data)
+            .then((output) => {
+                console.log("CHECK THIS: " + output);
+            });
+
+    };
+
+    surveyValueChanged = function (sender, options) {
+        var mySurvey = sender;
+        var questionName = options.name;
+        var newValue = options.value;
+        console.log(questionName + " "+ newValue);
+        var data = {
+            surveyId: this.state.surveyId,
+            questions: options.name,
+            response: [options.value]
+        }
+        API.saveResponse(data)
+            .then((output) => {
+                console.log("CHECK THIS: " + output);
+            });
 
     };
 
@@ -59,6 +87,7 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output) {
+                        this.setState({surveyId: output.surveyId});
                         this.setState({surveyTitle: output.surveyTitle});
                         this.setState({questions: output.questions});
                         this.setState({survey: this.createSurveyJson(output.questions)});
@@ -102,7 +131,7 @@ class GiveSurvey extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <Survey.Survey model={model} onComplete={this.surveySendResult.bind(this)} />
+                            <Survey.Survey model={model} onComplete={this.surveySendResult.bind(this)} onValueChanged={this.surveyValueChanged.bind(this)} />
                         </div>
                     </div>
                 </div>

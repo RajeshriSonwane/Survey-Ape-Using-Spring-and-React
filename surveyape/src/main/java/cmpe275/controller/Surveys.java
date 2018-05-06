@@ -8,15 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import cmpe275.entity.Answer;
 import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
+import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
 import cmpe275.repository.SurveyRepository;
 import cmpe275.repository.ParticipantsRepository;
+import cmpe275.service.AnswerService;
 import cmpe275.service.OptionService;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
+import cmpe275.service.ResponseService;
 import cmpe275.service.SurveyService;
 
 import java.io.IOException;
@@ -43,6 +47,12 @@ public class Surveys {
 	@Autowired
 	private ParticipantsService participantsService;
 	private ParticipantsRepository participantsrepository;
+	
+	@Autowired
+	private ResponseService responseService;
+	
+	@Autowired
+	private AnswerService answerService;
 
 	@Autowired
 	private SendInvitation sendInvitation;
@@ -214,21 +224,14 @@ public class Surveys {
 		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
 		Survey s = surveyService.getSurvey(id);
 		if (s != null && s.getStatus() == 1) {
-			List<Question> q = s.getQuestions();
-
-			for (int i = 0; i < q.size(); i++) {
-				List<Options> o = q.get(i).getOptions();
-				for (int j = 0; j < o.size(); j++) {
-					System.out.println(o.get(j).getQuestionId()+" "+o.get(j).getDescription());
-
-				}
-			}
-
+			
 			return new ResponseEntity(s, HttpStatus.FOUND);
 		}
 
-		else
+		else {
 			return new ResponseEntity(false, HttpStatus.FOUND);
+		}
+			
 
 		// change after sessions
 		// Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
@@ -397,6 +400,45 @@ public class Surveys {
 			return new ResponseEntity(res, HttpStatus.FOUND);
 
 	}
+	
+	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
+		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Integer responseId;
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if(res != null) {
+			System.out.println("FOUND Response");
+			responseId = res.getResponseId();
+		}
+		else {
+			System.out.println("NOT FOUND response");
+			Response r =  new Response(surveyId, uid, true );
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+		}
+		
+		Integer questionId = Integer.parseInt(sr.getQuestions());
+		String[] response = sr.getResponse();
+		List<Answer> ans= answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
+		if(ans == null) {
+			for(String val : response) {
+				Answer a = new Answer(responseId, questionId, val );
+				System.out.println("Response: "+ responseId + " Q: "+ questionId + " A: "+ val );	
+				answerService.addAnswer(a);
+			}
+		}
+		else
+		{
+			
+		}
+		
+		
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
 }
 
 class Newsurvey {
@@ -463,4 +505,31 @@ class Newsurvey {
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
 	}
+}
+
+class SurveyResponse{
+	String surveyId;
+	String questions;
+	String response[];
+	
+	
+	public String getSurveyId() {
+		return surveyId;
+	}
+	public void setSurveyId(String surveyId) {
+		this.surveyId = surveyId;
+	}
+	public String getQuestions() {
+		return questions;
+	}
+	public void setQuestions(String questions) {
+		this.questions = questions;
+	}
+	public String[] getResponse() {
+		return response;
+	}
+	public void setResponse(String[] response) {
+		this.response = response;
+	}
+	
 }
