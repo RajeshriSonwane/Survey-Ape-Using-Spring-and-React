@@ -24,7 +24,10 @@ public class Question {
     private Integer surveyId;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionId")
-    private List<Answer> answerss;
+    private List<Answer> answers;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "questionId")
+    private List<Options> options;
     
     public Question() {
     }

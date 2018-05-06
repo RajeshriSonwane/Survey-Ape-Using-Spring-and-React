@@ -84,7 +84,9 @@ class GiveSurvey extends Component {
                 { type: "comment", name: "suggestions", title:"What would make you more satisfied with the Product?", }
             ]}
         ]};
-
+        Survey
+            .StylesManager
+            .applyTheme("winterstone");
         var model = new Survey.Model(json);
         return (
             <div className="w3-container w3-panel">
