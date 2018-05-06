@@ -12,6 +12,7 @@ import PublishSurvey from './Surveys/PublishSurvey';
 import ListSurvey from './Surveys/ListSurvey';
 import SurveyStats from './Surveys/SurveyStats';
 import FetchOpenSurvey from './Surveys/FetchOpenSurvey';
+import GiveOpenSurvey from './Surveys/GiveOpenSurvey';
 
 class MainPage extends Component {
 
@@ -158,6 +159,7 @@ class MainPage extends Component {
                 <Route exact path="/home/stats" component={() => <SurveyStats data={this.props.email}/>}/>
                 <Route exact path="/FetchOpenSurvey" render={() =>
                     <FetchOpenSurvey islogged={this.state.islogged}/>}/>
+                <Route exact path="/home/giveOpenSurvey" render={() => <GiveOpenSurvey/>}/>
 
             </div>
         );

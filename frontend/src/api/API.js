@@ -188,6 +188,24 @@ export const getGeneral = (payload) =>
             return error;
         });
 
+export const giveOpenSurvey = (payload) =>
+    fetch(`${api}/giveOpenSurvey/` + payload, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        //body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is get giveOpenSurvey error");
+            return error;
+        });
+
 // get general survey by id
 export const getOpenSurveys = (payload) =>
     fetch(`${api}/getOpenSurveys`, {
