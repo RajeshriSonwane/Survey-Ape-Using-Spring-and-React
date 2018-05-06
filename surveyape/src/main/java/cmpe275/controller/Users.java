@@ -14,12 +14,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.mail.javamail.JavaMailSender;
+
 import java.util.List;
 
 import org.json.JSONObject;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000",allowCredentials="true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping(path = "/user")
 public class Users {
 
@@ -28,9 +29,9 @@ public class Users {
 
     @Autowired
     private JavaMailSender sender;
-    
-	@Autowired
-	HttpSession session;
+
+    @Autowired
+    HttpSession session;
 
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,7 +77,7 @@ public class Users {
     @PostMapping(path = "/verifyUser", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> verifyUser(@RequestBody String user) throws JSONException {
         System.out.println("verify Hit");
-            JSONObject jsonObject = new JSONObject(user);
+        JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject.getString("email"));
         System.out.println(jsonObject.getString("password"));
         System.out.println(jsonObject.getString("verificationCode"));
@@ -98,16 +99,31 @@ public class Users {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                User u=userService.getUser(jsonObject.getString("email"));
+                User u = userService.getUser(jsonObject.getString("email"));
                 u.setIsActive("true");
                 userService.addUser(u);
                 return new ResponseEntity(HttpStatus.OK);
-            }
-            else{
+            } else {
                 return new ResponseEntity(HttpStatus.FORBIDDEN);
             }
         }
-    } 
+    }
+
+    @PostMapping(path = "/registerOpenUser", consumes = MediaType.APPLICATION_JSON_VALUE) // Map
+    public ResponseEntity<?> registerOpenUser(@RequestBody String user) {
+        System.out.println("registerOpenUser Hit" + user);
+
+        JSONObject jsonObject = new JSONObject(user);
+        System.out.println(jsonObject.getString("email"));
+        System.out.println(jsonObject.get("surId"));
+
+        try {
+            sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     public void sendEmail(String to, String subject, String text) throws Exception {
         MimeMessage message = sender.createMimeMessage();
@@ -121,7 +137,8 @@ public class Users {
     @PostMapping(value = "/logout")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> logout(HttpSession session) {
-        System.out.println(session.getAttribute("name"));
+        System.out.println("logout hit");
+        System.out.println(session.getAttribute("sess_userid"));
         session.invalidate();
         return new ResponseEntity(HttpStatus.OK);
     }

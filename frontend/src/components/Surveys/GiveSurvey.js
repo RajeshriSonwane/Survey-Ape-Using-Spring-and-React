@@ -36,8 +36,8 @@ class GiveSurvey extends Component {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output) {
                         this.setState({surveyTitle: output.surveyTitle});
-                        this.setState({questions: output.questions });
-                        this.setState({survey: this.createSurveyJson(output.questions) });
+                        this.setState({questions: output.questions});
+                        this.setState({survey: this.createSurveyJson(output.questions)});
                         console.log((this.state));
                     } else {
                         console.log("No data");
@@ -53,14 +53,14 @@ class GiveSurvey extends Component {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output) {
                         this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
-                        this.setState({surveyJSON: this.createSurveyJson() });
+                        this.setState({surveyJSON: this.createSurveyJson()});
                     } else {
                         console.log("No data");
                     }
                 });
         }
+    }
 
-    };
 
     render() {
         var json = { title: this.state.surveyTitle, showProgressBar: "top", pages: [

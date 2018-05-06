@@ -3,28 +3,35 @@ import * as API from '../../api/API';
 //import GiveOpenSurvey from './Surveys/GiveOpenSurvey';
 import {Route, Link, Switch, withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import RegisterForSurvey from './RegisterForSurvey';
 
 const queryString = require('query-string');
 
 class FetchOpenSurvey extends Component {
+    static propTypes = {
+        islogged: PropTypes.bool.isRequired
+    };
 
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
             surveys: [],
             questions: [],
-            visible: false,
             surId: '',
-            surTy: ''
+            surTy: '',
+            islogged: this.props.islogged
         }
         this.giveOSurvey = this.giveOSurvey.bind(this);
+        console.log("construcor islogged =", this.state.islogged);
     }
 
     state = {
         surveys: [],
         visible: false,
         surId: '',
-        surTy: ''
+        surTy: '',
+        islogged: false
     };
 
     componentWillMount() {
@@ -42,10 +49,11 @@ class FetchOpenSurvey extends Component {
     giveOSurvey = (sid, sty) => {
         API.getOpenSurveyQuestion(this.state, sid)
             .then((res) => {
-                console.log("CHECK THIS: " + res);
+                console.log("CHECK THIS: ", res);
                 if (res) {
                     this.setState({
-                        questions: res
+                        questions: res,
+                        surId: sid
                     });
                     console.log("give suevey", this.state.questions);
                 } else {
@@ -53,6 +61,7 @@ class FetchOpenSurvey extends Component {
                 }
             });
     }
+
 
     render() {
         return (
@@ -92,8 +101,10 @@ class FetchOpenSurvey extends Component {
                     })
                     }
                 </div>
-                {this.state.questions.length > 0 &&
-                <GiveOpenSurvey questions={this.state.questions}/>}
+                {this.state.islogged ?
+                    (this.state.questions.length > 0 && <GiveOpenSurvey questions={this.state.questions}/>)
+                    :
+                    (this.state.questions.length > 0 && <RegisterForSurvey surId={this.state.surId}/>)}
             </div>
         );
     }
@@ -123,7 +134,7 @@ class GiveOpenSurvey extends Component {
             <div style={{marginLeft: "800px"}}>
                 <br/><br/><br/><br/><br/>
                 <form>
-                    <h4 style={{marginLeft:"250px"}}>Answer Survey</h4>
+                    <h4 style={{marginLeft: "250px"}}>Answer Survey</h4>
                     <hr/>
 
                     {this.props.questions.length > 0 && this.props.questions.map((question, index) =>
@@ -143,7 +154,7 @@ class GiveOpenSurvey extends Component {
                         ))
                     }
 
-                    <button className="btn btn-info" type="button" style={{marginLeft:"600px"}}>Submit Survey</button>
+                    <button className="btn btn-info" type="button" style={{marginLeft: "600px"}}>Submit Survey</button>
                 </form>
 
             </div>
