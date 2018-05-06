@@ -201,7 +201,7 @@ public class Surveys {
         //change after sessions
 //		Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
         /*
-		if(participantslist!=null) {
+        if(participantslist!=null) {
 		for (int i = 0; i < participantslist.size(); i++) 
 		{
 			//change after sessions
@@ -236,7 +236,6 @@ public class Surveys {
 			*/
 
     }
-
 
     // get closed survey by id
     @GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -357,6 +356,29 @@ public class Surveys {
                 res.add(temp);
         }
         return res;
+    }
+    // get general survey by id
+    @GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
+        System.out.println("give open survey hit");
+        Survey s = surveyService.getSurvey(id);
+        System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
+
+        List<Question> res = new ArrayList<Question>();
+        List<Question> questionList = questionService.getAllQuestions();
+        System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-" + questionList.get(0).getDescription());
+        for (int i = 0; i < questionList.size(); i++) {
+            Question temp = questionList.get(i);
+            if (temp.getSurveyId() == id)
+                res.add(temp);
+        }
+     //   return res;
+
+        if (res != null)
+            return new ResponseEntity(res, HttpStatus.FOUND);
+        else
+            return new ResponseEntity(res, HttpStatus.FOUND);
+
     }
 }
 
