@@ -70,4 +70,23 @@ public class Question {
 		this.type = type;
 	
 	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
+	public List<Options> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<Options> options) {
+		this.options = options;
+	}
+	
+	
+	
 }
