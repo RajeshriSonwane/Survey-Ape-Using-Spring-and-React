@@ -15,7 +15,6 @@ class GeneralSurvey extends Component {
         newq: false,
         newp: false,
         newo: false,
-        starttime: '',
         endtime: ''
     };
 
@@ -23,7 +22,7 @@ class GeneralSurvey extends Component {
         var data = {
             title: this.state.surveyTitle, questions: this.state.questions,
             qtype: this.state.qtype, options: this.state.options,
-            participants: this.state.participants, starttime: this.state.starttime, endtime: this.state.endtime
+            participants: this.state.participants, endtime: this.state.endtime
         };
         API.createGeneral(data)
             .then((output) => {
@@ -96,19 +95,11 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
                                 <br/>
-                                <div class="form-group row">
-                                    <label for="staticStartDate" class="col-sm-2 col-form-label">Enter start: </label>
-                                    <div class="col-sm-10">
-                                        <input id="datetime" type="datetime-local" onChange={(event) => {
-                                            this.setState({starttime: event.target.value});
-                                        }}/>
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
                                     <label for="staticEndDate" class="col-sm-2 col-form-label">Enter end: </label>
                                     <div class="col-sm-10">
-                                        <input id="datetime1" type="datetime-local" onChange={(event) => {
+                                        <input id="datetime" type="datetime-local" onChange={(event) => {
                                             this.setState({endtime: event.target.value});
                                         }}/>
                                     </div>

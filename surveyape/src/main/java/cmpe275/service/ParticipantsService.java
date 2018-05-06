@@ -14,8 +14,8 @@ public class ParticipantsService {
     @Autowired
     private ParticipantsRepository participantsRepository;
     
-    public void addParticipant(Participants p){
-    	participantsRepository.save(p);
+    public Participants addParticipant(Participants p){
+    	return participantsRepository.save(p);
     }
     
     public List<Participants> getAllParticipants() {

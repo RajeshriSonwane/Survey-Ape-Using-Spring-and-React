@@ -12,11 +12,13 @@ class ClosedSurvey extends Component {
         formValid:false,
         qtype:[],
         newq:false,
-        newp:false
+        newp:false,
+        endtime: ''
     };
 
     createNewSurvey(){
-        var data={title:this.state.surveyTitle,questions:this.state.questions,options:this.state.options,qtype:this.state.qtype,participants:this.state.participants};
+        var data={title:this.state.surveyTitle,questions:this.state.questions,endtime:this.state.endtime,
+          options:this.state.options,qtype:this.state.qtype,participants:this.state.participants};
         API.createClosed(data)
             .then((output) => {
                 console.log("CHECK THIS: "+output);
@@ -74,9 +76,9 @@ class ClosedSurvey extends Component {
                                              this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
                     <br/><br/><br/>
 
-                    Enter start: <input id="datetime" type="datetime-local" />
-                    <br/><br/>
-                    Enter end: <input id="datetime" type="datetime-local" />
+
+                    Enter end: <input id="datetime" type="datetime-local" 
+                                onChange={(event) => {this.setState({endtime: event.target.value});}}/>
                     <br/><br/><br/>
 
                     Enter question:

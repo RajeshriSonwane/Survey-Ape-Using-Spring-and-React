@@ -10,13 +10,15 @@ class OpenSurvey extends Component {
     options:[],
     qtype:[],
     formValid:false,
+    endtime: '',
     newq:false,
     newp:false,
     newo:false
   };
 
   createNewSurvey(){
-    var data={title:this.state.surveyTitle,questions:this.state.questions,qtype:this.state.qtype,options:this.state.options};
+    var data={title:this.state.surveyTitle,questions:this.state.questions,
+              qtype:this.state.qtype,options:this.state.options,endtime: this.state.endtime};
         API.createOpen(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
@@ -74,9 +76,8 @@ class OpenSurvey extends Component {
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
           <br/><br/><br/>
 
-          Enter start: <input id="datetime" type="datetime-local" />
-          <br/><br/>
-          Enter end: <input id="datetime" type="datetime-local" />
+          Enter end: <input id="datetime" type="datetime-local"
+                      onChange={(event) => {this.setState({endtime: event.target.value});}}/>
           <br/><br/><br/>
 
           Enter question:

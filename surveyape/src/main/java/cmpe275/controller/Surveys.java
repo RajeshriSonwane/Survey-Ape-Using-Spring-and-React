@@ -12,7 +12,6 @@ import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Survey;
-import cmpe275.repository.SurveyRepository;
 import cmpe275.repository.ParticipantsRepository;
 import cmpe275.service.OptionService;
 import cmpe275.service.ParticipantsService;
@@ -42,7 +41,6 @@ public class Surveys {
 
 	@Autowired
 	private ParticipantsService participantsService;
-	private ParticipantsRepository participantsrepository;
 
 	@Autowired
 	private SendInvitation sendInvitation;
@@ -123,8 +121,8 @@ public class Surveys {
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
-			participantsService.addParticipant(pq);
-			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
+			Participants np=participantsService.addParticipant(pq);
+			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user="+np.getParticipantsId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 		}
@@ -313,7 +311,7 @@ public class Surveys {
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], surId, 0);
-			participantsService.addParticipant(pq);
+			Participants np=participantsService.addParticipant(pq);
 			// for general survey
 			if (s.getType() == 1) {
 				String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
@@ -328,8 +326,7 @@ public class Surveys {
 			}
 			// for closed survey
 			else if (s.getType() == 2) {
-				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
-						+ s.getSurveyId() + "&user=12";
+				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId() +"&user="+np.getParticipantsId();
 				String subject = "Inviation for survey";
 				try {
 					sendInvitation.sendEmail(participants[i], subject, text);
@@ -342,7 +339,7 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
-	// get open survey by id
+	// get all open surveys by id
 	@GetMapping(path = "/getOpenSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Iterable<Survey> getOpenSurveys() {
 		List<Survey> res = new ArrayList<Survey>();
@@ -388,16 +385,17 @@ public class Surveys {
 			if (temp.getSurveyId() == id)
 				res.add(temp);
 		}
-		// return res;
-
 		if (res != null)
 			return new ResponseEntity(res, HttpStatus.FOUND);
 		else
 			return new ResponseEntity(res, HttpStatus.FOUND);
-
 	}
-}
+	
+}//class
 
+
+
+// model for API request
 class Newsurvey {
 	String title;
 	String questions[];
