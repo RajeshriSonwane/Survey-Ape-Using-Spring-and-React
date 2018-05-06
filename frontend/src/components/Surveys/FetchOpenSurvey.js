@@ -37,7 +37,7 @@ class FetchOpenSurvey extends Component {
     componentWillMount() {
         API.getOpenSurveys()
             .then((res) => {
-                console.log("CHECK THIS: " + res[0].questionId + "-" + res[0].description);
+                console.log("CHECK THIS: " ,res);
                 if (res) {
                     this.setState({surveys: res, surId: res.surId});
                 } else {
@@ -90,7 +90,7 @@ class FetchOpenSurvey extends Component {
                                 </div>
                                 <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                                     <button
-                                        onClick={() => this.giveOSurvey(s.surveyId, s.surveyTitle)}>{(s.surveyTitle)}</button>
+                                        onClick={() => this.giveOSurvey(s.surveyId, s.surveyId)}>{(s.surveyTitle)}</button>
                                 </div>
                                 <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
 
@@ -102,7 +102,7 @@ class FetchOpenSurvey extends Component {
                     }
                 </div>
                 {this.state.islogged ?
-                    (this.state.questions.length > 0 && <GiveOpenSurvey questions={this.state.questions}/>)
+                    (this.state.questions.length > 0 && <GiveOpenSurveys questions={this.state.questions}/>)
                     :
                     (this.state.questions.length > 0 && <RegisterForSurvey surId={this.state.surId}/>)}
             </div>
@@ -110,7 +110,7 @@ class FetchOpenSurvey extends Component {
     }
 }
 
-class GiveOpenSurvey extends Component {
+class GiveOpenSurveys extends Component {
     state = {
         questions: []
     };
