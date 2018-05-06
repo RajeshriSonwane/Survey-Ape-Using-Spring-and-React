@@ -62,12 +62,13 @@ public class Surveys {
 		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
+		System.out.println("check len: "+l);
 		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
 			Question newq = questionService.addQuestion(q);
 			if (type[i].equalsIgnoreCase("text") == false) {
-				while (options[temp].equalsIgnoreCase("break") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
 					System.out.println(options[temp] + "  " + newq.getQuestionId());
 					Options o = new Options(options[temp], newq.getQuestionId());
 					optionService.addOption(o);
@@ -78,39 +79,15 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
-
+		System.out.println("check len: "+l);
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			participantsService.addParticipant(pq);
-
-			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
-					+ s1.getSurveyId();
+			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 
 		}
-
-		// for (int i = 0; i < l; i++) {
-		// Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
-		// participantsService.addParticipant(pq);
-		//
-		// String text="Click on the follwing link to give the survey:
-		// http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-		// String subject="Inviation for survey";
-		// try {
-		// sendInvitation.sendEmail(participants[i],subject,text);
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		//// String text="Click on the follwing link to give the survey:
-		// http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-		//// String subject="Inviation for survey";
-		//// sendInvitation.sendEmail(participants[i],subject,text);
-		//
-		// }
-
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
@@ -123,11 +100,22 @@ public class Surveys {
 		Survey s = new Survey(uid, ns.getTitle(), 2, 0, 0);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
+		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
+		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
-			questionService.addQuestion(q);
+			Question newq =questionService.addQuestion(q);
+			if (type[i].equalsIgnoreCase("text") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
+					System.out.println(options[temp] + "  " + newq.getQuestionId());
+					Options o = new Options(options[temp], newq.getQuestionId());
+					optionService.addOption(o);
+					temp++;
+				}
+			}
+			temp++;
 		}
 		String[] participants = ns.getParticipants();
 		System.out.println("check title: " + ns.getTitle());
@@ -136,8 +124,7 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			participantsService.addParticipant(pq);
-			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
-					+ s1.getSurveyId() + "&user=12";
+			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user=12";
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 		}
@@ -305,12 +292,24 @@ public class Surveys {
 		Survey s = surveyService.getSurvey(surId);
 		String[] questions = ns.getQuestions();
 		String[] type = ns.getQtype();
+		String[] options = ns.getOptions();
 		String[] participants = ns.getParticipants();
 		int l = questions.length;
+		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], surId);
-			questionService.addQuestion(q);
-		}
+			Question newq=questionService.addQuestion(q);
+			if (type[i].equalsIgnoreCase("text") == false) {
+				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
+					System.out.println(options[temp] + "  " + newq.getQuestionId());
+					Options o = new Options(options[temp], newq.getQuestionId());
+					optionService.addOption(o);
+					temp++;
+				}
+			}
+			temp++;
+		}	
+		
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], surId, 0);

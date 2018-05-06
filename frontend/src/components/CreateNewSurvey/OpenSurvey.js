@@ -24,6 +24,8 @@ class OpenSurvey extends Component {
   }
 
   nextQuestion(){
+    this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
+    console.log("ch: "+this.refs.qt.value);
     this.setState({options: this.state.options.concat("BREAK")});
     console.log("q: "+this.state.questions);
     console.log("qt: "+this.state.qtype);
@@ -82,11 +84,12 @@ class OpenSurvey extends Component {
                                    this.setState({questions: this.state.questions.concat(event.target.value)});}}
                                    onChange={(event)=>{const value=event.target.value
                                               this.setState(() => { this.validateQues(value) });}}/>
-          <select onChange={(event)=>{this.setState({qtype: this.state.qtype.concat(event.target.value)});}}>
-          <option value="text" defaultValue>Text</option>
-          <option value="check">Checkbox</option>
-          <option value="radio">Radio</option>
-          </select>
+
+                                              <select ref="qt">
+                                                  <option value="text" defaultValue>Text</option>
+                                                  <option value="check">Checkbox</option>
+                                                  <option value="radio">Radio</option>
+                                              </select>
 
           <br/><br/>
 
@@ -97,7 +100,7 @@ class OpenSurvey extends Component {
                                               this.setState(() => { this.validateOpt(value) });}}/>
           <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
           <br/>
-          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Add next question</button>
+          <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Save & Add next</button>
           <br/><br/><br/>
 
 
