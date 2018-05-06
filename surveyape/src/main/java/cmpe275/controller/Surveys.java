@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.MediaType;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import cmpe275.Newsurvey;
 import cmpe275.entity.Answer;
 import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -60,6 +63,10 @@ public class Surveys {
 
 	@Autowired
 	private HttpSession session;
+	
+	
+	
+	/*==================== CREATE SURVEYS ====================*/
 
 	// create general survey
 	@PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -97,7 +104,6 @@ public class Surveys {
 			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
-
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -170,6 +176,10 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	
+	
+	/*==================== UPDATE SURVEYS STATUS ====================*/
+	
 	// publish survey
 	@PostMapping(path = "/publish", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> publishSurvey(@RequestBody Integer id) throws Exception {
@@ -204,6 +214,10 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	
+	
+	/*==================== GET SURVEYS BY ID ====================*/
+	
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
@@ -215,7 +229,6 @@ public class Surveys {
 			
 			return new ResponseEntity(s, HttpStatus.FOUND);
 		}
-
 		else {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 		}
@@ -273,22 +286,53 @@ public class Surveys {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 
 	}
-
-	// get all surveys created by a user
-	@GetMapping(path = "/getallsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Survey> getAllSurveys() {
-		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		System.out.println("Session userid: " + uid);
-		List<Survey> res = new ArrayList<Survey>();
-		List<Survey> surveylist = surveyService.getAllSurveys();
-		for (int i = 0; i < surveylist.size(); i++) {
-			Survey temp = surveylist.get(i);
-			if ((temp.getUserID()).equals(uid))
-				res.add(temp);
-		}
-		return res;
+	
+	// get open questions
+	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Iterable<Question> getOpenSurveyQuestion(@PathVariable Integer id) {
+//		List<Question> res = new ArrayList<Question>();
+//		List<Question> questionList = questionService.getAllQuestions();
+//		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
+//				+ questionList.get(0).getDescription());
+//		for (int i = 0; i < questionList.size(); i++) {
+//			Question temp = questionList.get(i);
+//			if (temp.getSurveyId() == id)
+//				res.add(temp);
+//		}
+//		return res;
+		Survey s = surveyService.getSurvey(id);
+		if (s.getStatus() == 1)
+			return s.getQuestions();//new ResponseEntity(, HttpStatus.FOUND);
+		else
+			return null;
 	}
 
+	// get open survey by id
+	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
+		System.out.println("give open survey hit");
+		Survey s = surveyService.getSurvey(id);
+		System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
+
+		List<Question> res = new ArrayList<Question>();
+		List<Question> questionList = questionService.getAllQuestions();
+		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
+				+ questionList.get(0).getDescription());
+		for (int i = 0; i < questionList.size(); i++) {
+			Question temp = questionList.get(i);
+			if (temp.getSurveyId() == id)
+				res.add(temp);
+		}
+		if (res != null)
+			return new ResponseEntity(res, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(res, HttpStatus.FOUND);
+	}
+	
+	
+
+	/*==================== EDIT CREATION OF SURVEYS ====================*/
+	
 	// edit survey - add questions and participants
 	@PostMapping(path = "/editsurvey/{surId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> editSurvey(@PathVariable Integer surId, @RequestBody Newsurvey ns) throws IOException {
@@ -345,6 +389,25 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	
+	/*==================== OTHERS ====================*/
+	
+	// get all surveys created by a user
+	@GetMapping(path = "/getallsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Iterable<Survey> getAllSurveys() {
+		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + uid);
+		List<Survey> res = new ArrayList<Survey>();
+		List<Survey> surveylist = surveyService.getAllSurveys();
+		for (int i = 0; i < surveylist.size(); i++) {
+			Survey temp = surveylist.get(i);
+			if ((temp.getUserID()).equals(uid))
+				res.add(temp);
+		}
+		return res;
+	}
+	
+	
 	// get all open surveys by id
 	@GetMapping(path = "/getOpenSurveys", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Iterable<Survey> getOpenSurveys() {
@@ -360,44 +423,8 @@ public class Surveys {
 		return res;
 	}
 
-	// get open questions
-	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Question> getOpenSurveyQuestion(@PathVariable Integer id) {
-		List<Question> res = new ArrayList<Question>();
-		List<Question> questionList = questionService.getAllQuestions();
-		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
-				+ questionList.get(0).getDescription());
-		for (int i = 0; i < questionList.size(); i++) {
-			Question temp = questionList.get(i);
-			if (temp.getSurveyId() == id)
-				res.add(temp);
-		}
-		return res;
-	}
-
-	// get general survey by id
-	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
-		System.out.println("give open survey hit");
-		Survey s = surveyService.getSurvey(id);
-		System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
-
-		List<Question> res = new ArrayList<Question>();
-		List<Question> questionList = questionService.getAllQuestions();
-		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
-				+ questionList.get(0).getDescription());
-		for (int i = 0; i < questionList.size(); i++) {
-			Question temp = questionList.get(i);
-			if (temp.getSurveyId() == id)
-				res.add(temp);
-		}
-		if (res != null)
-			return new ResponseEntity(res, HttpStatus.FOUND);
-		else
-			return new ResponseEntity(res, HttpStatus.FOUND);
-	}
 	
-
+	// save responses
 	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
 		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
@@ -432,80 +459,12 @@ public class Surveys {
 			
 		}
 		
-		
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
 }
 
 
-
-// model for API request
-class Newsurvey {
-	String title;
-	String questions[];
-	String options[];
-	String qtype[];
-	String participants[];
-	String starttime;
-	String endtime;
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String[] getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(String[] questions) {
-		this.questions = questions;
-	}
-
-	public String[] getQtype() {
-		return qtype;
-	}
-
-	public void setQtype(String[] qtype) {
-		this.qtype = qtype;
-	}
-
-	public String[] getParticipants() {
-		return participants;
-	}
-
-	public void setParticipants(String[] participants) {
-		this.participants = participants;
-	}
-
-	public String[] getOptions() {
-		return options;
-	}
-
-	public void setOptions(String[] options) {
-		this.options = options;
-	}
-
-	public String getStarttime() {
-		return starttime;
-	}
-
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-
-	public String getEndtime() {
-		return endtime;
-	}
-
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-}
 
 class SurveyResponse{
 	String surveyId;

@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,11 @@ public class StatsController {
         System.out.println("Check invited: "+participants.size());
         
         StatDetails sd;
-        if(survey.getType()==3) // regireterd users
+        
+     
+        if(survey.getType()==3) // registered users
         		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,0,participants.size(),0);
-        else // regireterd users=num of participants
+        else // registered users=num of participants
         		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,0,participants.size(),0);
         	
         if (survey!=null)

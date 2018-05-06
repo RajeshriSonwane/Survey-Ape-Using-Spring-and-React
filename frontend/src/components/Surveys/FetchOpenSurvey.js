@@ -49,7 +49,7 @@ class FetchOpenSurvey extends Component {
     giveOSurvey = (sid, sty) => {
         API.getOpenSurveyQuestion(this.state, sid)
             .then((res) => {
-                console.log("CHECK THIS: ", res);
+                console.log("CHECK retriev: ", res);
                 if (res) {
                     this.setState({
                         questions: res,

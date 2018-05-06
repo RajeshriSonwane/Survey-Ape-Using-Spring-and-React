@@ -356,7 +356,6 @@ export const getOpenSurveyQuestion = (payload, sid) =>
     }).then(res => res.json())
         .then(res => {
             console.log(res);
-            console.log("JSON result -" + +res[0].questionId + "-" + res[0].description);
             return res;
         })
         .catch(error => {
