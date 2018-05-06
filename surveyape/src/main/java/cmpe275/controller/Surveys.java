@@ -49,7 +49,7 @@ public class Surveys {
 
     @Autowired
     private HttpSession session;
-
+    
 
     // create general survey
     @PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -68,7 +68,7 @@ public class Surveys {
             Question q = new Question(questions[i], type[i], s1.getSurveyId());
             Question newq = questionService.addQuestion(q);
             if (type[i].equalsIgnoreCase("text") == false) {
-                while (options[temp].equalsIgnoreCase("break") == false) {
+                while (temp<options.length && options[temp].equalsIgnoreCase("break") == false) {
                     System.out.println(options[temp] + "  " + newq.getQuestionId());
                     Options o = new Options(options[temp], newq.getQuestionId());
                     optionService.addOption(o);
@@ -79,7 +79,6 @@ public class Surveys {
         }
         String[] participants = ns.getParticipants();
         l = participants.length;
-
         for (int i = 0; i < l; i++) {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             participantsService.addParticipant(pq);
@@ -89,26 +88,6 @@ public class Surveys {
             sendInvitation.sendEmail(participants[i], subject, text);
 
         }
-
-//		for (int i = 0; i < l; i++) {
-//			Participants pq = new Participants(participants[i], s1.getSurveyId(),0);
-//			participantsService.addParticipant(pq);
-//
-//			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-//			String subject="Inviation for survey";
-//			try {
-//				sendInvitation.sendEmail(participants[i],subject,text);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//
-////			String text="Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
-////			String subject="Inviation for survey";
-////			sendInvitation.sendEmail(participants[i],subject,text);
-//
-//		}
-
         return new ResponseEntity(1, HttpStatus.CREATED);
     }
 
