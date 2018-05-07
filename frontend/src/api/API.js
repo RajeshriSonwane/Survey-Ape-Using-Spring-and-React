@@ -407,3 +407,22 @@ export const saveResponse = (payload) =>
             console.log("This is create general survey error");
             return error;
         });
+
+// save complete survey
+export const saveSurvey = (payload) =>
+    fetch(`${api}/completeResponse`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is create general survey error");
+            return error;
+        });

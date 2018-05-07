@@ -412,7 +412,7 @@ public class Surveys {
 		}
 		else {
 			System.out.println("NOT FOUND response");
-			Response r =  new Response(surveyId, uid, true );
+			Response r =  new Response(surveyId, uid, false );
 			Response r1 = responseService.addResponse(r);
 			responseId = r1.getResponseId();
 		}
@@ -433,6 +433,22 @@ public class Surveys {
 		}
 		
 		
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+	
+	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
+		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if(res != null) {
+			System.out.println("FOUND Response");
+			res.setCompletedStatus(true);
+			responseService.saveResponse(res);
+		}
+			
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 

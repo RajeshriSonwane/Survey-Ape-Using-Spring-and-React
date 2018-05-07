@@ -107,7 +107,7 @@ class GeneralSurvey extends Component {
                                 <br/><br/><br/>
                                 <div class="form-group row">
                                     <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-2">
                                         <input type="text" id="question" ref="ques" onBlur={(event) => {
                                             this.setState({questions: this.state.questions.concat(event.target.value)});
                                         }}
@@ -117,10 +117,13 @@ class GeneralSurvey extends Component {
                                                        this.validateQues(value)
                                                    });
                                                }}/>
+                                    </div>
+                                    <div class="col-sm-8">
                                         <select ref="qt">
                                             <option value="text" defaultValue>Text</option>
-                                            <option value="check">Checkbox</option>
-                                            <option value="radio">Radio</option>
+                                            <option value="checkbox">Checkbox</option>
+                                            <option value="radiogroup">Radio</option>
+                                            <option value="comment">Text Area</option>
                                         </select>
 
                                     </div>
@@ -128,7 +131,7 @@ class GeneralSurvey extends Component {
 
                                 <div class="form-group row">
                                     <label for="staticEndDate" class="col-sm-2 col-form-label">Enter options:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-2">
                                         <input type="text" id="option" ref="opt" onBlur={(event) => {
                                             this.setState({options: this.state.options.concat(event.target.value)});
                                         }}
@@ -138,6 +141,8 @@ class GeneralSurvey extends Component {
                                                        this.validateOpt(value)
                                                    });
                                                }}/>
+                                    </div>
+                                    <div class="col-sm-8">
                                         <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextOption()}>Add next option
                                         </button>

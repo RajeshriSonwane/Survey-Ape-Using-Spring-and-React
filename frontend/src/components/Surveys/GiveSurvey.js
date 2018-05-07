@@ -45,14 +45,11 @@ class GiveSurvey extends Component {
     }
 
     surveySendResult = function (sender) {
-        console.log("DONE"+  JSON.stringify(sender.data));
-        console.log(sender.data[0]);
+
         var data = {
-            surveyId: this.state.surveyId,
-            questions: [],
-            response: [sender.data]
+            surveyId: this.state.surveyId
         };
-        API.saveResponse(data)
+        API.saveSurvey(data)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
             });
