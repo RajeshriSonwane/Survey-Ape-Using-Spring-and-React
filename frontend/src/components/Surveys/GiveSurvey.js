@@ -105,8 +105,9 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output) {
+                        this.setState({surveyId: output.surveyId});
                         this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
-                        this.setState({surveyJSON: this.createSurveyJson()});
+                        this.setState({survey: this.createSurveyJson(output.questions)});
                     } else {
                         console.log("No data");
                     }

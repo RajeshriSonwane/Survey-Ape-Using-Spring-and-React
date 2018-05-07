@@ -3,7 +3,9 @@ package cmpe275.controller;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import cmpe275.entity.Guest;
 import cmpe275.entity.User;
+import cmpe275.service.GuestService;
 import cmpe275.service.UserService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class Users {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private GuestService guestService;
 
     @Autowired
     private JavaMailSender sender;
@@ -116,6 +121,8 @@ public class Users {
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject.getString("email"));
         System.out.println(jsonObject.get("surId"));
+        Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()));
+        guestService.addGuest(ng);
 
         try {
             sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId"));

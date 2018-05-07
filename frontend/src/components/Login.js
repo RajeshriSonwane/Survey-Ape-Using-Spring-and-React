@@ -135,11 +135,7 @@ class Login extends Component {
                                                                onChange={this.handleUserInput}/>
 
                                                     </div>
-                                                    <div className="form-group text-center">
-                                                        <input type="checkbox" tabindex="3" className="" name="remember"
-                                                               id="remember"/>
-                                                        <label for="remember"> Remember Me</label>
-                                                    </div>
+                                                    
                                                     <div className="form-group">
                                                         <div className="row">
                                                             <div className="col-sm-6 col-sm-offset-3">
@@ -153,17 +149,7 @@ class Login extends Component {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="form-group">
-                                                        <div className="row">
-                                                            <div className="col-lg-12">
-                                                                <div className="text-center">
-                                                                    <a href="https://phpoll.com/recover"
-                                                                       tabindex="5"
-                                                                       className="forgot-password">Forgot Password?</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                     <br/><br/> <h5 style={{color: 'Red',textAlign:'center'}}>{this.props.message}</h5>
                                                     <div className="panel panel-default">
                                                         <FormErrors formErrors={this.state.formErrors}/>

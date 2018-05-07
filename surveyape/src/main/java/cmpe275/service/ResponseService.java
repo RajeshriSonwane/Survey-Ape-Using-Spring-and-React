@@ -1,5 +1,7 @@
 package cmpe275.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,9 @@ public class ResponseService {
     
     public Response getResponseBySurveyIdAndUserId(Integer surveyId, Integer userId) {
     	return responseRepository.findBySurveyIdAndUserId(surveyId, userId);
+    }
+    
+    public List<Response> responsesBySurveyId(Integer surveyId){
+    	return responseRepository.findBySurveyId(surveyId);
     }
 }

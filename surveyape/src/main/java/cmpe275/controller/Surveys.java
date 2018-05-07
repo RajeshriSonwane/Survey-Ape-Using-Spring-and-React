@@ -289,7 +289,7 @@ public class Surveys {
 	
 	// get open questions
 	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Question> getOpenSurveyQuestion(@PathVariable Integer id) {
+	public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
 //		List<Question> res = new ArrayList<Question>();
 //		List<Question> questionList = questionService.getAllQuestions();
 //		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
@@ -302,31 +302,35 @@ public class Surveys {
 //		return res;
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
-			return s.getQuestions();//new ResponseEntity(, HttpStatus.FOUND);
+			return new ResponseEntity(s, HttpStatus.FOUND);
 		else
-			return null;
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
 	// get open survey by id
 	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
-		System.out.println("give open survey hit");
+//		Survey s = surveyService.getSurvey(id);
+//		System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
+//
+//		List<Question> res = new ArrayList<Question>();
+//		List<Question> questionList = questionService.getAllQuestions();
+//		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
+//				+ questionList.get(0).getDescription());
+//		for (int i = 0; i < questionList.size(); i++) {
+//			Question temp = questionList.get(i);
+//			if (temp.getSurveyId() == id)
+//				res.add(temp);
+//		}
+//		if (res != null)
+//			return new ResponseEntity(res, HttpStatus.FOUND);
+//		else
+//			return new ResponseEntity(res, HttpStatus.FOUND);
 		Survey s = surveyService.getSurvey(id);
-		System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
-
-		List<Question> res = new ArrayList<Question>();
-		List<Question> questionList = questionService.getAllQuestions();
-		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
-				+ questionList.get(0).getDescription());
-		for (int i = 0; i < questionList.size(); i++) {
-			Question temp = questionList.get(i);
-			if (temp.getSurveyId() == id)
-				res.add(temp);
-		}
-		if (res != null)
-			return new ResponseEntity(res, HttpStatus.FOUND);
+		if (s.getStatus() == 1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
 		else
-			return new ResponseEntity(res, HttpStatus.FOUND);
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 	
 	
@@ -390,6 +394,62 @@ public class Surveys {
 	}
 
 	
+
+
+	/*==================== SAVE RESPONSES ====================*/
+	
+	// save responses for general and closed
+	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
+		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Integer responseId;
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if(res != null) {
+			System.out.println("FOUND Response");
+			responseId = res.getResponseId();
+		}
+		else {
+			System.out.println("NOT FOUND response");
+			Response r =  new Response(surveyId, uid, true );
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+		}
+		
+		Integer questionId = Integer.parseInt(sr.getQuestions());
+		String[] response = sr.getResponse();
+		List<Answer> ans= answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
+		System.out.println("ans"+ans);
+		if(ans.size()==0) {
+			System.out.println("inside if: "+response[0]);
+			for(String val : response) {
+				Answer a = new Answer(responseId, questionId, val );
+				System.out.println("Response: "+ responseId + " Q: "+ questionId + " A: "+ val );	
+				answerService.addAnswer(a);
+			}
+		}
+		else
+		{
+			
+		}
+		
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+	
+	// save responses for open
+	@PostMapping(path = "/createOpenResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createOpenResponse(@RequestBody SurveyResponse sr) throws Exception {
+		System.out.println("Response closed! "+ sr);
+		return new ResponseEntity(1, HttpStatus.CREATED);
+		}
+	
+	
+	
+	
+	
+	
 	/*==================== OTHERS ====================*/
 	
 	// get all surveys created by a user
@@ -423,46 +483,7 @@ public class Surveys {
 		return res;
 	}
 
-	
-	// save responses
-	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
-		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Integer uid = 1;
-		Integer surveyId = Integer.parseInt(sr.getSurveyId());
-		Integer responseId;
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
-		if(res != null) {
-			System.out.println("FOUND Response");
-			responseId = res.getResponseId();
-		}
-		else {
-			System.out.println("NOT FOUND response");
-			Response r =  new Response(surveyId, uid, true );
-			Response r1 = responseService.addResponse(r);
-			responseId = r1.getResponseId();
-		}
-		
-		Integer questionId = Integer.parseInt(sr.getQuestions());
-		String[] response = sr.getResponse();
-		List<Answer> ans= answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
-		if(ans == null) {
-			for(String val : response) {
-				Answer a = new Answer(responseId, questionId, val );
-				System.out.println("Response: "+ responseId + " Q: "+ questionId + " A: "+ val );	
-				answerService.addAnswer(a);
-			}
-		}
-		else
-		{
-			
-		}
-		
-		return new ResponseEntity(1, HttpStatus.CREATED);
-	}
-
-}
+} //class
 
 
 
