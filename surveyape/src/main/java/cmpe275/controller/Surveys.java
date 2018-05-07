@@ -410,18 +410,19 @@ public class Surveys {
 		}
 
 		Integer questionId = Integer.parseInt(sr.getQuestions());
-		String[] response = sr.getResponse();
+		String response = sr.getResponse();
 		List<Answer> ans = answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
-		System.out.println("ans" + ans);
+		
 		if (ans.size() == 0) {
-			System.out.println("inside if: " + response[0]);
-			for (String val : response) {
-				Answer a = new Answer(responseId, questionId, val);
-				System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val);
-				answerService.addAnswer(a);
-			}
+			System.out.println(response);
+				String[] arrayRes =  response.split(",");
+				for(String val : arrayRes) {
+					System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val);
+					Answer a = new Answer(responseId, questionId, val);
+					answerService.addAnswer(a);
+				}
 		} else {
-
+			System.out.println("Im here");
 		}
 
 		return new ResponseEntity(1, HttpStatus.CREATED);
@@ -485,63 +486,12 @@ public class Surveys {
 
 }
 
-// model for API request
-class Newsurvey {
-	String title;
-	String questions[];
-	String options[];
-	String qtype[];
-	String participants[];
-	String starttime;
-	String endtime;
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String[] getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(String[] questions) {
-		this.questions = questions;
-	}
-
-	public String[] getQtype() {
-		return qtype;
-	}
-
-	public void setQtype(String[] qtype) {
-		this.qtype = qtype;
-	}
-
-	public String[] getParticipants() {
-		return participants;
-	}
-
-	public void setParticipants(String[] participants) {
-		this.participants = participants;
-	}
-
-	public String[] getOptions() {
-		return options;
-	}
-
-	public void setOptions(String[] options) {
-		this.options = options;
-
-	} // class
-
-}
 
 class SurveyResponse {
 	String surveyId;
 	String questions;
-	String response[];
+	String response;
 
 	public String getSurveyId() {
 		return surveyId;
@@ -559,11 +509,11 @@ class SurveyResponse {
 		this.questions = questions;
 	}
 
-	public String[] getResponse() {
+	public String getResponse() {
 		return response;
 	}
 
-	public void setResponse(String[] response) {
+	public void setResponse(String response) {
 		this.response = response;
 	}
 

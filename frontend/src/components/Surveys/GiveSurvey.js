@@ -64,7 +64,7 @@ class GiveSurvey extends Component {
         var data = {
             surveyId: this.state.surveyId,
             questions: options.name,
-            response: [options.value]
+            response: options.value.toString()
         }
         API.saveResponse(data)
             .then((output) => {

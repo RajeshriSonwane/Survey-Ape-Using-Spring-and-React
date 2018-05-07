@@ -1,5 +1,4 @@
 cmpe275\repository\ResponseRepository.class
-cmpe275\controller\Newsurvey.class
 cmpe275\repository\SurveyRepository.class
 cmpe275\StatDetails.class
 cmpe275\entity\Survey.class
@@ -8,14 +7,18 @@ cmpe275\entity\Question.class
 cmpe275\service\OptionService.class
 cmpe275\controller\SurveyResponse.class
 cmpe275\repository\AnswerRepository.class
+cmpe275\service\GuestService.class
 cmpe275\controller\StatsController.class
 cmpe275\controller\SendInvitation.class
 cmpe275\repository\UserRepository.class
 cmpe275\service\UserService.class
+cmpe275\Newsurvey.class
+cmpe275\entity\Guest.class
 cmpe275\entity\Options.class
 cmpe275\entity\Response.class
 cmpe275\controller\Surveys.class
 cmpe275\entity\User.class
+cmpe275\repository\GuestRepository.class
 cmpe275\entity\Answer.class
 cmpe275\service\SurveyService.class
 cmpe275\service\QuestionService.class
