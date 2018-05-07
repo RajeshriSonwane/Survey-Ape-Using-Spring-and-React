@@ -84,9 +84,9 @@ class GeneralSurvey extends Component {
                             <h3 align="center">Create General Survey</h3>
 <br/><br/>
                             <form>
-                                <div class="form-group row">
-                                    <label for="staticSurveyTitle" class="col-sm-2 col-form-label">Survey Title: </label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticSurveyTitle" className="col-sm-2 col-form-label">Survey Title: </label>
+                                    <div className="col-sm-10">
                                         <input type="text" id="surveytitle" onChange={(event) => {
                                             const value = event.target.value
                                             this.setState({surveyTitle: event.target.value}, () => {
@@ -97,9 +97,9 @@ class GeneralSurvey extends Component {
                                 </div>
                                 <br/>
 
-                                <div class="form-group row">
-                                    <label for="staticEndDate" class="col-sm-2 col-form-label">Enter end: </label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter end: </label>
+                                    <div className="col-sm-10">
                                         <input id="datetime" type="datetime-local" onChange={(event) => {
                                             this.setState({endtime: event.target.value});
                                         }}/>
@@ -107,9 +107,9 @@ class GeneralSurvey extends Component {
                                 </div>
                                 <br/><br/>
 
-                                <div class="form-group row">
-                                    <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
-                                    <div class="col-sm-2">
+                                <div className="form-group row">
+                                    <label for="staticQuest" className="col-sm-2 col-form-label">Enter question:</label>
+                                    <div className="col-sm-2">
                                         <input type="text" id="question" ref="ques" onBlur={(event) => {
                                             this.setState({questions: this.state.questions.concat(event.target.value)});
                                         }}
@@ -120,7 +120,7 @@ class GeneralSurvey extends Component {
                                                    });
                                                }}/>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div className="col-sm-8">
                                         <select ref="qt">
                                             <option value="text" defaultValue>Text</option>
                                             <option value="checkbox">Checkbox</option>
@@ -131,9 +131,9 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="staticEndDate" class="col-sm-2 col-form-label">Enter options:</label>
-                                    <div class="col-sm-2">
+                                <div className="form-group row">
+                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter options:</label>
+                                    <div className="col-sm-2">
                                         <input type="text" id="option" ref="opt" onBlur={(event) => {
                                             this.setState({options: this.state.options.concat(event.target.value)});
                                         }}
@@ -144,7 +144,7 @@ class GeneralSurvey extends Component {
                                                    });
                                                }}/>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div className="col-sm-8">
                                         <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextOption()}>Add next option
                                         </button>
@@ -152,9 +152,9 @@ class GeneralSurvey extends Component {
                                 </div>
 
 
-                                <div class="form-group row">
-                                    <label for="staticButton" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-10">
                                         <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextQuestion()}>Save & Add next
                                         </button>
@@ -163,9 +163,9 @@ class GeneralSurvey extends Component {
 
                                 <br/><br/>
 
-                                <div class="form-group row">
-                                    <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticParticipant" className="col-sm-2 col-form-label">Enter Participant:</label>
+                                    <div className="col-sm-10">
 
                                         <input type="text" id="users" ref="users" onInput={(event) => {
                                             this.setState({participants: this.state.participants.concat(event.target.value)});
@@ -178,18 +178,18 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="staticButton" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-10">
                                         <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextUser()}>Add next participant
                                         </button>
                                     </div>
                                 </div>
 <br/>
-                                <div class="form-group row">
-                                    <label for="staticButton" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-10">
                                         <button disabled={!this.state.formValid} className="btn btn-info" type="button"
                                                 onClick={() => this.createNewSurvey(this.state)}>Save Survey
                                         </button>

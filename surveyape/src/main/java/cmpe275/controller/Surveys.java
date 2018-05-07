@@ -48,8 +48,6 @@ public class Surveys {
 	@Autowired
 	private ParticipantsService participantsService;
 
-	private ParticipantsRepository participantsrepository;
-
 	@Autowired
 	private ResponseService responseService;
 

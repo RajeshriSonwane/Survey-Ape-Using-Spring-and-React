@@ -40,10 +40,6 @@ public class StatsController {
 	@Autowired
 	private GuestService guestService;
 	
-
-//	numParticipants;submissions;
-//	invited;registered;
-	
 	
     @GetMapping(path = "/getsurveydetails/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSurveyDetails(@PathVariable Integer id) {
@@ -57,17 +53,31 @@ public class StatsController {
         
         List<Response> responses=responseService.responsesBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
+        int count=0;
+        for(int i=0;i<responses.size();i++) {
+        	if(responses.get(i).isCompletedStatus()==true)
+        		count++;
+        }
+        
+        int numpar=responses.size();
+        int submissions=responses.size()-count;
+        int invited=participants.size();
         
         List<Guest> guests=guestService.guestBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
+        int reg=numpar-guests.size();
         
-        StatDetails sd;
+        String dist="";
+       // create JSON of answer distribution [{"question": '', "options": [], "answers": []]}
         
+        
+        StatDetails sd;       
      
         if(survey.getType()==3) // registered users
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
-        else // registered users=num of participants
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions,guests.size(),reg,dist);
+        
+        else // general, closed - registered users=num of participants
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions, invited, numpar,dist);
         	
         if (survey!=null)
             return new ResponseEntity(sd, HttpStatus.FOUND);
