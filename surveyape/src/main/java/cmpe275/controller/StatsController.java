@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import cmpe275.StatDetails;
+import cmpe275.entity.Guest;
 import cmpe275.entity.Participants;
+import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
+import cmpe275.service.GuestService;
 import cmpe275.service.ParticipantsService;
+import cmpe275.service.ResponseService;
 import cmpe275.service.SurveyService;
 
 
@@ -31,9 +34,20 @@ public class StatsController {
 	@Autowired
 	private ParticipantsService participantsService;
 	
+	@Autowired
+	private ResponseService responseService;
+	
+	@Autowired
+	private GuestService guestService;
+	
+
+//	numParticipants;submissions;
+//	invited;registered;
+	
+	
     @GetMapping(path = "/getsurveydetails/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSurveyDetails(@PathVariable Integer id) {
-    	    System.out.println("Check: "+id);
+    	    System.out.println("Stat surveyid: "+id);
     	    
         Survey survey = surveyService.getSurvey(id);
         System.out.println("Check title: "+survey.getSurveyTitle());
@@ -41,11 +55,19 @@ public class StatsController {
         List<Participants> participants=participantsService.getAllParticipantsBySurveryId(id);
         System.out.println("Check invited: "+participants.size());
         
+        List<Response> responses=responseService.responsesBySurveyId(id);
+        System.out.println("Check subm: "+responses.size());
+        
+        List<Guest> guests=guestService.guestBySurveyId(id);
+        System.out.println("Check subm: "+responses.size());
+        
         StatDetails sd;
-        if(survey.getType()==3) // regireterd users
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,0,participants.size(),0);
-        else // regireterd users=num of participants
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,0,participants.size(),0);
+        
+     
+        if(survey.getType()==3) // registered users
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
+        else // registered users=num of participants
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
         	
         if (survey!=null)
             return new ResponseEntity(sd, HttpStatus.FOUND);

@@ -42,6 +42,7 @@ export const checklogin = (payload) =>
             return error;
         });
 
+//verify user account
 export const verifyUser = (payload) =>
     fetch(`${api}/user/verifyUser`, {
         method: 'POST',
@@ -60,6 +61,7 @@ export const verifyUser = (payload) =>
             return error;
         });
 
+
 export const registerUser = (payload) =>
     fetch(`${api}/user/registerUser`, {
         method: 'POST',
@@ -77,6 +79,7 @@ export const registerUser = (payload) =>
             return error;
         });
 
+//register user for open survey
 export const registerOpenUser = (payload) =>
     fetch(`${api}/user/registerOpenUser`, {
         method: 'POST',
@@ -150,6 +153,7 @@ export const createClosed = (payload) =>
             return error;
         });
 
+// create open survey
 export const createOpen = (payload) =>
     fetch(`${api}/createopen`, {
         method: 'POST',
@@ -188,6 +192,27 @@ export const getGeneral = (payload) =>
             return error;
         });
 
+
+// get closed survey by survey id and user
+export const getClosed = (sid, uid) =>
+fetch(`${api}/getsurvey/` + sid + "?user=" + uid, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include',
+  //body: JSON.stringify(payload)
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
+  return error;
+});
+
+
 export const giveOpenSurvey = (payload) =>
     fetch(`${api}/giveOpenSurvey/` + payload, {
         method: 'GET',
@@ -199,6 +224,7 @@ export const giveOpenSurvey = (payload) =>
         //body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
+          console.log(res);
             return res;
         })
         .catch(error => {
@@ -227,24 +253,7 @@ export const getOpenSurveys = (payload) =>
         });
 
 
-// get closed survey by survey id and user
-export const getClosed = (sid, uid) =>
-    fetch(`${api}/getsurvey/` + sid + "?user=" + uid, {
-        method: 'GET',
-        headers: {
-            ...headers,
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        //body: JSON.stringify(payload)
-    }).then(res => res.json())
-        .then(res => {
-            return res;
-        })
-        .catch(error => {
-            console.log("This is get survey error");
-            return error;
-        });
+
 
 
 // publish survey
@@ -356,7 +365,6 @@ export const getOpenSurveyQuestion = (payload, sid) =>
     }).then(res => res.json())
         .then(res => {
             console.log(res);
-            console.log("JSON result -" + +res[0].questionId + "-" + res[0].description);
             return res;
         })
         .catch(error => {
@@ -389,9 +397,28 @@ export const getSurveyDetails = (id) =>
             return error;
         });
 
-// save response
+// save response - general & closed survey
 export const saveResponse = (payload) =>
     fetch(`${api}/createResponse`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is create general survey error");
+            return error;
+});
+
+// save response - open survey
+export const saveOpenResponse = (payload) =>
+    fetch(`${api}/createOpenResponse`, {
         method: 'POST',
         headers: {
             ...headers,

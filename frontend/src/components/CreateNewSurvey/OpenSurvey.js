@@ -22,6 +22,7 @@ class OpenSurvey extends Component {
         API.createOpen(data)
             .then((output) => {
               console.log("CHECK THIS: "+output);
+              alert("Survey created!");
             });
   }
 
@@ -67,20 +68,34 @@ class OpenSurvey extends Component {
     render() {
         return (
           <div className="w3-container">
-          <br/><br/>
-
-          <h3 align="center">Create Open Survey</h3>
-
+              <br/><br/><br/>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-12">
+                          <h3 align="center">Create Open Survey</h3>
+                          <br/><br/>
           <form>
-          Survey Title: <input type="text" id="surveytitle" onChange={(event)=>{const value=event.target.value
+          <div class="form-group row">
+              <label for="staticSurveyTitle" class="col-sm-2 col-form-label">Survey Title: </label>
+              <div class="col-sm-10">
+              <input type="text" id="surveytitle" onChange={(event)=>{const value=event.target.value
                                    this.setState({surveyTitle: event.target.value}, () => { this.validateField(value) });}}/>
-          <br/><br/><br/>
+                                   </div>
+                               </div>
+                               <br/>
 
-          Enter end: <input id="datetime" type="datetime-local"
+                               <div class="form-group row">
+                                   <label for="staticEndDate" class="col-sm-2 col-form-label">Enter end: </label>
+                                   <div class="col-sm-10">
+          <input id="datetime" type="datetime-local"
                       onChange={(event) => {this.setState({endtime: event.target.value});}}/>
-          <br/><br/><br/>
+                      </div>
+                  </div>
+                  <br/><br/>
 
-          Enter question:
+                  <div class="form-group row">
+                      <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
+                      <div class="col-sm-10">
           <input type="text" id="question" ref="ques" onBlur={(event)=>{
                                    this.setState({questions: this.state.questions.concat(event.target.value)});}}
                                    onChange={(event)=>{const value=event.target.value
@@ -88,27 +103,46 @@ class OpenSurvey extends Component {
 
                                               <select ref="qt">
                                                   <option value="text" defaultValue>Text</option>
-                                                  <option value="check">Checkbox</option>
-                                                  <option value="radio">Radio</option>
+                                                  <option value="checkbox">Checkbox</option>
+                                                  <option value="radiogroup">Radio</option>
                                               </select>
 
-          <br/><br/>
+                                          </div>
+                                      </div>
 
-          Enter options:
+                                      <div class="form-group row">
+                                          <label for="staticEndDate" class="col-sm-2 col-form-label">Enter options:</label>
+                                          <div class="col-sm-10">
           <input type="text" id="option" ref="opt" onBlur={(event)=>{
                                    this.setState({options: this.state.options.concat(event.target.value)});}}
                                    onChange={(event)=>{const value=event.target.value
                                               this.setState(() => { this.validateOpt(value) });}}/>
-          <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
-          <br/>
+          <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button"
+                        onClick={() => this.nextOption()}>Add next option</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="staticButton" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
           <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button" onClick={() => this.nextQuestion()}>Save & Add next</button>
-          <br/><br/><br/>
+          </div>
+      </div>
 
+      <br/>
+      <div class="form-group row">
+          <label for="staticButton" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+          <button disabled={!this.state.formValid} className="btn btn-info" type="button"
+          onClick={() => this.createNewSurvey(this.state)}>Save Survey</button>
+          </div>
+      </div>
 
-          Save Survey: <button disabled={!this.state.formValid} className="btn btn-info" type="button" onClick={() => this.createNewSurvey(this.state)}>Save</button>
-          </form>
-
-         </div>
+  </form>
+</div>
+</div>
+</div>
+</div>
         );
     }
 }

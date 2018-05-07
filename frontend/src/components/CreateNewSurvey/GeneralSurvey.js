@@ -27,6 +27,7 @@ class GeneralSurvey extends Component {
         API.createGeneral(data)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
+                alert("Survey created!");
             });
     }
 
@@ -76,12 +77,12 @@ class GeneralSurvey extends Component {
     render() {
         return (
             <div className="w3-container">
-                <br/><br/>
+                <br/><br/><br/>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
                             <h3 align="center">Create General Survey</h3>
-
+<br/><br/>
                             <form>
                                 <div class="form-group row">
                                     <label for="staticSurveyTitle" class="col-sm-2 col-form-label">Survey Title: </label>
@@ -104,7 +105,8 @@ class GeneralSurvey extends Component {
                                         }}/>
                                     </div>
                                 </div>
-                                <br/><br/><br/>
+                                <br/><br/>
+
                                 <div class="form-group row">
                                     <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
                                     <div class="col-sm-2">
@@ -150,8 +152,6 @@ class GeneralSurvey extends Component {
                                 </div>
 
 
-                                <br/>
-
                                 <div class="form-group row">
                                     <label for="staticButton" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
@@ -161,7 +161,7 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
 
-                                <br/><br/><br/>
+                                <br/><br/>
 
                                 <div class="form-group row">
                                     <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
@@ -186,7 +186,7 @@ class GeneralSurvey extends Component {
                                         </button>
                                     </div>
                                 </div>
-
+<br/>
                                 <div class="form-group row">
                                     <label for="staticButton" class="col-sm-2 col-form-label"></label>
                                     <div class="col-sm-10">
@@ -195,8 +195,6 @@ class GeneralSurvey extends Component {
                                         </button>
                                     </div>
                                 </div>
-
-                                <br/><br/><br/>
 
 
                             </form>

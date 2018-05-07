@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.MediaType;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import cmpe275.Newsurvey;
 import cmpe275.entity.Answer;
 import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
@@ -47,19 +49,20 @@ public class Surveys {
 	private ParticipantsService participantsService;
 
 	private ParticipantsRepository participantsrepository;
-	
+
 	@Autowired
 	private ResponseService responseService;
-	
+
 	@Autowired
 	private AnswerService answerService;
-
 
 	@Autowired
 	private SendInvitation sendInvitation;
 
 	@Autowired
 	private HttpSession session;
+
+	/* ==================== CREATE SURVEYS ==================== */
 
 	// create general survey
 	@PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +76,7 @@ public class Surveys {
 		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
 		int l = questions.length;
-		System.out.println("check len: "+l);
+		System.out.println("check len: " + l);
 		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
@@ -90,14 +93,14 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		l = participants.length;
-		System.out.println("check len: "+l);
+		System.out.println("check len: " + l);
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			participantsService.addParticipant(pq);
-			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId();
+			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
+					+ s1.getSurveyId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
-
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
@@ -117,7 +120,7 @@ public class Surveys {
 		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], s1.getSurveyId());
-			Question newq =questionService.addQuestion(q);
+			Question newq = questionService.addQuestion(q);
 			if (type[i].equalsIgnoreCase("text") == false) {
 				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
 					System.out.println(options[temp] + "  " + newq.getQuestionId());
@@ -134,8 +137,9 @@ public class Surveys {
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
-			Participants np=participantsService.addParticipant(pq);
-			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s1.getSurveyId()+"&user="+np.getParticipantsId();
+			Participants np = participantsService.addParticipant(pq);
+			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
+					+ s1.getSurveyId() + "&user=" + np.getParticipantsId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 		}
@@ -169,6 +173,8 @@ public class Surveys {
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
+
+	/* ==================== UPDATE SURVEYS STATUS ==================== */
 
 	// publish survey
 	@PostMapping(path = "/publish", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -204,6 +210,8 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	/* ==================== GET SURVEYS BY ID ==================== */
+
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
@@ -212,14 +220,11 @@ public class Surveys {
 		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
 		Survey s = surveyService.getSurvey(id);
 		if (s != null && s.getStatus() == 1) {
-			
-			return new ResponseEntity(s, HttpStatus.FOUND);
-		}
 
-		else {
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		} else {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 		}
-			
 
 		// change after sessions
 		// Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
@@ -274,20 +279,56 @@ public class Surveys {
 
 	}
 
-	// get all surveys created by a user
-	@GetMapping(path = "/getallsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Survey> getAllSurveys() {
-		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		System.out.println("Session userid: " + uid);
-		List<Survey> res = new ArrayList<Survey>();
-		List<Survey> surveylist = surveyService.getAllSurveys();
-		for (int i = 0; i < surveylist.size(); i++) {
-			Survey temp = surveylist.get(i);
-			if ((temp.getUserID()).equals(uid))
-				res.add(temp);
-		}
-		return res;
+	// get open questions
+	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
+		// List<Question> res = new ArrayList<Question>();
+		// List<Question> questionList = questionService.getAllQuestions();
+		// System.out.println("get open survey question: " +
+		// questionList.get(0).getSurveyId() + "-"
+		// + questionList.get(0).getDescription());
+		// for (int i = 0; i < questionList.size(); i++) {
+		// Question temp = questionList.get(i);
+		// if (temp.getSurveyId() == id)
+		// res.add(temp);
+		// }
+		// return res;
+		Survey s = surveyService.getSurvey(id);
+		if (s.getStatus() == 1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
+
+	// get open survey by id
+	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
+		// Survey s = surveyService.getSurvey(id);
+		// System.out.println("Survey user: " + s.getSurveyId() + "-" +
+		// s.getSurveyTitle());
+		//
+		// List<Question> res = new ArrayList<Question>();
+		// List<Question> questionList = questionService.getAllQuestions();
+		// System.out.println("get open survey question: " +
+		// questionList.get(0).getSurveyId() + "-"
+		// + questionList.get(0).getDescription());
+		// for (int i = 0; i < questionList.size(); i++) {
+		// Question temp = questionList.get(i);
+		// if (temp.getSurveyId() == id)
+		// res.add(temp);
+		// }
+		// if (res != null)
+		// return new ResponseEntity(res, HttpStatus.FOUND);
+		// else
+		// return new ResponseEntity(res, HttpStatus.FOUND);
+		Survey s = surveyService.getSurvey(id);
+		if (s.getStatus() == 1)
+			return new ResponseEntity(s, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
+	}
+
+	/* ==================== EDIT CREATION OF SURVEYS ==================== */
 
 	// edit survey - add questions and participants
 	@PostMapping(path = "/editsurvey/{surId}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -302,7 +343,7 @@ public class Surveys {
 		int temp = 0;
 		for (int i = 0; i < l; i++) {
 			Question q = new Question(questions[i], type[i], surId);
-			Question newq=questionService.addQuestion(q);
+			Question newq = questionService.addQuestion(q);
 			if (type[i].equalsIgnoreCase("text") == false) {
 				while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
 					System.out.println(options[temp] + "  " + newq.getQuestionId());
@@ -312,12 +353,12 @@ public class Surveys {
 				}
 			}
 			temp++;
-		}	
-		
+		}
+
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], surId, 0);
-			Participants np= participantsService.addParticipant(pq);
+			Participants np = participantsService.addParticipant(pq);
 			// for general survey
 			if (s.getType() == 1) {
 				String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
@@ -332,7 +373,8 @@ public class Surveys {
 			}
 			// for closed survey
 			else if (s.getType() == 2) {
-				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+s.getSurveyId() +"&user="+np.getParticipantsId();
+				String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
+						+ s.getSurveyId() + "&user=" + np.getParticipantsId();
 				String subject = "Inviation for survey";
 				try {
 					sendInvitation.sendEmail(participants[i], subject, text);
@@ -343,6 +385,87 @@ public class Surveys {
 			}
 		}
 		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
+	/* ==================== SAVE RESPONSES ==================== */
+
+	// save responses for general and closed
+	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
+		// Integer uid =
+		// Integer.parseInt(session.getAttribute("sess_userid").toString());
+		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Integer responseId;
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if (res != null) {
+			System.out.println("FOUND Response");
+			responseId = res.getResponseId();
+		} else {
+			System.out.println("NOT FOUND response");
+			Response r = new Response(surveyId, uid, false);
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+		}
+
+		Integer questionId = Integer.parseInt(sr.getQuestions());
+		String[] response = sr.getResponse();
+		List<Answer> ans = answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
+		System.out.println("ans" + ans);
+		if (ans.size() == 0) {
+			System.out.println("inside if: " + response[0]);
+			for (String val : response) {
+				Answer a = new Answer(responseId, questionId, val);
+				System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val);
+				answerService.addAnswer(a);
+			}
+		} else {
+
+		}
+
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
+	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
+		// Integer uid =
+		// Integer.parseInt(session.getAttribute("sess_userid").toString());
+		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if (res != null) {
+			System.out.println("FOUND Response");
+			res.setCompletedStatus(true);
+			responseService.saveResponse(res);
+		}
+
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
+	// save responses for open
+	@PostMapping(path = "/createOpenResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> createOpenResponse(@RequestBody SurveyResponse sr) throws Exception {
+		System.out.println("Response closed! " + sr);
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+
+	/* ==================== OTHERS ==================== */
+
+	// get all surveys created by a user
+	@GetMapping(path = "/getallsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Iterable<Survey> getAllSurveys() {
+		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + uid);
+		List<Survey> res = new ArrayList<Survey>();
+		List<Survey> surveylist = surveyService.getAllSurveys();
+		for (int i = 0; i < surveylist.size(); i++) {
+			Survey temp = surveylist.get(i);
+			if ((temp.getUserID()).equals(uid))
+				res.add(temp);
+		}
+		return res;
 	}
 
 	// get all open surveys by id
@@ -360,101 +483,7 @@ public class Surveys {
 		return res;
 	}
 
-	// get open questions
-	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Question> getOpenSurveyQuestion(@PathVariable Integer id) {
-		List<Question> res = new ArrayList<Question>();
-		List<Question> questionList = questionService.getAllQuestions();
-		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
-				+ questionList.get(0).getDescription());
-		for (int i = 0; i < questionList.size(); i++) {
-			Question temp = questionList.get(i);
-			if (temp.getSurveyId() == id)
-				res.add(temp);
-		}
-		return res;
-	}
-
-	// get general survey by id
-	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
-		System.out.println("give open survey hit");
-		Survey s = surveyService.getSurvey(id);
-		System.out.println("Survey user: " + s.getSurveyId() + "-" + s.getSurveyTitle());
-
-		List<Question> res = new ArrayList<Question>();
-		List<Question> questionList = questionService.getAllQuestions();
-		System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-"
-				+ questionList.get(0).getDescription());
-		for (int i = 0; i < questionList.size(); i++) {
-			Question temp = questionList.get(i);
-			if (temp.getSurveyId() == id)
-				res.add(temp);
-		}
-		if (res != null)
-			return new ResponseEntity(res, HttpStatus.FOUND);
-		else
-			return new ResponseEntity(res, HttpStatus.FOUND);
-	}
-	
-
-	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
-		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Integer uid = 1;
-		Integer surveyId = Integer.parseInt(sr.getSurveyId());
-		Integer responseId;
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
-		if(res != null) {
-			System.out.println("FOUND Response");
-			responseId = res.getResponseId();
-		}
-		else {
-			System.out.println("NOT FOUND response");
-			Response r =  new Response(surveyId, uid, false );
-			Response r1 = responseService.addResponse(r);
-			responseId = r1.getResponseId();
-		}
-		
-		Integer questionId = Integer.parseInt(sr.getQuestions());
-		String[] response = sr.getResponse();
-		List<Answer> ans= answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
-		if(ans == null) {
-			for(String val : response) {
-				Answer a = new Answer(responseId, questionId, val );
-				System.out.println("Response: "+ responseId + " Q: "+ questionId + " A: "+ val );	
-				answerService.addAnswer(a);
-			}
-		}
-		else
-		{
-			
-		}
-		
-		
-		return new ResponseEntity(1, HttpStatus.CREATED);
-	}
-	
-	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
-		//Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		//System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Integer uid = 1;
-		Integer surveyId = Integer.parseInt(sr.getSurveyId());
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
-		if(res != null) {
-			System.out.println("FOUND Response");
-			res.setCompletedStatus(true);
-			responseService.saveResponse(res);
-		}
-			
-		return new ResponseEntity(1, HttpStatus.CREATED);
-	}
-
 }
-
-
 
 // model for API request
 class Newsurvey {
@@ -504,48 +533,38 @@ class Newsurvey {
 
 	public void setOptions(String[] options) {
 		this.options = options;
-	}
 
-	public String getStarttime() {
-		return starttime;
-	}
+	} // class
 
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-
-	public String getEndtime() {
-		return endtime;
-	}
-
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
 }
 
-class SurveyResponse{
+class SurveyResponse {
 	String surveyId;
 	String questions;
 	String response[];
-	
-	
+
 	public String getSurveyId() {
 		return surveyId;
 	}
+
 	public void setSurveyId(String surveyId) {
 		this.surveyId = surveyId;
 	}
+
 	public String getQuestions() {
 		return questions;
 	}
+
 	public void setQuestions(String questions) {
 		this.questions = questions;
 	}
+
 	public String[] getResponse() {
 		return response;
 	}
+
 	public void setResponse(String[] response) {
 		this.response = response;
 	}
-	
+
 }
