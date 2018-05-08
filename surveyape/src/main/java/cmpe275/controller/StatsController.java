@@ -90,7 +90,7 @@ public class StatsController {
 
 
        
-        AnsDistribution [] dist=null;  
+        ArrayList<AnsDistribution> dist=new ArrayList<AnsDistribution>();  
         List<Question> lq = questionService.getQuestionBySurveyId(id);
         for(int i=0;i<lq.size();i++) {
         	Question q = lq.get(i);
@@ -105,12 +105,8 @@ public class StatsController {
         		anscount.add(x); 	
         		optionname.add(o.getDescription());
         	}
-        	JSONObject obj = new JSONObject();
-            obj.put("question", q.getDescription());
-            obj.put("options", optionname);
-            obj.put("anscount",anscount);
-            System.out.println(obj);
-        	
+        	AnsDistribution temp=new AnsDistribution(q.getDescription(), optionname, anscount);
+        	dist.add(temp);
         }
         
          
