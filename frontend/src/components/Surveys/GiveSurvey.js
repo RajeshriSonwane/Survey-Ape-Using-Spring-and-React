@@ -95,14 +95,17 @@ class GiveSurvey extends Component {
             API.getGeneral(parsed.id)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
-                    if (output) {
-                        this.setState({surveyId: output.surveyId});
-                        this.setState({surveyTitle: output.surveyTitle});
-                        this.setState({questions: output.questions});
-                        this.setState({survey: this.createSurveyJson(output.questions)});
-                        console.log((this.state));
-                    } else {
-                        console.log("No data");
+                    if (output==false) {
+                      alert("Login to continue or survey not available");
+                      console.log("No data");
+                    }
+                    else {
+                      this.setState({surveyId: output.surveyId});
+                      this.setState({surveyTitle: output.surveyTitle});
+                      this.setState({questions: output.questions});
+                      this.setState({survey: this.createSurveyJson(output.questions)});
+                      console.log((this.state));
+
                     }
                 });
 
@@ -113,12 +116,13 @@ class GiveSurvey extends Component {
             API.getClosed(parsed.id, parsed.user)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
-                    if (output) {
-                        this.setState({surveyId: output.surveyId});
-                        this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
-                        this.setState({survey: this.createSurveyJson(output.questions)});
+                    if (output==false) {
+                      alert("Login to continue or survey not available");
+                      console.log("No data");
                     } else {
-                        console.log("No data");
+                      this.setState({surveyId: output.surveyId});
+                      this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
+                      this.setState({survey: this.createSurveyJson(output.questions)});
                     }
                 });
         }

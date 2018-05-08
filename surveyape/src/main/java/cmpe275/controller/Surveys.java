@@ -232,49 +232,56 @@ public class Surveys {
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
+		
+
 		Boolean flag = false;
 
 		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
-		Survey s = surveyService.getSurvey(id);
-		if (s != null && s.getStatus() == 1) {
+//		Survey s = surveyService.getSurvey(id);
+//		if (s != null && s.getStatus() == 1) {
+//
+//			return new ResponseEntity(s, HttpStatus.FOUND);
+//		} else {
+//			return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
 
-			return new ResponseEntity(s, HttpStatus.FOUND);
-		} else {
+		 //change after sessions
+		if(session.getAttribute("sess_userid")==null) {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 		}
-
-		// change after sessions
-		// Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		
-//		  if(participantslist!=null) { 
-//			  for (int i = 0; i < participantslist.size(); i++) { 
-//			  //change after sessions 
-//		if(participantslist.get(i).getParticipantsId()== 1)
-//			  { flag = true; 
-//			  break; 
-//			  } 
-//			  } 
-//		  }
-//		  
-//		  if(flag == true) {
-//		  
-//		  System.out.println("Survey id: " + id); 
-//		  Survey s = surveyService.getSurvey(id); 
-//		  System.out.println("Survey end time: " + s.getEndDate());
-//		  System.out.println("Current Time: " + LocalDateTime.now());
-//		  if(LocalDateTime.now().isBefore(s.getEndDate())) 
-//		  { System.out.println("check: " + s); 
-//		  if(s!=null && s.getStatus()==1) 
-//			  return new ResponseEntity(s, HttpStatus.FOUND); 
-//		  else return new ResponseEntity(false, HttpStatus.FOUND); 
-//		  }
-//		  else 
-//		  { 
-//			  s.setStatus(0); return new ResponseEntity(false, HttpStatus.FOUND); 
-//		}
-//		  } 
-//		  else return new ResponseEntity(false, HttpStatus.FOUND);
-//		 
+		 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+
+		
+		  if(participantslist!=null) { 
+			  for (int i = 0; i < participantslist.size(); i++) { 
+			  //change after sessions 
+		if(participantslist.get(i).getParticipantsId()== 1)
+			  { flag = true; 
+			  break; 
+			  } 
+			  } 
+		  }
+		  
+		  if(flag == true) {
+		  
+		  System.out.println("Survey id: " + id); 
+		  Survey s = surveyService.getSurvey(id); 
+		  System.out.println("Survey end time: " + s.getEndDate());
+		  System.out.println("Current Time: " + LocalDateTime.now());
+		  if(LocalDateTime.now().isBefore(s.getEndDate())) 
+		  { System.out.println("check: " + s); 
+		  if(s!=null && s.getStatus()==1) 
+			  return new ResponseEntity(s, HttpStatus.FOUND); 
+		  else return new ResponseEntity(false, HttpStatus.FOUND); 
+		  }
+		  else 
+		  { 
+			  s.setStatus(0); return new ResponseEntity(false, HttpStatus.FOUND); 
+		}
+		  } 
+		  else return new ResponseEntity(false, HttpStatus.FOUND);
+		 
 
 	}
 
@@ -323,17 +330,6 @@ public class Surveys {
 	// get open survey for logged in user
 		@GetMapping(path = "/getOpenSurveyQuestion/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
-			// List<Question> res = new ArrayList<Question>();
-			// List<Question> questionList = questionService.getAllQuestions();
-			// System.out.println("get open survey question: " +
-			// questionList.get(0).getSurveyId() + "-"
-			// + questionList.get(0).getDescription());
-			// for (int i = 0; i < questionList.size(); i++) {
-			// Question temp = questionList.get(i);
-			// if (temp.getSurveyId() == id)
-			// res.add(temp);
-			// }
-			// return res;
 			Survey s = surveyService.getSurvey(id);
 			 if(s.getStatus()==1) {
 			// if(LocalDateTime.now().isBefore(s.getEndDate())) {
@@ -349,36 +345,15 @@ public class Surveys {
 		// get open survey for not logged in user
 		@GetMapping(path = "/giveOpenSurvey/{id}", params = "guest", produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id,@RequestParam(value = "guest") Integer user) {
-//			 Survey s = surveyService.getSurvey(id);
-//			 System.out.println("Survey user: " + s.getSurveyId() + "-" +		 s.getSurveyTitle());
-//			
-//			 List<Question> res = new ArrayList<Question>();
-//			 List<Question> questionList = questionService.getAllQuestions();
-//			 System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-" + questionList.get(0).getDescription());
-//			 for (int i = 0; i < questionList.size(); i++) {
-//				 Question temp = questionList.get(i);
-//				 if (temp.getSurveyId() == id)
-//					 res.add(temp);
-//			 }
-//			 if (res != null)
-//			 return new ResponseEntity(res, HttpStatus.FOUND);
-//			 else
-//			 return new ResponseEntity(res, HttpStatus.FOUND);
-//		}
-			
-//			Survey s = surveyService.getSurvey(id);
-//			if (s.getStatus() == 1)
-//				return new ResponseEntity(s, HttpStatus.FOUND);
-//			else
-//				return new ResponseEntity(false, HttpStatus.FOUND);
-//		}
 		 
 		Guest g = guestservice.getGuestbyId(user);
 		
+		//if survey is not taken
 		 if(g.getGiven() == 0) {
 		 Response r  = new Response();
 		 r = responseService.getResponseBySurveyIdAndUserId(id,user);
 		 System.out.println("guest: "+r);
+		 // response is null
 		 if(r==null){
 			 System.out.println("Survey user: " + user);
 			 Survey s = surveyService.getSurvey(id);
@@ -392,26 +367,14 @@ public class Surveys {
 			 else
 				 return new ResponseEntity(false, HttpStatus.FOUND);
 		 }
-		 
-		 else if (r.isCompletedStatus()== true) {
+		 // survey taken before: set status
+		 else {
 			 g.setGiven(1);
 			 guestservice.addGuest(g);
 			 return new ResponseEntity(false, HttpStatus.FOUND);
 		 }
-		 else {
-			 System.out.println("Survey user: " + user);
-				 Survey s = surveyService.getSurvey(id);
-				 if(s.getStatus()==1) {
-					// if(LocalDateTime.now().isBefore(s.getEndDate())) {
-						 return new ResponseEntity(s, HttpStatus.FOUND);
-//					 }
-//					 else
-//						 return new ResponseEntity(false, HttpStatus.FOUND);
-				 }
-				 else
-					 return new ResponseEntity(false, HttpStatus.FOUND);
-			 }
 		}
+		//if survey is taken
 		else
 		return new ResponseEntity(false, HttpStatus.FOUND);
 			}
@@ -483,7 +446,7 @@ public class Surveys {
 	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
 		Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
-		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		System.out.println("Session userid for general/closed: " + session.getAttribute("sess_userid"));
 //		Integer uid = 1;
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
@@ -535,10 +498,16 @@ public class Surveys {
 
 	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
-		// Integer uid =
-		// Integer.parseInt(session.getAttribute("sess_userid").toString());
-		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Integer uid = 1;
+		Integer uid;
+		if(session.getAttribute("sess_userid")==null) {
+			uid=481;
+			System.out.println("open complete guest: "+uid);
+		}
+		else {
+			uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
+			System.out.println("session complete: "+uid);
+		}
+		
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
 		if (res != null) {
@@ -555,8 +524,16 @@ public class Surveys {
 	public ResponseEntity<?> createOpenResponse(@RequestBody SurveyResponse sr) throws Exception {
 		// Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		System.out.println("open: ");
-		Integer uid = 1;
+		Integer uid;
+		if(session.getAttribute("sess_userid")==null) {
+			uid=481;
+			System.out.println("open guest: ");
+		}
+		else {
+			uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
+			System.out.println("open loggedin: ");
+		}
+
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
 		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
