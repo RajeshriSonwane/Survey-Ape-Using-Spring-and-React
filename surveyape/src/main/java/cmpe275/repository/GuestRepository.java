@@ -8,4 +8,6 @@ import cmpe275.entity.Guest;
 
 public interface GuestRepository extends CrudRepository<Guest, String>{
 	List<Guest> findBySurveyId(Integer s);
+
+	Guest findByGuestId(Integer g);
 }

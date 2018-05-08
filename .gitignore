@@ -36,3 +36,5 @@ typings/
 *.MF
 *.class
 *.class
+*.class
+*.xml

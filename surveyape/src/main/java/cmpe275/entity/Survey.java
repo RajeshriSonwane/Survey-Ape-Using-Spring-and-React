@@ -47,12 +47,13 @@ public class Survey {
     public Survey(){  	
     }
     
-    public Survey(Integer uid,String stitle,Integer t, Integer s, Integer c){
+    public Survey(Integer uid,String stitle,Integer t, Integer s, Integer c, LocalDateTime ed){
     	userID=uid;
     	surveyTitle=stitle;
     	type=t;
     	status=s;
     	closed=c;
+    	endDate = ed;
     }
     
 	public Integer getSurveyId() {

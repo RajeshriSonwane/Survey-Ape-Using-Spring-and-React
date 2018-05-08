@@ -212,9 +212,15 @@ fetch(`${api}/getsurvey/` + sid + "?user=" + uid, {
   return error;
 });
 
+<<<<<<< HEAD
 // get open survey by guest
 export const giveOpenSurvey = (payload) =>
     fetch(`${api}/giveOpenSurvey/` + payload, {
+=======
+
+export const giveOpenSurvey = (sid,gid) =>
+    fetch(`${api}/giveOpenSurvey/` + sid + "?guest=" + gid, {
+>>>>>>> 98a36c4345c5c2aa0eba079be76e191b3bbeba57
         method: 'GET',
         headers: {
             ...headers,

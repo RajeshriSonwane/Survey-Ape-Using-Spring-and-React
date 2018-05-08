@@ -12,4 +12,5 @@ public interface ParticipantsRepository extends CrudRepository<Participants, Str
 	List<Participants> findAll();
 	List<Participants> findBySurveyId(Integer s);
 	Participants findByparticipantsId(Integer user);
+	Participants findByParticipantsIdAndSurveyId(Integer participantsId, Integer surveyId);
 }
