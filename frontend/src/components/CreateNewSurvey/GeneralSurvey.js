@@ -26,7 +26,7 @@ class GeneralSurvey extends Component {
         };
         API.createGeneral(data)
             .then((output) => {
-                console.log("CHECK THIS: " + output);
+                console.log("CHECK THIS: " + JSON.stringify(output));
                 alert("Survey created!");
             });
     }
@@ -126,7 +126,7 @@ class GeneralSurvey extends Component {
                                             <option value="checkbox">Checkbox</option>
                                             <option value="radiogroup">Radio</option>
                                             <option value="comment">Text Area</option>
-                                            <option value="barrating">Ratings</option>
+                                            <option value="rating">Ratings</option>
                                         </select>
 
                                     </div>

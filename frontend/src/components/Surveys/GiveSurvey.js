@@ -10,7 +10,8 @@ class GiveSurvey extends Component {
         surveyId: '',
         surveyTitle: '',
         questions: [],
-        surveyJSON: []
+        surveyJSON: [],
+        survey: []
     };
 
     createSurveyJson(questions) {
@@ -18,35 +19,38 @@ class GiveSurvey extends Component {
 
         var surveyJSON = {};
         surveyJSON.questions = [];
+        surveyJSON.elements = [];
         questions.forEach(function (value) {
 
             if(value.type == "checkbox")
             {
                 var choices1 = [];
-                var optionId = [];
+
                 value.options.forEach(function(option){
                     choices1.push(option.description);
-                    optionId.push(option.optionId);
-
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1})
 
             }
             else if(value.type == "radiogroup"){
                 var choices1 = [];
-                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
-                    optionId.push(option.optionId);
-                });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
 
+                });
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1})
+
+            }
+            else if(value.type == "rating"){
+
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, minRateDescription: "Not Satisfied",
+                    maxRateDescription: "Completely satisfied"})
             }
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
-        console.log("SurveyJSON" + JSON.stringify(surveyJSON.questions));
-        return surveyJSON.questions;
+        console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
+        return surveyJSON;
     }
 
     surveySendResult = function (sender) {
@@ -122,9 +126,12 @@ class GiveSurvey extends Component {
 
 
     render() {
+
         var json = { title: this.state.surveyTitle, showProgressBar: "top", pages: [
-            {questions: this.state.survey}
+            {questions: this.state.survey.questions},
+            {elements: this.state.survey.elements}
         ]};
+        console.log(JSON.stringify(json));
         Survey
             .StylesManager
             .applyTheme("winterstone");
