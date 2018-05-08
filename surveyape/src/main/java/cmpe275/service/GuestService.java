@@ -16,8 +16,12 @@ public class GuestService {
     @Autowired
     private GuestRepository guestRepository;
     
-    public void addGuest(Guest g) {
-    	guestRepository.save(g);
+    public Guest addGuest(Guest g) {
+    	return guestRepository.save(g);
+    }
+    
+    public Guest getGuestbyId(Integer g) {
+    	return guestRepository.findByGuestId(g);
     }
     
     public List<Guest> guestBySurveyId(Integer s){

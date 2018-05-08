@@ -121,11 +121,11 @@ public class Users {
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject.getString("email"));
         System.out.println(jsonObject.get("surId"));
-        Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()));
-        guestService.addGuest(ng);
+        Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()), 0);
+        int gid = guestService.addGuest(ng).getGuestId();
 
         try {
-            sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId"));
+            sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid);
         } catch (Exception e) {
             e.printStackTrace();
         }

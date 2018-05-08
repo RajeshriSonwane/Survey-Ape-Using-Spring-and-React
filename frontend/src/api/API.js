@@ -213,8 +213,10 @@ fetch(`${api}/getsurvey/` + sid + "?user=" + uid, {
 });
 
 
-export const giveOpenSurvey = (payload) =>
-    fetch(`${api}/giveOpenSurvey/` + payload, {
+
+export const giveOpenSurvey = (sid,gid) =>
+    fetch(`${api}/giveOpenSurvey/` + sid + "?guest=" + gid, {
+
         method: 'GET',
         headers: {
             ...headers,
@@ -355,6 +357,7 @@ export const editSurvey = (payload, sid) =>
             return error;
         });
 
+// open survey - logged in users
 export const getOpenSurveyQuestion = (payload, sid) =>
     fetch(`${api}/getOpenSurveyQuestion/` + sid, {
         method: 'GET',
@@ -453,3 +456,23 @@ export const saveSurvey = (payload) =>
             console.log("This is create general survey error");
             return error;
         });
+
+
+// get all surveys started by a user
+export const startedSurveys = (payload) =>
+fetch(`${api}/startedsurveys/`, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include'
+  //body: JSON.stringify(payload)
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
+  return error;
+});

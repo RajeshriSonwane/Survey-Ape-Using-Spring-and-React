@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import cmpe275.AnsDistribution;
 import cmpe275.StatDetails;
+import cmpe275.entity.Answer;
 import cmpe275.entity.Guest;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
+import cmpe275.service.AnswerService;
 import cmpe275.service.GuestService;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.ResponseService;
@@ -40,9 +43,8 @@ public class StatsController {
 	@Autowired
 	private GuestService guestService;
 	
-
-//	numParticipants;submissions;
-//	invited;registered;
+	@Autowired
+	private AnswerService answerService;
 	
 	
     @GetMapping(path = "/getsurveydetails/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,17 +59,41 @@ public class StatsController {
         
         List<Response> responses=responseService.responsesBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
+        int count=0;
+        for(int i=0;i<responses.size();i++) {
+        	if(responses.get(i).isCompletedStatus()==true)
+        		count++;
+        }
+        
+        int numpar=responses.size();
+        int submissions=responses.size()-count;
+        int invited=participants.size();
         
         List<Guest> guests=guestService.guestBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
+        int reg=numpar-guests.size();
         
-        StatDetails sd;
+        
+        // create array of JSON of answer distribution [{"question": '', "options": [], "ansCount": []]}
+        AnsDistribution [] dist=null;  
+        
+        for(int i=0;i<responses.size();i++) {
+        	if(responses.get(i).isCompletedStatus()==true) {
+        		int resid=responses.get(i).getResponseId();
+        		List<Answer> a= answerService.findByResponseId(resid);
+        		
+        	} 	
+        }
+        
         
      
+        StatDetails sd;       
+     
         if(survey.getType()==3) // registered users
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
-        else // registered users=num of participants
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), 0,responses.size(),participants.size(),0);
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions,guests.size(),reg,dist);
+        
+        else // general, closed - registered users=num of participants
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions, invited, numpar,dist);
         	
         if (survey!=null)
             return new ResponseEntity(sd, HttpStatus.FOUND);

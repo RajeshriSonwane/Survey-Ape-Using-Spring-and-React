@@ -36,3 +36,6 @@ typings/
 *.MF
 *.class
 *.class
+*.class
+*.xml
+surveyape/target/classes/cmpe275/controller/Surveys.class

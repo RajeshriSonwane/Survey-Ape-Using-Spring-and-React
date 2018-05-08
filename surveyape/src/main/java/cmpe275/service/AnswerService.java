@@ -32,4 +32,9 @@ public class AnswerService {
     public void saveAnswer(Answer a){
     	answerRepository.save(a);
    }
+
+    public List<Answer> findByResponseId(Integer r){
+    	return answerRepository.findByResponseId(r);
+    }
+
 }

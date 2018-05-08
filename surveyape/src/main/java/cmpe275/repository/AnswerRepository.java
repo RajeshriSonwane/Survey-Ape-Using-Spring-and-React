@@ -12,5 +12,6 @@ public interface AnswerRepository extends CrudRepository<Answer, String>{
 	List<Answer> findByQuestionIdAndResponseId(Integer questionId, Integer responseId);
 	Answer findByResponseIdAndOptionId(Integer responseId, Integer optionId);
 	Answer findByResponseIdAndQuestionIdAndOptionId(Integer responseId, Integer questionId, Integer optionId);
+	List<Answer> findByResponseId(Integer r);
 
 }
