@@ -14,4 +14,8 @@ public class OptionService {
     public void addOption(Options o){
      optionRepository.save(o);
     }
+    
+    public Options findByQuestionIdAndDescription(Integer questionId, String description) {
+    	return optionRepository.findByQuestionIdAndDescription(questionId, description);
+    }
 }

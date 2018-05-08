@@ -5,4 +5,5 @@ import cmpe275.entity.Options;
 
 public interface OptionRepository extends CrudRepository<Options, String>{
 
+	Options findByQuestionIdAndDescription(Integer questionId, String description);
 }

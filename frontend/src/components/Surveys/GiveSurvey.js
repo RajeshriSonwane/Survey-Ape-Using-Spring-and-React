@@ -23,18 +23,23 @@ class GiveSurvey extends Component {
             if(value.type == "checkbox")
             {
                 var choices1 = [];
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
+
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
 
             }
             else if(value.type == "radiogroup"){
                 var choices1 = [];
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
 
             }
             else
@@ -60,16 +65,19 @@ class GiveSurvey extends Component {
         var mySurvey = sender;
         var questionName = options.name;
         var newValue = options.value;
-        console.log(questionName + " "+ newValue);
-        var data = {
-            surveyId: this.state.surveyId,
-            questions: options.name,
-            response: options.value.toString()
+        if(options.value){
+            console.log(questionName + " "+ newValue);
+            var data = {
+                surveyId: this.state.surveyId,
+                questions: options.name,
+                response: options.value.toString()
+            }
+            API.saveResponse(data)
+                .then((output) => {
+                    console.log("CHECK THIS: " + output);
+                });
         }
-        API.saveResponse(data)
-            .then((output) => {
-                console.log("CHECK THIS: " + output);
-            });
+
 
     };
 

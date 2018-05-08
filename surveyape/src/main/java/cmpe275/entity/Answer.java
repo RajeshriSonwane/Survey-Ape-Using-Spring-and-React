@@ -17,6 +17,8 @@ public class Answer {
     
     private Integer responseId;
     
+    private Integer optionId;
+    
     public Answer() {
     	
     }
@@ -30,6 +32,13 @@ public class Answer {
 		this.setResponseId(responseId);
 		this.answer = answer;
 		this.questionId = questionId;
+	}
+	
+	public Answer( Integer responseId, Integer questionId, String answer, Integer optionId) {
+		this.setResponseId(responseId);
+		this.answer = answer;
+		this.questionId = questionId;
+		this.optionId = optionId;
 	}
 
 	public Integer getAnswerId() {
@@ -62,6 +71,14 @@ public class Answer {
 
 	public void setResponseId(Integer responseId) {
 		this.responseId = responseId;
+	}
+
+	public Integer getOptionId() {
+		return optionId;
+	}
+
+	public void setOptionId(Integer optionId) {
+		this.optionId = optionId;
 	}
     
     

@@ -411,20 +411,36 @@ public class Surveys {
 
 		Integer questionId = Integer.parseInt(sr.getQuestions());
 		String response = sr.getResponse();
-		List<Answer> ans = answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
-		
-		if (ans.size() == 0) {
-			System.out.println(response);
-				String[] arrayRes =  response.split(",");
-				for(String val : arrayRes) {
-					System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val);
-					Answer a = new Answer(responseId, questionId, val);
+			
+		System.out.println("Actual Inputs: "+response+ " ,Q: "+questionId);
+		String[] arrayRes = response.split(",");
+		for (String val : arrayRes) {
+			
+			//fetch option ID
+			Options op = optionService.findByQuestionIdAndDescription(questionId, val);
+			System.out.println("Fetch Option ID for :"+ questionId + " & "+ val);
+			Integer optionId;
+			if( op == null) {
+				optionId = -1;
+			}else {
+				optionId = op.getOptionId();
+			}
+			
+			//fetch answer by response and option ID (if already exists)
+			Answer ans =  answerService.getResponseByResponseIdAndQuestionIdAndOptionId(responseId, questionId, optionId);
+			if (ans == null) {
+				
+					System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val + " O: "+ optionId);
+					Answer a = new Answer(responseId, questionId, val, optionId);
 					answerService.addAnswer(a);
-				}
-		} else {
-			System.out.println("Im here");
+				
+			} else {
+				System.out.println("Im here");
+				ans.setAnswer(val);
+				answerService.saveAnswer(ans);
+			}
 		}
-
+		
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
@@ -485,8 +501,6 @@ public class Surveys {
 	}
 
 }
-
-
 
 class SurveyResponse {
 	String surveyId;
