@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,12 +19,15 @@ import cmpe275.AnsDistribution;
 import cmpe275.StatDetails;
 import cmpe275.entity.Answer;
 import cmpe275.entity.Guest;
+import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
+import cmpe275.entity.Question;
 import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
 import cmpe275.service.AnswerService;
 import cmpe275.service.GuestService;
 import cmpe275.service.ParticipantsService;
+import cmpe275.service.QuestionService;
 import cmpe275.service.ResponseService;
 import cmpe275.service.SurveyService;
 
@@ -45,6 +50,9 @@ public class StatsController {
 	
 	@Autowired
 	private AnswerService answerService;
+	
+	@Autowired
+	private QuestionService questionService;
 	
 	
     @GetMapping(path = "/getsurveydetails/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,8 +82,41 @@ public class StatsController {
         int reg=numpar-guests.size();
         
         
+        
+        
         // create array of JSON of answer distribution [{"question": '', "options": [], "ansCount": []]}
+        
+        ;
+
+
+       
         AnsDistribution [] dist=null;  
+        List<Question> lq = questionService.getQuestionBySurveyId(id);
+        for(int i=0;i<lq.size();i++) {
+        	Question q = lq.get(i);
+        	List<Options> op = q.getOptions();
+        	ArrayList<Integer> anscount = new ArrayList<Integer>();
+        	ArrayList<String> optionname = new ArrayList<String>();
+        	for(int j=0;j<op.size();j++) {
+        		Options o = op.get(j);
+        		int oid = o.getOptionId();
+        		List<Answer> ans = answerService.getAnswerByOptionId(oid);
+        		int x  = ans.size();
+        		anscount.add(x); 	
+        		optionname.add(o.getDescription());
+        	}
+        	JSONObject obj = new JSONObject();
+            obj.put("question", q.getDescription());
+            obj.put("options", optionname);
+            obj.put("anscount",anscount);
+            System.out.println(obj);
+        	
+        }
+        
+         
+        
+        
+        
         
         for(int i=0;i<responses.size();i++) {
         	if(responses.get(i).isCompletedStatus()==true) {
@@ -84,9 +125,6 @@ public class StatsController {
         		
         	} 	
         }
-        
-        
-     
         StatDetails sd;       
      
         if(survey.getType()==3) // registered users

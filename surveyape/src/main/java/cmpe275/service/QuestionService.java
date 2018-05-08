@@ -17,6 +17,10 @@ public class QuestionService {
     public Question addQuestion(Question q) {
         return questionRepository.save(q);
     }
+    
+    public List<Question> getQuestionBySurveyId(Integer s) {
+        return questionRepository.findBySurveyId(s);
+    }
 
 
     public List<Question> getAllQuestions() {

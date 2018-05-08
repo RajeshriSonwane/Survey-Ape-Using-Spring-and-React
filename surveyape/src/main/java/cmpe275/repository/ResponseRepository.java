@@ -11,4 +11,5 @@ public interface ResponseRepository extends CrudRepository<Response, String>{
 	Response findBySurveyIdAndUserId(Integer surveyId, Integer userId);
 	List<Response> findBySurveyId(Integer surveyId);
 	List<Response> findByUserId(Integer userId);
+	Response findBySurveyIdAndUserIdAndCompletedStatus(Integer surveyId, Integer userId, boolean completedStatus);
 }

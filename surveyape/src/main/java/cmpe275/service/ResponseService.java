@@ -30,6 +30,10 @@ public class ResponseService {
     	return responseRepository.findBySurveyIdAndUserId(surveyId, userId);
     }
     
+    public Response getResponseBySurveyIdAndUserIdAndCompletedStatus(Integer surveyId, Integer userId, boolean CompletedStatus) {
+    	return responseRepository.findBySurveyIdAndUserIdAndCompletedStatus(surveyId, userId, CompletedStatus);
+    }
+    
     public List<Response> responsesBySurveyId(Integer surveyId){
     	return responseRepository.findBySurveyId(surveyId);
     }

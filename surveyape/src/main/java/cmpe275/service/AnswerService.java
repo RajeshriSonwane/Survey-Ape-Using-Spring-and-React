@@ -36,5 +36,9 @@ public class AnswerService {
     public List<Answer> findByResponseId(Integer r){
     	return answerRepository.findByResponseId(r);
     }
+    
+    public List<Answer> getAnswerByOptionId(Integer OptionId) {
+    	return answerRepository.findByOptionId(OptionId);
+    }
 
 }

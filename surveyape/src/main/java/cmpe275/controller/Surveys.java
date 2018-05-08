@@ -384,7 +384,7 @@ public class Surveys {
 				 return new ResponseEntity(false, HttpStatus.FOUND);
 		 }
 		 
-		 if(r.isCompletedStatus()== true) {
+		 else if (r.isCompletedStatus()== true) {
 			 g.setGiven(1);
 			 guestservice.addGuest(g);
 			 return new ResponseEntity(false, HttpStatus.FOUND);
@@ -473,9 +473,9 @@ public class Surveys {
 	// save responses for general and closed
 	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
-		// Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
-		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Integer uid = 1;
+		Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+//		Integer uid = 1;
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
 		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
