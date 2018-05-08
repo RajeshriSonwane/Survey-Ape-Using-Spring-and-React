@@ -16,7 +16,6 @@ import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
 import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
-import cmpe275.repository.ParticipantsRepository;
 import cmpe275.service.AnswerService;
 import cmpe275.service.OptionService;
 import cmpe275.service.ParticipantsService;
@@ -67,12 +66,14 @@ public class Surveys {
 	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		System.out.println("Start: " + ns.getStarttime() + " End: " + ns.getEndtime());
-		Survey s = new Survey(uid, ns.getTitle(), 1, 0, 0);
+		System.out.println("End: " + ns.getEndtime());
+		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
+		Survey s = new Survey(uid, ns.getTitle(), 1, 0, 0, endtime);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		String[] options = ns.getOptions();
 		String[] type = ns.getQtype();
+		
 		int l = questions.length;
 		System.out.println("check len: " + l);
 		int temp = 0;
@@ -108,8 +109,9 @@ public class Surveys {
 	public ResponseEntity<?> createClosedSurvey(@RequestBody Newsurvey ns) throws Exception {
 		System.out.println("Check ses: " + session.getAttribute("sess_userid").toString());
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Survey s = new Survey(uid, ns.getTitle(), 2, 0, 0);
+		System.out.println("Session userid: " + session.getAttribute("sess_userid")); 
+		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
+		Survey s = new Survey(uid, ns.getTitle(), 2, 0, 0,endtime);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		String[] options = ns.getOptions();
@@ -136,8 +138,7 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			Participants np = participantsService.addParticipant(pq);
-			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
-					+ s1.getSurveyId() + "&user=" + np.getParticipantsId();
+			String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="+ s1.getSurveyId() + "&user=" + np.getParticipantsId();
 			String subject = "Inviation for survey";
 			sendInvitation.sendEmail(participants[i], subject, text);
 		}
@@ -149,7 +150,8 @@ public class Surveys {
 	public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
-		Survey s = new Survey(uid, ns.getTitle(), 3, 0, 0);
+		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
+		Survey s = new Survey(uid, ns.getTitle(), 3, 0, 0,endtime);
 		Survey s1 = surveyService.addSurvey(s);
 		String[] questions = ns.getQuestions();
 		String[] options = ns.getOptions();
@@ -226,49 +228,73 @@ public class Surveys {
 
 		// change after sessions
 		// Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
-		/*
-		 * if(participantslist!=null) { for (int i = 0; i < participantslist.size();
-		 * i++) { //change after sessions if(participantslist.get(i).getParticipantsId()
-		 * == uid){ flag = true; break; } } }
-		 * 
-		 * if(flag == true) {
-		 * 
-		 * System.out.println("Survey id: " + id); Survey s =
-		 * surveyService.getSurvey(id); System.out.println("Survey start time: " +
-		 * s.getStartDate()); System.out.println("Survey end time: " + s.getEndDate());
-		 * System.out.println("Current Time: " + LocalDateTime.now());
-		 * if(LocalDateTime.now().isAfter(s.getStartDate()) &&
-		 * LocalDateTime.now().isBefore(s.getEndDate())) { System.out.println("check: "
-		 * + s); if(s!=null && s.getStatus()==1) return new ResponseEntity(s,
-		 * HttpStatus.FOUND); else return new ResponseEntity(false, HttpStatus.FOUND); }
-		 * else { s.setStatus(0); return new ResponseEntity(false, HttpStatus.FOUND); }
-		 * } else return new ResponseEntity(false, HttpStatus.FOUND);
-		 */
+		
+//		  if(participantslist!=null) { 
+//			  for (int i = 0; i < participantslist.size(); i++) { 
+//			  //change after sessions 
+//		if(participantslist.get(i).getParticipantsId()== 1)
+//			  { flag = true; 
+//			  break; 
+//			  } 
+//			  } 
+//		  }
+//		  
+//		  if(flag == true) {
+//		  
+//		  System.out.println("Survey id: " + id); 
+//		  Survey s = surveyService.getSurvey(id); 
+//		  System.out.println("Survey end time: " + s.getEndDate());
+//		  System.out.println("Current Time: " + LocalDateTime.now());
+//		  if(LocalDateTime.now().isBefore(s.getEndDate())) 
+//		  { System.out.println("check: " + s); 
+//		  if(s!=null && s.getStatus()==1) 
+//			  return new ResponseEntity(s, HttpStatus.FOUND); 
+//		  else return new ResponseEntity(false, HttpStatus.FOUND); 
+//		  }
+//		  else 
+//		  { 
+//			  s.setStatus(0); return new ResponseEntity(false, HttpStatus.FOUND); 
+//		}
+//		  } 
+//		  else return new ResponseEntity(false, HttpStatus.FOUND);
+//		 
 
 	}
 
 	// get closed survey by id
 	@GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id, @RequestParam(value = "user") Integer user) {
-		// Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
-		// Integer uid = 14;
-		// if(uid == 14) {
-		// Participants p = participantsService.getParticipantsById(user);
-		// if(p.getGiven() == 0) {
-		// p.setGiven(1);
-		// participantsService.addParticipant(p);;
-		// System.out.println("Survey user: " + user);
-		// Survey s = surveyService.getSurvey(id);
-		// if(s.getStatus()==1)
-		// return new ResponseEntity(s, HttpStatus.FOUND);
-		// else
-		// return new ResponseEntity(false, HttpStatus.FOUND);
-		// }
-		// else
-		// return new ResponseEntity(false, HttpStatus.FOUND);
-		// }
-		// else
-		// return new ResponseEntity(false, HttpStatus.FOUND);
+		 //Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+//		 Integer uid = 14;
+//		 if(uid == 14) {
+//			 Participants p = participantsService.getByparticipantsIdAndsurveyId(user, id);
+//			 if(p.getGiven() == 0) {
+//					 Response r  = new Response();
+//					 r = responseService.getResponseBySurveyIdAndUserId(id,user);
+//					 if(r.isCompletedStatus()== true) {
+//						 p.setGiven(1);
+//						 participantsService.addParticipant(p);
+//						 return new ResponseEntity(false, HttpStatus.FOUND);
+//					 }
+//					 else {
+//						 System.out.println("Survey user: " + user);
+//						 Survey s = surveyService.getSurvey(id);
+//						 if(s.getStatus()==1) {
+//							 if(LocalDateTime.now().isBefore(s.getEndDate())) {
+//								 return new ResponseEntity(s, HttpStatus.FOUND);
+//							 }
+//							 else
+//								 return new ResponseEntity(false, HttpStatus.FOUND);
+//						 }
+//						 else
+//							 return new ResponseEntity(false, HttpStatus.FOUND);
+//					 }
+//			 }
+//			 else
+//			 return new ResponseEntity(false, HttpStatus.FOUND);
+//		 }
+//		 else
+//		 return new ResponseEntity(false, HttpStatus.FOUND);
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
 			return new ResponseEntity(s, HttpStatus.FOUND);
@@ -277,8 +303,8 @@ public class Surveys {
 
 	}
 
-	// get open questions
-	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	// get open survey for logged in user
+	@GetMapping(path = "/getOpenSurveyQuestion/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
 		// List<Question> res = new ArrayList<Question>();
 		// List<Question> questionList = questionService.getAllQuestions();
@@ -298,27 +324,25 @@ public class Surveys {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
-	// get open survey by id
-	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
-		// Survey s = surveyService.getSurvey(id);
-		// System.out.println("Survey user: " + s.getSurveyId() + "-" +
-		// s.getSurveyTitle());
-		//
-		// List<Question> res = new ArrayList<Question>();
-		// List<Question> questionList = questionService.getAllQuestions();
-		// System.out.println("get open survey question: " +
-		// questionList.get(0).getSurveyId() + "-"
-		// + questionList.get(0).getDescription());
-		// for (int i = 0; i < questionList.size(); i++) {
-		// Question temp = questionList.get(i);
-		// if (temp.getSurveyId() == id)
-		// res.add(temp);
-		// }
-		// if (res != null)
-		// return new ResponseEntity(res, HttpStatus.FOUND);
-		// else
-		// return new ResponseEntity(res, HttpStatus.FOUND);
+	// get open survey for not logged in user
+	@GetMapping(path = "/giveOpenSurvey/{id}", params = "guest", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id,@RequestParam(value = "guest") Integer user) {
+//		 Survey s = surveyService.getSurvey(id);
+//		 System.out.println("Survey user: " + s.getSurveyId() + "-" +		 s.getSurveyTitle());
+//		
+//		 List<Question> res = new ArrayList<Question>();
+//		 List<Question> questionList = questionService.getAllQuestions();
+//		 System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-" + questionList.get(0).getDescription());
+//		 for (int i = 0; i < questionList.size(); i++) {
+//			 Question temp = questionList.get(i);
+//			 if (temp.getSurveyId() == id)
+//				 res.add(temp);
+//		 }
+//		 if (res != null)
+//		 return new ResponseEntity(res, HttpStatus.FOUND);
+//		 else
+//		 return new ResponseEntity(res, HttpStatus.FOUND);
+//	}
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
 			return new ResponseEntity(s, HttpStatus.FOUND);

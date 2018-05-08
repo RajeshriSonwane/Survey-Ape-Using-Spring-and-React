@@ -213,8 +213,8 @@ fetch(`${api}/getsurvey/` + sid + "?user=" + uid, {
 });
 
 
-export const giveOpenSurvey = (payload) =>
-    fetch(`${api}/giveOpenSurvey/` + payload, {
+export const giveOpenSurvey = (sid,gid) =>
+    fetch(`${api}/giveOpenSurvey/` + sid + "?guest=" + gid, {
         method: 'GET',
         headers: {
             ...headers,

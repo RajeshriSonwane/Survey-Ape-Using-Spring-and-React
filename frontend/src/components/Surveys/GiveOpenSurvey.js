@@ -78,8 +78,8 @@ class GiveOpenSurvey extends Component {
     componentWillMount() {
         const parsed = queryString.parse(window.location.search);
         console.log("open qstring id: "+parsed.id);
-
-            API.giveOpenSurvey(parsed.id)
+        console.log("open qstring guest: "+parsed.guest);
+            API.giveOpenSurvey(parsed.id,parsed.guest)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output) {
