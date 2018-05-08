@@ -23,6 +23,10 @@ public class UserService {
     public User getUser(String email) {
         return userRepository.findByEmail(email);
     }
+    
+    public User getUserById(Integer id) {
+        return userRepository.findByUserId(id);
+    }
 
     public List<User> login(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);

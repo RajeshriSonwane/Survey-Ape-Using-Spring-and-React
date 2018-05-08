@@ -10,7 +10,8 @@ class GiveSurvey extends Component {
         surveyId: '',
         surveyTitle: '',
         questions: [],
-        surveyJSON: []
+        surveyJSON: [],
+        user: []
     };
 
     createSurveyJson(questions) {
@@ -85,6 +86,18 @@ class GiveSurvey extends Component {
         const parsed = queryString.parse(window.location.search);
         console.log(parsed.id);
         console.log(parsed.user);
+
+        API.getUserDetails()
+            .then((output) => {
+                console.log("CHECK THIS: " + output.firstname);
+                console.log("CHECK THIS: " + output.phoneNo);
+                if (output==false) {
+                    alert("Login to continue or survey not available");
+                    console.log("No data");
+                } else {
+                    this.setState({user: output});
+                }
+            });
 
         if (parsed.user == null) {
             console.log(parsed.user + ": general");

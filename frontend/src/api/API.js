@@ -476,3 +476,24 @@ fetch(`${api}/startedsurveys/`, {
   console.log("This is get survey error");
   return error;
 });
+
+
+// get user details for auto populate
+export const getUserDetails = (payload) =>
+    fetch(`${api}/getuserdetails/`, {
+        method: 'GET',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+        //body: JSON.stringify(payload)
+    }).then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(error => {
+            console.log("This is get getUserDetails error");
+            return error;
+        });
+

@@ -12,47 +12,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveOpenSurvey.js">
+      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-294">
-              <caret line="87" column="47" lean-forward="true" selection-start-line="87" selection-start-column="47" selection-end-line="87" selection-end-column="47" />
-              <folding>
-                <marker date="1525756503783" expanded="true" signature="387:640" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="529:640" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="585:640" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="2624:2631" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="2659:3514" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="2926:3506" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="3027:3411" ph="{...}" />
-                <marker date="1525756503783" expanded="true" signature="3551:3670" ph="{&quot;showProgressBar&quot;: &quot;top&quot;...}" />
-                <marker date="1525756503783" expanded="true" signature="3615:3669" ph="[...]" />
-                <marker date="1525756503783" expanded="true" signature="3830:4265" ph="&lt;div/&gt;" />
-                <marker date="1525756503783" expanded="true" signature="3886:4246" ph="&lt;div/&gt;" />
-                <marker date="1525756503783" expanded="true" signature="3934:4223" ph="&lt;div/&gt;" />
-                <marker date="1525756503783" expanded="true" signature="3980:4196" ph="&lt;div/&gt;" />
-              </folding>
+            <state relative-caret-position="233">
+              <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SurveyStats.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Surveys/SurveyStats.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="50" column="25" lean-forward="false" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="API.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="API.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/api/API.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="235" column="0" lean-forward="true" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+            <state relative-caret-position="145">
+              <caret line="480" column="37" lean-forward="false" selection-start-line="480" selection-start-column="37" selection-end-line="480" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -84,8 +58,8 @@
         <option value="$PROJECT_DIR$/src/components/Surveys/FetchOpenSurvey.js" />
         <option value="$PROJECT_DIR$/src/components/Surveys/RegisterForSurvey.js" />
         <option value="$PROJECT_DIR$/src/components/MainPage.js" />
-        <option value="$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js" />
         <option value="$PROJECT_DIR$/src/components/Surveys/GiveOpenSurvey.js" />
+        <option value="$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js" />
         <option value="$PROJECT_DIR$/src/api/API.js" />
       </list>
     </option>
@@ -101,7 +75,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="906" />
     <option name="y" value="40" />
     <option name="width" value="1236" />
@@ -284,7 +258,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7406000" />
+    <option name="totallyTimeSpent" value="10199000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="877" extended-state="6" />
@@ -652,22 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/API.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="235" column="0" lean-forward="true" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="100" column="37" lean-forward="true" selection-start-line="100" selection-start-column="37" selection-end-line="100" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Surveys/EditSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -681,19 +639,21 @@
         <state relative-caret-position="-294">
           <caret line="87" column="47" lean-forward="true" selection-start-line="87" selection-start-column="47" selection-end-line="87" selection-end-column="47" />
           <folding>
-            <marker date="1525756503783" expanded="true" signature="387:640" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="529:640" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="585:640" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="2624:2631" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="2659:3514" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="2926:3506" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="3027:3411" ph="{...}" />
-            <marker date="1525756503783" expanded="true" signature="3551:3670" ph="{&quot;showProgressBar&quot;: &quot;top&quot;...}" />
-            <marker date="1525756503783" expanded="true" signature="3615:3669" ph="[...]" />
-            <marker date="1525756503783" expanded="true" signature="3830:4265" ph="&lt;div/&gt;" />
-            <marker date="1525756503783" expanded="true" signature="3886:4246" ph="&lt;div/&gt;" />
-            <marker date="1525756503783" expanded="true" signature="3934:4223" ph="&lt;div/&gt;" />
-            <marker date="1525756503783" expanded="true" signature="3980:4196" ph="&lt;div/&gt;" />
+            <marker date="1525760400130" expanded="true" signature="238:4359" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="387:640" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="529:640" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="585:640" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="2624:2631" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="2659:3588" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="2926:3580" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="3540:3562" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="3604:4357" ph="{...}" />
+            <marker date="1525760400130" expanded="true" signature="3625:3744" ph="{&quot;showProgressBar&quot;: &quot;top&quot;...}" />
+            <marker date="1525760400130" expanded="true" signature="3689:3743" ph="[...]" />
+            <marker date="1525760400130" expanded="true" signature="3904:4339" ph="&lt;div/&gt;" />
+            <marker date="1525760400130" expanded="true" signature="3960:4320" ph="&lt;div/&gt;" />
+            <marker date="1525760400130" expanded="true" signature="4008:4297" ph="&lt;div/&gt;" />
+            <marker date="1525760400130" expanded="true" signature="4054:4270" ph="&lt;div/&gt;" />
           </folding>
         </state>
       </provider>
@@ -705,6 +665,22 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/API.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="480" column="37" lean-forward="false" selection-start-line="480" selection-start-column="37" selection-end-line="480" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
