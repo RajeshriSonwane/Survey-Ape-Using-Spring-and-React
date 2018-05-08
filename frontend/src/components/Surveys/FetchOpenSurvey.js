@@ -54,11 +54,12 @@ class FetchOpenSurvey extends Component {
                 console.log("CHECK retriev: ", res);
                 if (res) {
                     this.setState({
-                       sur: res,
+                        sur: res,
                         questions: res.questions,
                         surId: sid
                     });
                     console.log("question: ", this.state.questions);
+                    console.log("sur: ", JSON.stringify(this.state.sur));
                 } else {
                     console.log("No data");
                 }
