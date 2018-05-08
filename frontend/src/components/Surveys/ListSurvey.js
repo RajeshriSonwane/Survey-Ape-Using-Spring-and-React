@@ -18,9 +18,12 @@ class ListSurvey extends Component {
               }
           });
     }
+    handleEdit = function (surveyId, type) {
+        console.log(surveyId + " "+type);
+    }
 
 
-    render() {
+                    render() {
         return (
           <div className="w3-container">
               <br/><br/>
