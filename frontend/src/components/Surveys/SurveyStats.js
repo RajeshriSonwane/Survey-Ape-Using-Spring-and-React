@@ -167,9 +167,54 @@ class StatDetails extends Component {
               <div className="row">
               <br/>
               <div className="col-sm-2 col-md-2 col-lg-2"></div>
-              <b>Answer Distribution</b>
-              </div>
+              <b>Answer Distribution</b><br/><br/>
 
+              {
+                this.props.sur.distribution.map(d => {
+                  return (
+                      <div className="col-xxs-12 col-xs-12 mt" key={Math.random()}>
+                      <div className="col-sm-2 col-md-2 col-lg-2"></div>
+                              <b>Question: {(d.question)}</b><br/>
+                              {
+                                d.options.length<=0 ?
+                                (<div>
+                                  <div className="col-sm-2 col-md-2 col-lg-2"></div>
+                                  <p>Text question</p>
+                                </div>):
+                                (<div>
+                                  <div className="col-sm-2 col-md-2 col-lg-2"></div>
+<div className="col-sm-4 col-md-4 col-lg-4">
+                                  {
+                                    d.options.map(op => {
+                                      return (
+                                          <div key={Math.random()}>
+                                          <div className="col-sm-8 col-md-8 col-lg-8">
+                                          <p>{(op)}</p>
+                                          </div>
+                                          </div>
+                                      )
+                                  })
+                                  }
+</div>
+<div className="col-sm-5 col-md-5 col-lg-5">
+                                  {
+                                    d.answerCount.map(ans => {
+                                      return (
+                                          <div key={Math.random()}>
+
+                                                  <p>{(ans)}</p>
+                                          </div>
+                                      )
+                                  })
+                                  }
+</div>
+                                </div>)
+                              }
+                      </div>
+                  )
+              })
+              }
+              </div>
           </div>
     );
   }

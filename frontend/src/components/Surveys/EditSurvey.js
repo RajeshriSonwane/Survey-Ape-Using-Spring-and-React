@@ -53,12 +53,24 @@ class EditSurvey extends Component {
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                                 <b>{(s.surveyTitle)}</b>
                             </div>
-                            <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
-                                <button className="btn btn-warning" type="button"
-                                        onClick={() => this.handleEdit(s.surveyId, s.type)}>Edit
-                                </button>
-                            </div>
-                            <br/><br/>
+                          { (s.closed==1) ?
+                            (<div>
+                              <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                                  <button disabled={true} className="btn btn-warning" type="button"
+                                          onClick={() => this.handleEdit(s.surveyId, s.type)}>Edit
+                                  </button>
+                              </div>
+                              <br/><br/></div>
+                            ):
+                            (<div>
+                              <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                                  <button className="btn btn-warning" type="button"
+                                          onClick={() => this.handleEdit(s.surveyId, s.type)}>Edit
+                                  </button>
+                              </div>
+                              <br/><br/></div>
+                            )
+                          }
                         </div>
                     )
                 })
@@ -100,6 +112,7 @@ class EditForm extends Component {
         API.editSurvey(data, this.props.sid)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
+                alert("Survey updated!");
             });
     }
 

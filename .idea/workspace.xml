@@ -8,10 +8,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Users.class" afterPath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Users.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar.original" afterPath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar.original" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/src/main/java/cmpe275/controller/Surveys.java" afterPath="$PROJECT_DIR$/surveyape/src/main/java/cmpe275/controller/Surveys.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/surveyape/src/main/resources/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/application.properties" afterPath="$PROJECT_DIR$/surveyape/target/classes/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
@@ -55,8 +55,8 @@
       <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="90" column="26" lean-forward="false" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="26" />
+            <state relative-caret-position="350">
+              <caret line="47" column="13" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="47" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -66,19 +66,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="468">
-              <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="87" column="69" lean-forward="false" selection-start-line="87" selection-start-column="24" selection-end-line="87" selection-end-column="69" />
+              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -90,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/EditSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3099">
-              <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
+              <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -98,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeneralSurvey.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GeneralSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-588">
-              <caret line="131" column="42" lean-forward="true" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+            <state relative-caret-position="363">
+              <caret line="128" column="59" lean-forward="true" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -114,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="273">
-              <caret line="103" column="129" lean-forward="true" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
+              <caret line="103" column="129" lean-forward="false" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -125,11 +113,9 @@
       <file leaf-file-name="GiveOpenSurveys.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1440">
-              <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-1209">
+              <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,6 +127,18 @@
               <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1398">
+              <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -169,11 +167,12 @@
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/SurveyStats.js" />
         <option value="$PROJECT_DIR$/frontend/package.json" />
         <option value="$PROJECT_DIR$/frontend/src/api/API.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" />
       </list>
     </option>
   </component>
@@ -384,7 +383,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40753000" />
+    <option name="totallyTimeSpent" value="43616000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -905,18 +904,10 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/EditSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3099">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
+          <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="90" column="26" lean-forward="false" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -928,30 +919,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1440">
-          <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
-          <caret line="103" column="129" lean-forward="true" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="87" column="69" lean-forward="false" selection-start-line="87" selection-start-column="24" selection-end-line="87" selection-end-column="69" />
+          <caret line="103" column="129" lean-forward="false" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -961,7 +932,7 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
-          <caret line="101" column="0" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -970,8 +941,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-588">
-          <caret line="131" column="42" lean-forward="true" selection-start-line="131" selection-start-column="42" selection-end-line="131" selection-end-column="42" />
+        <state relative-caret-position="363">
+          <caret line="128" column="59" lean-forward="true" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="47" column="13" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="47" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1209">
+          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1398">
+          <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -1,6 +1,7 @@
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\repository\OptionRepository.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\AnswerService.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\ParticipantsService.java
+D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\AnsDistribution.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\entity\Response.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\Surveys.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\repository\AnswerRepository.java
@@ -8,6 +9,7 @@ D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\OptionServ
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\QuestionService.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\entity\User.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\Users.java
+D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\controller\SurveyeeController.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\ResponseService.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\service\UserService.java
 D:\CMPE 275\cmpe275_SurveyApe\surveyape\src\main\java\cmpe275\App.java

@@ -259,6 +259,7 @@ public class Surveys {
 		 System.out.println("session found in general:" + uid);
 		 User u = userservice.getUserById(uid);
 		 System.out.println("session's email found in general:" + u.getEmail());
+		 System.out.println("sessions id: "+uid);
 
 		
 		  if(participantslist!=null) { 
@@ -356,11 +357,6 @@ public class Surveys {
 		 }
 		 else
 		 return new ResponseEntity(false, HttpStatus.FOUND);
-//		Survey s = surveyService.getSurvey(id);
-//		if (s.getStatus() == 1)
-//			return new ResponseEntity(s, HttpStatus.FOUND);
-//		else
-//			return new ResponseEntity(false, HttpStatus.FOUND);
 
 	}
 

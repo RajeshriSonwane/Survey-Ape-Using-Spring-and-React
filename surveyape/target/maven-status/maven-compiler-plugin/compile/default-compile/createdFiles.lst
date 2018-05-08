@@ -26,7 +26,9 @@ cmpe275\service\ParticipantsService.class
 cmpe275\repository\OptionRepository.class
 cmpe275\repository\QuestionRepository.class
 cmpe275\repository\ParticipantsRepository.class
+cmpe275\controller\SurveyeeController.class
 cmpe275\service\AnswerService.class
 cmpe275\controller\Users.class
+cmpe275\AnsDistribution.class
 cmpe275\entity\Participants.class
 cmpe275\service\ResponseService.class
