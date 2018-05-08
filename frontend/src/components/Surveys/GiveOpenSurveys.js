@@ -5,7 +5,7 @@ import 'survey-react/survey.css';
 
 const queryString = require('query-string');
 
-class GiveOpenSurvey extends Component {
+class GiveOpenSurveys extends Component {
     state = {
         surveyId: '',
         surveyTitle: '',
@@ -82,22 +82,10 @@ class GiveOpenSurvey extends Component {
     };
 
     componentWillMount() {
-        const parsed = queryString.parse(window.location.search);
-        console.log("open qstring id: "+parsed.id);
-        console.log("open qstring guest: "+parsed.guest);
-            API.giveOpenSurvey(parsed.id,parsed.guest)
-                .then((output) => {
-                    console.log("CHECK THIS: " + output.surveyId);
-                    if (output) {
-                        this.setState({surveyId: output.surveyId});
-                        this.setState({surveyTitle: output.surveyTitle});
-                        this.setState({questions: output.questions});
-                        this.setState({survey: this.createSurveyJson(output.questions)});
-                        console.log("state: "+this.state);
-                    } else {
-                        console.log("No data");
-                    }
-                });
+        this.setState({surveyId: this.props.survey.surveyId});
+        this.setState({surveyTitle: this.props.survey.surveyTitle, questions: this.props.questions});
+        this.setState({survey: this.createSurveyJson(this.props.questions)});
+        console.log("state in get open: "+this.state);
     }
 
 
@@ -127,4 +115,4 @@ class GiveOpenSurvey extends Component {
     }
 }
 
-export default GiveOpenSurvey;
+export default GiveOpenSurveys;

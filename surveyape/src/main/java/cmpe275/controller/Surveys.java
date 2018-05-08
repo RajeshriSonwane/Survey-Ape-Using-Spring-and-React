@@ -546,15 +546,16 @@ public class Surveys {
 	public ResponseEntity<?> createOpenResponse(@RequestBody SurveyResponse sr) throws Exception {
 		// Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		System.out.println("open: ");
 		Integer uid = 1;
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
 		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
 		if (res != null) {
-			System.out.println("FOUND openResponse");
+			System.out.println("FOUND Response");
 			responseId = res.getResponseId();
 		} else {
-			System.out.println("NOT FOUND openresponse");
+			System.out.println("NOT FOUND response");
 			Response r = new Response(surveyId, uid, false);
 			Response r1 = responseService.addResponse(r);
 			responseId = r1.getResponseId();
@@ -562,21 +563,37 @@ public class Surveys {
 
 		Integer questionId = Integer.parseInt(sr.getQuestions());
 		String response = sr.getResponse();
-		List<Answer> ans = answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
-		
-		if (ans.size() == 0) {
-			System.out.println(response);
-				String[] arrayRes =  response.split(",");
-				for(String val : arrayRes) {
-					System.out.println("OpenResponse: " + responseId + " Q: " + questionId + " A: " + val);
-					Answer a = new Answer(responseId, questionId, val);
+			
+		System.out.println("Actual Inputs: "+response+ " ,Q: "+questionId);
+		String[] arrayRes = response.split(",");
+		for (String val : arrayRes) {
+			
+			//fetch option ID
+			Options op = optionService.findByQuestionIdAndDescription(questionId, val);
+			System.out.println("Fetch Option ID for :"+ questionId + " & "+ val);
+			Integer optionId;
+			if( op == null) {
+				optionId = -1;
+			}else {
+				optionId = op.getOptionId();
+			}
+			
+			//fetch answer by response and option ID (if already exists)
+			Answer ans =  answerService.getResponseByResponseIdAndQuestionIdAndOptionId(responseId, questionId, optionId);
+			if (ans == null) {
+				
+					System.out.println("Response: " + responseId + " Q: " + questionId + " A: " + val + " O: "+ optionId);
+					Answer a = new Answer(responseId, questionId, val, optionId);
 					answerService.addAnswer(a);
-				}
-		} else {
-			System.out.println("Im here");
-		}
-
+				
+			} else {
+				System.out.println("Im here");
+				ans.setAnswer(val);
+				answerService.saveAnswer(ans);
+			}
+		}	
 		return new ResponseEntity(1, HttpStatus.CREATED);
+
 	}
 
 	/* ==================== OTHERS ==================== */
