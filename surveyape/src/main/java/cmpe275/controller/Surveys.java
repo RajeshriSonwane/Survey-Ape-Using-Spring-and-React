@@ -251,6 +251,7 @@ public class Surveys {
 		}
 		
 		 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		 System.out.println("sessions id: "+uid);
 
 		
 		  if(participantslist!=null) { 
@@ -319,6 +320,13 @@ public class Surveys {
 //		 }
 //		 else
 //		 return new ResponseEntity(false, HttpStatus.FOUND);
+		if(session.getAttribute("sess_userid")==null) {
+			return new ResponseEntity(false, HttpStatus.FOUND);
+		}
+		
+		 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+		 System.out.println("sessions id: "+uid);
+		 
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
 			return new ResponseEntity(s, HttpStatus.FOUND);
