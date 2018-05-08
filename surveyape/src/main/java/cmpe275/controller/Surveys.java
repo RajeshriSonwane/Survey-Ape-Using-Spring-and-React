@@ -277,7 +277,7 @@ public class Surveys {
 
 	}
 
-	// get open questions
+	// get open survey - not logged in users
 	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
 		// List<Question> res = new ArrayList<Question>();
@@ -298,7 +298,7 @@ public class Surveys {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
-	// get open survey by id
+	// get open survey - logged in users
 	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
 		// Survey s = surveyService.getSurvey(id);
@@ -390,8 +390,7 @@ public class Surveys {
 	// save responses for general and closed
 	@PostMapping(path = "/createResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createResponse(@RequestBody SurveyResponse sr) throws Exception {
-		// Integer uid =
-		// Integer.parseInt(session.getAttribute("sess_userid").toString());
+		// Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Integer uid = 1;
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
@@ -435,7 +434,7 @@ public class Surveys {
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
 		if (res != null) {
-			System.out.println("FOUND Response");
+			System.out.println("FOUND Response - submit survey");
 			res.setCompletedStatus(true);
 			responseService.saveResponse(res);
 		}
@@ -446,7 +445,38 @@ public class Surveys {
 	// save responses for open
 	@PostMapping(path = "/createOpenResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createOpenResponse(@RequestBody SurveyResponse sr) throws Exception {
-		System.out.println("Response closed! " + sr);
+		// Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
+		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		Integer uid = 1;
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Integer responseId;
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if (res != null) {
+			System.out.println("FOUND openResponse");
+			responseId = res.getResponseId();
+		} else {
+			System.out.println("NOT FOUND openresponse");
+			Response r = new Response(surveyId, uid, false);
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+		}
+
+		Integer questionId = Integer.parseInt(sr.getQuestions());
+		String response = sr.getResponse();
+		List<Answer> ans = answerService.getResponseByResponseIdAndQuestionId(responseId, questionId);
+		
+		if (ans.size() == 0) {
+			System.out.println(response);
+				String[] arrayRes =  response.split(",");
+				for(String val : arrayRes) {
+					System.out.println("OpenResponse: " + responseId + " Q: " + questionId + " A: " + val);
+					Answer a = new Answer(responseId, questionId, val);
+					answerService.addAnswer(a);
+				}
+		} else {
+			System.out.println("Im here");
+		}
+
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 

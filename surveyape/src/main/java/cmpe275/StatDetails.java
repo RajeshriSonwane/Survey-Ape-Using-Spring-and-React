@@ -10,12 +10,12 @@ public class StatDetails {
 	int submissions;
 	int invited;
 	int registered;
-	String distribution;
+	AnsDistribution[] distribution;
 	
 	public StatDetails(){		
 	}
 	
-	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s,int i, int r, String d){
+	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s,int i, int r, AnsDistribution[] d){
 		title=t;
 		starttime=st;
 		endtime=et;
@@ -68,10 +68,10 @@ public class StatDetails {
 	public void setRegistered(int registered) {
 		this.registered = registered;
 	}
-	public String getDistribution() {
+	public AnsDistribution[] getDistribution() {
 		return distribution;
 	}
-	public void setDistribution(String distribution) {
+	public void setDistribution(AnsDistribution[] distribution) {
 		this.distribution = distribution;
 	}
 	

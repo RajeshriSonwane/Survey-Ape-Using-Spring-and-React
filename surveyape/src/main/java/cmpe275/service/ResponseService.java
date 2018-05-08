@@ -33,4 +33,8 @@ public class ResponseService {
     public List<Response> responsesBySurveyId(Integer surveyId){
     	return responseRepository.findBySurveyId(surveyId);
     }
+    
+    public List<Response> responsesByUserId(Integer uid){
+    	return responseRepository.findByUserId(uid);
+    }
 }

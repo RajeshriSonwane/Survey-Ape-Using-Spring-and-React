@@ -20,4 +20,8 @@ public class AnswerService {
     public List<Answer> getResponseByResponseIdAndQuestionId(Integer responseId, Integer questionId) {
     	return answerRepository.findByQuestionIdAndResponseId(questionId, responseId);
     }
+    
+    public List<Answer> findByResponseId(Integer r){
+    	return answerRepository.findByResponseId(r);
+    }
 }

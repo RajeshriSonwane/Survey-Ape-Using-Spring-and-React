@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import cmpe275.AnsDistribution;
 import cmpe275.StatDetails;
+import cmpe275.entity.Answer;
 import cmpe275.entity.Guest;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Response;
 import cmpe275.entity.Survey;
+import cmpe275.service.AnswerService;
 import cmpe275.service.GuestService;
 import cmpe275.service.ParticipantsService;
 import cmpe275.service.ResponseService;
@@ -39,6 +42,9 @@ public class StatsController {
 	
 	@Autowired
 	private GuestService guestService;
+	
+	@Autowired
+	private AnswerService answerService;
 	
 	
     @GetMapping(path = "/getsurveydetails/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,10 +73,20 @@ public class StatsController {
         System.out.println("Check subm: "+responses.size());
         int reg=numpar-guests.size();
         
-        String dist="";
-       // create JSON of answer distribution [{"question": '', "options": [], "answers": []]}
+        
+        // create array of JSON of answer distribution [{"question": '', "options": [], "ansCount": []]}
+        AnsDistribution [] dist=null;  
+        
+        for(int i=0;i<responses.size();i++) {
+        	if(responses.get(i).isCompletedStatus()==true) {
+        		int resid=responses.get(i).getResponseId();
+        		List<Answer> a= answerService.findByResponseId(resid);
+        		
+        	} 	
+        }
         
         
+     
         StatDetails sd;       
      
         if(survey.getType()==3) // registered users

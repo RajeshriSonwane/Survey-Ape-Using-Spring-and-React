@@ -6,7 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,11 +59,20 @@ public class SurveyeeController {
 	
 	// get all surveys started by a user
 	@GetMapping(path = "/startedsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Iterable<Survey> participantSurveys() {
+	public ResponseEntity<?> participantSurveys() {
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		System.out.println("Session userid: " + uid);
-		
-		return null;
+		System.out.println("Session surveyee: " + uid);
+		List<Survey> res=new ArrayList<Survey>();
+		List<Response> responses=responseService.responsesByUserId(uid);
+		for(int i=0;i<responses.size();i++) {
+			int temp=responses.get(i).getSurveyId();
+			Survey s=surveyService.getSurvey(temp);
+			res.add(s);
+		}	
+		if(responses.size()>0)
+			return new ResponseEntity(res, HttpStatus.FOUND);
+		else
+			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
 }
