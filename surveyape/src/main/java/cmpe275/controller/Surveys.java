@@ -326,7 +326,7 @@ public class Surveys {
 		
 		 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		 System.out.println("sessions id: "+uid);
-		 
+		 System.out.println("query paarm user id: "+user);
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
 			return new ResponseEntity(s, HttpStatus.FOUND);

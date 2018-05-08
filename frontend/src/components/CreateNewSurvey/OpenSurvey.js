@@ -102,9 +102,12 @@ class OpenSurvey extends Component {
                                               this.setState(() => { this.validateQues(value) });}}/>
 
                                               <select ref="qt">
-                                                  <option value="text" defaultValue>Text</option>
-                                                  <option value="checkbox">Checkbox</option>
-                                                  <option value="radiogroup">Radio</option>
+                                              <option value="text" defaultValue>Text</option>
+                                              <option value="checkbox">Checkbox</option>
+                                              <option value="radiogroup">Radio</option>
+                                              <option value="comment">Text Area</option>
+                                              <option value="dropdown">Dropdown</option>
+                                              <option value="rating">Ratings</option>
                                               </select>
 
                                           </div>

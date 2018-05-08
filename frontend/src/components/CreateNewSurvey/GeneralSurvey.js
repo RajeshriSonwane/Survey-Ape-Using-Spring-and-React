@@ -126,6 +126,7 @@ class GeneralSurvey extends Component {
                                             <option value="checkbox">Checkbox</option>
                                             <option value="radiogroup">Radio</option>
                                             <option value="comment">Text Area</option>
+                                            <option value="dropdown">Dropdown</option>
                                             <option value="rating">Ratings</option>
                                         </select>
 

@@ -168,9 +168,12 @@ class EditForm extends Component {
                         });
                     }}/>
                     <select ref="qt">
-                        <option value="text" defaultValue>Text</option>
-                        <option value="check">Checkbox</option>
-                        <option value="radio">Radio</option>
+                    <option value="text" defaultValue>Text</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="radiogroup">Radio</option>
+                    <option value="comment">Text Area</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="rating">Ratings</option>
                     </select>
                     <br/><br/>
 

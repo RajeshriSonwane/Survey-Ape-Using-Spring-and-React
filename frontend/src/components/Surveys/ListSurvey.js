@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import * as API from '../../api/API';
 import GiveOpenSurveys from "./GiveOpenSurveys";
 import * as Survey from 'survey-react';
-import './surveymodified.css';
+import 'survey-react/survey.css';
 const queryString = require('query-string');
 
 class ListSurvey extends Component {

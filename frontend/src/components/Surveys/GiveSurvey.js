@@ -46,6 +46,14 @@ class GiveSurvey extends Component {
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"})
             }
+            else if(value.type == "dropdown"){
+              var choices1 = [];
+              value.options.forEach(function(option){
+                  choices1.push(option.description);
+
+              });
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description,colCount: 0,choices: choices1})
+            }
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
