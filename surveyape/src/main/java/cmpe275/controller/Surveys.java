@@ -311,116 +311,101 @@ public class Surveys {
 
 	}
 
-<<<<<<< HEAD
-	// get open survey - not logged in users
-	@GetMapping(path = "/getOpenSurveyQuestion/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-=======
 	// get open survey for logged in user
-	@GetMapping(path = "/getOpenSurveyQuestion/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
->>>>>>> 98a36c4345c5c2aa0eba079be76e191b3bbeba57
-	public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
-		// List<Question> res = new ArrayList<Question>();
-		// List<Question> questionList = questionService.getAllQuestions();
-		// System.out.println("get open survey question: " +
-		// questionList.get(0).getSurveyId() + "-"
-		// + questionList.get(0).getDescription());
-		// for (int i = 0; i < questionList.size(); i++) {
-		// Question temp = questionList.get(i);
-		// if (temp.getSurveyId() == id)
-		// res.add(temp);
-		// }
-		// return res;
-		Survey s = surveyService.getSurvey(id);
-		 if(s.getStatus()==1) {
-		 if(LocalDateTime.now().isBefore(s.getEndDate())) {
-			 return new ResponseEntity(s, HttpStatus.FOUND);
+		@GetMapping(path = "/getOpenSurveyQuestion/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
+			// List<Question> res = new ArrayList<Question>();
+			// List<Question> questionList = questionService.getAllQuestions();
+			// System.out.println("get open survey question: " +
+			// questionList.get(0).getSurveyId() + "-"
+			// + questionList.get(0).getDescription());
+			// for (int i = 0; i < questionList.size(); i++) {
+			// Question temp = questionList.get(i);
+			// if (temp.getSurveyId() == id)
+			// res.add(temp);
+			// }
+			// return res;
+			Survey s = surveyService.getSurvey(id);
+			 if(s.getStatus()==1) {
+			// if(LocalDateTime.now().isBefore(s.getEndDate())) {
+				 return new ResponseEntity(s, HttpStatus.FOUND);
+			// }
+			// else
+				// return new ResponseEntity(false, HttpStatus.FOUND);
 		 }
 		 else
 			 return new ResponseEntity(false, HttpStatus.FOUND);
-	 }
-	 else
-		 return new ResponseEntity(false, HttpStatus.FOUND);
-	}
+		}
 
-<<<<<<< HEAD
-	// get open survey - logged in users
-	@GetMapping(path = "/giveOpenSurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id) {
-		// Survey s = surveyService.getSurvey(id);
-		// System.out.println("Survey user: " + s.getSurveyId() + "-" +
-		// s.getSurveyTitle());
-		//
-		// List<Question> res = new ArrayList<Question>();
-		// List<Question> questionList = questionService.getAllQuestions();
-		// System.out.println("get open survey question: " +
-		// questionList.get(0).getSurveyId() + "-"
-		// + questionList.get(0).getDescription());
-		// for (int i = 0; i < questionList.size(); i++) {
-		// Question temp = questionList.get(i);
-		// if (temp.getSurveyId() == id)
-		// res.add(temp);
-		// }
-		// if (res != null)
-		// return new ResponseEntity(res, HttpStatus.FOUND);
-		// else
-		// return new ResponseEntity(res, HttpStatus.FOUND);
-=======
-	// get open survey for not logged in user
-	@GetMapping(path = "/giveOpenSurvey/{id}", params = "guest", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id,@RequestParam(value = "guest") Integer user) {
-//		 Survey s = surveyService.getSurvey(id);
-//		 System.out.println("Survey user: " + s.getSurveyId() + "-" +		 s.getSurveyTitle());
-//		
-//		 List<Question> res = new ArrayList<Question>();
-//		 List<Question> questionList = questionService.getAllQuestions();
-//		 System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-" + questionList.get(0).getDescription());
-//		 for (int i = 0; i < questionList.size(); i++) {
-//			 Question temp = questionList.get(i);
-//			 if (temp.getSurveyId() == id)
-//				 res.add(temp);
-//		 }
-//		 if (res != null)
-//		 return new ResponseEntity(res, HttpStatus.FOUND);
-//		 else
-//		 return new ResponseEntity(res, HttpStatus.FOUND);
-//	}
-		
->>>>>>> 98a36c4345c5c2aa0eba079be76e191b3bbeba57
-		Survey s = surveyService.getSurvey(id);
-		if (s.getStatus() == 1)
-			return new ResponseEntity(s, HttpStatus.FOUND);
-		else
-			return new ResponseEntity(false, HttpStatus.FOUND);
-	}
-	 
-//	Guest g = new Guest();
-//	 if(g.getGiven() == 0) {
-//	 Response r  = new Response();
-//	 r = responseService.getResponseBySurveyIdAndUserId(id,user);
-//	 if(r.isCompletedStatus()== true) {
-//		 g.setGiven(1);
-//		 guestservice.addGuest(g);
-//		 return new ResponseEntity(false, HttpStatus.FOUND);
-//	 }
-//	 else {
-//		 System.out.println("Survey user: " + user);
+		// get open survey for not logged in user
+		@GetMapping(path = "/giveOpenSurvey/{id}", params = "guest", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> giveOpenSurvey(@PathVariable Integer id,@RequestParam(value = "guest") Integer user) {
 //			 Survey s = surveyService.getSurvey(id);
-//			 if(s.getStatus()==1) {
-//				 if(LocalDateTime.now().isBefore(s.getEndDate())) {
-//					 return new ResponseEntity(s, HttpStatus.FOUND);
+//			 System.out.println("Survey user: " + s.getSurveyId() + "-" +		 s.getSurveyTitle());
+//			
+//			 List<Question> res = new ArrayList<Question>();
+//			 List<Question> questionList = questionService.getAllQuestions();
+//			 System.out.println("get open survey question: " + questionList.get(0).getSurveyId() + "-" + questionList.get(0).getDescription());
+//			 for (int i = 0; i < questionList.size(); i++) {
+//				 Question temp = questionList.get(i);
+//				 if (temp.getSurveyId() == id)
+//					 res.add(temp);
+//			 }
+//			 if (res != null)
+//			 return new ResponseEntity(res, HttpStatus.FOUND);
+//			 else
+//			 return new ResponseEntity(res, HttpStatus.FOUND);
+//		}
+			
+//			Survey s = surveyService.getSurvey(id);
+//			if (s.getStatus() == 1)
+//				return new ResponseEntity(s, HttpStatus.FOUND);
+//			else
+//				return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
+		 
+		Guest g = guestservice.getGuestbyId(user);
+		
+		 if(g.getGiven() == 0) {
+		 Response r  = new Response();
+		 r = responseService.getResponseBySurveyIdAndUserId(id,user);
+		 System.out.println("guest: "+r);
+		 if(r==null){
+			 System.out.println("Survey user: " + user);
+			 Survey s = surveyService.getSurvey(id);
+			 if(s.getStatus()==1) {
+				// if(LocalDateTime.now().isBefore(s.getEndDate())) {
+					 return new ResponseEntity(s, HttpStatus.FOUND);
 //				 }
 //				 else
 //					 return new ResponseEntity(false, HttpStatus.FOUND);
-//			 }
-//			 else
-//				 return new ResponseEntity(false, HttpStatus.FOUND);
-//		 }
-//	}
-//	else
-//	return new ResponseEntity(false, HttpStatus.FOUND);
-//		}
-	
-	
+			 }
+			 else
+				 return new ResponseEntity(false, HttpStatus.FOUND);
+		 }
+		 
+		 if(r.isCompletedStatus()== true) {
+			 g.setGiven(1);
+			 guestservice.addGuest(g);
+			 return new ResponseEntity(false, HttpStatus.FOUND);
+		 }
+		 else {
+			 System.out.println("Survey user: " + user);
+				 Survey s = surveyService.getSurvey(id);
+				 if(s.getStatus()==1) {
+					// if(LocalDateTime.now().isBefore(s.getEndDate())) {
+						 return new ResponseEntity(s, HttpStatus.FOUND);
+//					 }
+//					 else
+//						 return new ResponseEntity(false, HttpStatus.FOUND);
+				 }
+				 else
+					 return new ResponseEntity(false, HttpStatus.FOUND);
+			 }
+		}
+		else
+		return new ResponseEntity(false, HttpStatus.FOUND);
+			}
 	
 	
 
