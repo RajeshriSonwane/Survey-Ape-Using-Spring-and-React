@@ -121,7 +121,7 @@ public class Users {
         JSONObject jsonObject = new JSONObject(user);
         System.out.println(jsonObject.getString("email"));
         System.out.println(jsonObject.get("surId"));
-        Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()));
+        Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()), 0);
         int gid = guestService.addGuest(ng).getGuestId();
 
         try {

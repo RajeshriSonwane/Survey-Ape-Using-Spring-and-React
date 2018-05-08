@@ -20,6 +20,10 @@ public class GuestService {
     	return guestRepository.save(g);
     }
     
+    public Guest getGuestbyId(Integer g) {
+    	return guestRepository.findByGuestId(g);
+    }
+    
     public List<Guest> guestBySurveyId(Integer s){
     	return guestRepository.findBySurveyId(s);
     }

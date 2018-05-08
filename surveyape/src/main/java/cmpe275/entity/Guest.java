@@ -14,14 +14,23 @@ public class Guest {
     private String email;
     
     private Integer surveyId;
+    
+    private Integer given;
 
     public Guest() {
     }
-    public Guest(String e, Integer s) {
+    public Guest(String e, Integer s, Integer g) {
     	email=e;
     	surveyId=s;
+    	given = g;
     }
     
+	public Integer getGiven() {
+		return given;
+	}
+	public void setGiven(Integer given) {
+		this.given = given;
+	}
 	public Integer getGuestId() {
 		return guestId;
 	}

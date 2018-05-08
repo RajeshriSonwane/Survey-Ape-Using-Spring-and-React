@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import cmpe275.Newsurvey;
 import cmpe275.entity.Answer;
+import cmpe275.entity.Guest;
 import cmpe275.entity.Options;
 import cmpe275.entity.Participants;
 import cmpe275.entity.Question;
@@ -22,6 +23,7 @@ import cmpe275.service.ParticipantsService;
 import cmpe275.service.QuestionService;
 import cmpe275.service.ResponseService;
 import cmpe275.service.SurveyService;
+import cmpe275.service.GuestService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -52,12 +54,18 @@ public class Surveys {
 
 	@Autowired
 	private AnswerService answerService;
+	
+	@Autowired
+	private GuestService guestservice;
+	
 
 	@Autowired
 	private SendInvitation sendInvitation;
 
 	@Autowired
 	private HttpSession session;
+	
+	
 
 	/* ==================== CREATE SURVEYS ==================== */
 
@@ -318,10 +326,15 @@ public class Surveys {
 		// }
 		// return res;
 		Survey s = surveyService.getSurvey(id);
-		if (s.getStatus() == 1)
-			return new ResponseEntity(s, HttpStatus.FOUND);
-		else
-			return new ResponseEntity(false, HttpStatus.FOUND);
+		 if(s.getStatus()==1) {
+		 if(LocalDateTime.now().isBefore(s.getEndDate())) {
+			 return new ResponseEntity(s, HttpStatus.FOUND);
+		 }
+		 else
+			 return new ResponseEntity(false, HttpStatus.FOUND);
+	 }
+	 else
+		 return new ResponseEntity(false, HttpStatus.FOUND);
 	}
 
 	// get open survey for not logged in user
@@ -343,12 +356,44 @@ public class Surveys {
 //		 else
 //		 return new ResponseEntity(res, HttpStatus.FOUND);
 //	}
+		
 		Survey s = surveyService.getSurvey(id);
 		if (s.getStatus() == 1)
 			return new ResponseEntity(s, HttpStatus.FOUND);
 		else
 			return new ResponseEntity(false, HttpStatus.FOUND);
 	}
+	 
+//	Guest g = new Guest();
+//	 if(g.getGiven() == 0) {
+//	 Response r  = new Response();
+//	 r = responseService.getResponseBySurveyIdAndUserId(id,user);
+//	 if(r.isCompletedStatus()== true) {
+//		 g.setGiven(1);
+//		 guestservice.addGuest(g);
+//		 return new ResponseEntity(false, HttpStatus.FOUND);
+//	 }
+//	 else {
+//		 System.out.println("Survey user: " + user);
+//			 Survey s = surveyService.getSurvey(id);
+//			 if(s.getStatus()==1) {
+//				 if(LocalDateTime.now().isBefore(s.getEndDate())) {
+//					 return new ResponseEntity(s, HttpStatus.FOUND);
+//				 }
+//				 else
+//					 return new ResponseEntity(false, HttpStatus.FOUND);
+//			 }
+//			 else
+//				 return new ResponseEntity(false, HttpStatus.FOUND);
+//		 }
+//	}
+//	else
+//	return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
+	
+	
+	
+	
 
 	/* ==================== EDIT CREATION OF SURVEYS ==================== */
 
