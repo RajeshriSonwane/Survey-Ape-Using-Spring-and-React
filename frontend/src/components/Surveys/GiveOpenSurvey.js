@@ -88,14 +88,17 @@ class GiveOpenSurvey extends Component {
             API.giveOpenSurvey(parsed.id,parsed.guest)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
-                    if (output) {
-                        this.setState({surveyId: output.surveyId});
-                        this.setState({surveyTitle: output.surveyTitle});
-                        this.setState({questions: output.questions});
-                        this.setState({survey: this.createSurveyJson(output.questions)});
-                        console.log("state: "+this.state);
-                    } else {
+                    if (output==false) {
                         console.log("No data");
+                        alert("Survey not available!");
+                    }
+                    else {
+                      this.setState({surveyId: output.surveyId});
+                      this.setState({surveyTitle: output.surveyTitle});
+                      this.setState({questions: output.questions});
+                      this.setState({survey: this.createSurveyJson(output.questions)});
+                      console.log("state: "+this.state);
+
                     }
                 });
     }
