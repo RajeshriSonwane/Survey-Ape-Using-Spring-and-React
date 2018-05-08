@@ -23,18 +23,23 @@ class GiveOpenSurvey extends Component {
             if(value.type == "checkbox")
             {
                 var choices1 = [];
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
+
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
 
             }
             else if(value.type == "radiogroup"){
                 var choices1 = [];
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
 
             }
             else
@@ -45,33 +50,34 @@ class GiveOpenSurvey extends Component {
     }
 
     surveySendResult = function (sender) {
-        console.log("DONE"+  JSON.stringify(sender.data));
-        console.log(sender.data[0]);
+
         var data = {
-            surveyId: this.state.surveyId,
-            questions: [],
-            response: [sender.data]
+            surveyId: this.state.surveyId
         };
-        API.saveOpenResponse(data)
+        API.saveSurvey(data)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
             });
+
     };
 
     surveyValueChanged = function (sender, options) {
         var mySurvey = sender;
         var questionName = options.name;
         var newValue = options.value;
-        console.log(questionName + " "+ newValue);
-        var data = {
-            surveyId: this.state.surveyId,
-            questions: options.name,
-            response: [options.value]
+        if(options.value){
+            console.log(questionName + " "+ newValue);
+            var data = {
+                surveyId: this.state.surveyId,
+                questions: options.name,
+                response: options.value.toString()
+            }
+            API.saveOpenResponse(data)
+                .then((output) => {
+                    console.log("CHECK THIS: " + output);
+                });
         }
-        API.saveOpenResponse(data)
-            .then((output) => {
-                console.log("CHECK THIS: " + output);
-            });
+
 
     };
 
