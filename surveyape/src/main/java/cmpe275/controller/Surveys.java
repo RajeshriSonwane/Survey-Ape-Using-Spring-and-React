@@ -74,6 +74,9 @@ public class Surveys {
 	public ResponseEntity<?> createGeneralSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		if(ns.getEndtime() == "") {
+			ns.setEndtime("2038-01-01T01:00");
+		}
 		System.out.println("End: " + ns.getEndtime());
 		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
 		Survey s = new Survey(uid, ns.getTitle(), 1, 0, 0, endtime);
@@ -118,6 +121,9 @@ public class Surveys {
 		System.out.println("Check ses: " + session.getAttribute("sess_userid").toString());
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid")); 
+		if(ns.getEndtime() == "") {
+			ns.setEndtime("2038-01-01T01:00");
+		}
 		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
 		Survey s = new Survey(uid, ns.getTitle(), 2, 0, 0,endtime);
 		Survey s1 = surveyService.addSurvey(s);
@@ -158,6 +164,9 @@ public class Surveys {
 	public ResponseEntity<?> createOpenSurvey(@RequestBody Newsurvey ns) throws Exception {
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session userid: " + session.getAttribute("sess_userid"));
+		if(ns.getEndtime() == "") {
+			ns.setEndtime("2038-01-01T01:00");
+		}
 		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
 		Survey s = new Survey(uid, ns.getTitle(), 3, 0, 0,endtime);
 		Survey s1 = surveyService.addSurvey(s);

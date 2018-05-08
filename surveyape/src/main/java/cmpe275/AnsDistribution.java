@@ -1,18 +1,20 @@
 package cmpe275;
 
+import java.util.ArrayList;
+
 public class AnsDistribution {
 	private String question;
-	private String[] options;
-	private int[] answerCount;
+	private ArrayList<String> options;
+	private ArrayList<Integer> answerCount;
 	
 	
 	public AnsDistribution() {		
 	}
 	
-	public AnsDistribution(String q, String[] o, int[] c) {
+	public AnsDistribution(String q, ArrayList<String> optionname, ArrayList<Integer> anscount) {
 		question=q;
-		options=o;
-		answerCount=c;
+		options=optionname;
+		answerCount=anscount;
 	}
 
 	public String getQuestion() {
@@ -21,16 +23,16 @@ public class AnsDistribution {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	public String[] getOptions() {
+	public ArrayList<String> getOptions() {
 		return options;
 	}
-	public void setOptions(String[] options) {
+	public void setOptions(ArrayList<String> options) {
 		this.options = options;
 	}
-	public int[] getAnswerCount() {
+	public ArrayList<Integer> getAnswerCount() {
 		return answerCount;
 	}
-	public void setAnswerCount(int[] answerCount) {
+	public void setAnswerCount(ArrayList<Integer> answerCount) {
 		this.answerCount = answerCount;
 	}
 

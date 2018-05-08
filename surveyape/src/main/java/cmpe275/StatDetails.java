@@ -1,6 +1,7 @@
 package cmpe275;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class StatDetails {
 	String title;
@@ -10,12 +11,12 @@ public class StatDetails {
 	int submissions;
 	int invited;
 	int registered;
-	AnsDistribution[] distribution;
+	ArrayList<AnsDistribution> distribution;
 	
 	public StatDetails(){		
 	}
 	
-	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s,int i, int r, AnsDistribution[] d){
+	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s,int i, int r, ArrayList<AnsDistribution> dist){
 		title=t;
 		starttime=st;
 		endtime=et;
@@ -23,7 +24,7 @@ public class StatDetails {
 		submissions=s;
 		invited=i;
 		registered=r;
-		distribution=d;
+		distribution=dist;
 	}
 	
 	public String getTitle() {
@@ -68,10 +69,10 @@ public class StatDetails {
 	public void setRegistered(int registered) {
 		this.registered = registered;
 	}
-	public AnsDistribution[] getDistribution() {
+	public ArrayList<AnsDistribution> getDistribution() {
 		return distribution;
 	}
-	public void setDistribution(AnsDistribution[] distribution) {
+	public void setDistribution(ArrayList<AnsDistribution> distribution) {
 		this.distribution = distribution;
 	}
 	

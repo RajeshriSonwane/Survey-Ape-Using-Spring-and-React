@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
-import GiveSurvey from "./GiveSurvey";
+import GiveOpenSurveys from "./GiveOpenSurveys";
+const queryString = require('query-string');
 
 class ListSurvey extends Component {
     state = {
-        visible: false,
-        surveys: []
+        surveys: [],
+        surveyId : ""
     };
 
 
@@ -23,11 +24,29 @@ class ListSurvey extends Component {
 
     handleEdit = function (surveyId, type) {
         console.log(surveyId + " " + type);
-        this.setState({visible: !this.state.visible});
+        API.getGeneral(surveyId)
+            .then((output) => {
+                console.log(JSON.stringify(output))
+                this.setState({
+                    sur: output,
+                    questions: output.questions
+                });
+                this.setState({surveyId: ""});
+                this.setState({surveyId: surveyId});
+            });
     }
 
     handleView = function (surveyId, type) {
-        console.log(surveyId + " " + type);
+        API.getGeneral(surveyId)
+            .then((output) => {
+                console.log(JSON.stringify(output))
+                this.setState({
+                    sur: output,
+                    questions: output.questions
+                });
+                this.setState({surveyId: ""});
+                this.setState({surveyId: surveyId});
+            });
     }
 
 
@@ -69,8 +88,8 @@ class ListSurvey extends Component {
                 }
                 <div>
                     {
-                        this.state.visible
-                            ? <GiveSurvey sid={this.state.surId} st={this.state.surTy}/>
+                        this.state.surveyId != ""
+                            ? <GiveOpenSurveys survey={this.state.sur} questions={this.state.questions}/>
                             : null
                     }
                 </div>
