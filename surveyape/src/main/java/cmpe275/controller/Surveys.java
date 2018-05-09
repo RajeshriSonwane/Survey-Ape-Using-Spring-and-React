@@ -153,7 +153,7 @@ public class Surveys {
 		}
 		String[] participants = ns.getParticipants();
 		System.out.println("check title: " + ns.getTitle());
-		System.out.println("check par: " + ns.getParticipants()[0]);
+		System.out.println("check par: " + ns.getParticipants());
 		l = participants.length;
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
