@@ -125,7 +125,7 @@ class GiveSurvey extends Component {
             }
             else{
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
-                if(value.answers.length > 0)
+                if (value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
 
