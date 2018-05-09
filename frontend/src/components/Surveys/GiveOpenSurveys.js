@@ -12,66 +12,35 @@ class GiveOpenSurveys extends Component {
         questions: [],
         surveyJSON: []
     };
+
     createSurveyJson(questions) {
         console.log(questions);
 
         var surveyJSON = {};
         surveyJSON.questions = [];
-        surveyJSON.elements = [];
-        var data = {};
         questions.forEach(function (value) {
-            var questionID = value.questionId;
-            if (value.type == "checkbox") {
+
+            if(value.type == "checkbox")
+            {
                 var choices1 = [];
-
-                value.options.forEach(function (option) {
+                var optionId = [];
+                value.options.forEach(function(option){
                     choices1.push(option.description);
-                });
-                surveyJSON.questions.push({
-                    type: value.type,
-                    name: value.questionId,
-                    title: value.description,
-                    colCount: 4,
-                    choices: choices1
-                });
-                if(value.answers.length > 0){
-                    var answers = [];
-                    value.answers.forEach(function (answer) {
-                        answers.push(answer.answer);
-                    });
+                    optionId.push(option.optionId);
 
-                    data[questionID] = answers;
-                }
-
+                });
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
 
             }
-            else if (value.type == "radiogroup") {
+            else if(value.type == "radiogroup"){
                 var choices1 = [];
-                value.options.forEach(function (option) {
+                var optionId = [];
+                value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
+                });
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
 
-                });
-                surveyJSON.questions.push({
-                    type: value.type,
-                    name: value.questionId,
-                    title: value.description,
-                    isRequired: true,
-                    colCount: 4,
-                    choices: choices1
-                });
-                if(value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
-            }
-            else if (value.type == "rating" ) {
-
-                surveyJSON.questions.push({
-                    type: value.type,
-                    name: value.questionId,
-                    title: value.description,
-                    minRateDescription: "Not Satisfied",
-                    maxRateDescription: "Completely satisfied"
-                });
-                data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "barrating" ) {
 
@@ -82,7 +51,6 @@ class GiveOpenSurveys extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
-                data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "dropdown") {
                 var choices1 = [];
@@ -98,19 +66,12 @@ class GiveOpenSurveys extends Component {
                     choices: choices1
                 });
             }
-            else{
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
-                if(value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
-            }
-
+            else
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
-        surveyJSON.data = data;
-        console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
-        return surveyJSON;
+        console.log("SurveyJSON" + JSON.stringify(surveyJSON.questions));
+        return surveyJSON.questions;
     }
-
-
 
     surveySendResult = function (sender) {
 

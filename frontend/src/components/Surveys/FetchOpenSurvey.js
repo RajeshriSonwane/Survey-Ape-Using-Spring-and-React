@@ -62,6 +62,7 @@ class FetchOpenSurvey extends Component {
                     console.log("sur: ", JSON.stringify(this.state.sur));
                 } else {
                     console.log("No data");
+                    alert("Survey not available or unpublished.");
                 }
             });
     }
