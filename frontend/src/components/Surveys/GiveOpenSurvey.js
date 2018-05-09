@@ -111,7 +111,7 @@ class GiveOpenSurvey extends Component {
         });
         surveyJSON.data = data;
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
-        return surveyJSON;
+        return surveyJSON.questions;
     }
 
     surveySendResult = function (sender) {

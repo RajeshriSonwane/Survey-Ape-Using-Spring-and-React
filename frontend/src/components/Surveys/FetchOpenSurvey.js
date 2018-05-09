@@ -22,7 +22,9 @@ class FetchOpenSurvey extends Component {
             questions: [],
             surId: '',
             surTy: '',
-            islogged: this.props.islogged
+            islogged: this.props.islogged,
+            regSurid:'',
+            visible:false
         }
         this.giveOSurvey = this.giveOSurvey.bind(this);
         console.log("construcor islogged =", this.state.islogged);
@@ -33,7 +35,9 @@ class FetchOpenSurvey extends Component {
         visible: false,
         surId: '',
         surTy: '',
-        islogged: false
+        islogged: false,
+        regSurid:'',
+        visible:false
     };
 
     componentWillMount() {
@@ -67,6 +71,12 @@ class FetchOpenSurvey extends Component {
             });
     }
 
+    hideshow(i){
+      console.log("check s id: "+i);
+      this.setState({regSurid:i});
+      this.setState({visible: !this.state.visible});
+    }
+
 
     render() {
         return (
@@ -90,21 +100,39 @@ class FetchOpenSurvey extends Component {
                                 <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                                     <b>{(s.surveyTitle)}</b>
                                 </div>
-                                <div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
-                                    <button className="btn btn-primary"
-                                        onClick={() => this.giveOSurvey(s.surveyId, s.surveyId)}>Start</button>
-                                </div>
 
-                                <br/><br/>
+                                {this.state.islogged ?
+                                    (<div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
+                                        <button className="btn btn-primary"
+                                                onClick={() => this.giveOSurvey(s.surveyId, s.surveyId)}>Start
+                                        </button>
+                                    </div>) :
+
+                                    (<div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
+                                        <button className="btn btn-primary"
+                                                onClick={() => this.hideshow(s.surveyId)}>Start
+                                        </button>
+                                    </div>)
+                                }
+
                             </div>
                         )
-                    })
-                    }
+                    })}
                 </div>
-                {this.state.islogged ?
-                    (this.state.questions.length > 0 && <GiveOpenSurveys survey={this.state.sur} questions={this.state.questions}/>)
-                    :
-                    (this.state.questions.length > 0 && <RegisterForSurvey surId={this.state.surId}/>)}
+
+
+            {
+                this.state.visible
+                    ? <RegisterForSurvey surId={this.state.regSurid}/>
+                    : null
+            }
+
+            {this.state.islogged ?
+                (this.state.questions.length > 0 && <GiveOpenSurveys survey={this.state.sur} questions={this.state.questions}/>)
+                :
+                (this.state.questions.length > 0 && <RegisterForSurvey surId={this.state.surId}/>)}
+
+
             </div>
         );
     }

@@ -13,6 +13,7 @@ class ClosedSurvey extends Component {
         qtype:[],
         newq:false,
         newp:false,
+              newo: false,
         endtime: ''
     };
 
@@ -27,6 +28,7 @@ class ClosedSurvey extends Component {
     }
 
     nextQuestion(){
+      this.setState({questions: this.state.questions.concat(this.refs.ques.value)});
       this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
       console.log("ch: "+this.refs.qt.value);
       this.setState({options: this.state.options.concat("BREAK")});
@@ -38,12 +40,14 @@ class ClosedSurvey extends Component {
     }
 
     nextOption(){
+      this.setState({options: this.state.options.concat(this.refs.opt.value)});
       console.log(this.state.options);
-      this.refs.opt.value="";
+      this.setState({newo: false});
       this.refs.opt.value="";
     }
 
     nextUser(){
+        this.setState({participants: this.state.participants.concat(this.refs.users.value)});
         console.log(this.state.participants);
         this.setState({newp:false});
         this.refs.users.value="";
@@ -97,8 +101,7 @@ class ClosedSurvey extends Component {
                             <div class="form-group row">
                                 <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
                                 <div class="col-sm-10">
-                    <input type="text" id="question" ref="ques" onBlur={(event)=>{
-                        this.setState({questions: this.state.questions.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                    <input type="text" id="question" ref="ques" onChange={(event)=>{const value=event.target.value
                                    this.setState(() => { this.validateQues(value) });}}/>
 
                                    <select ref="qt">
@@ -108,6 +111,7 @@ class ClosedSurvey extends Component {
                                    <option value="comment">Text Area</option>
                                    <option value="dropdown">Dropdown</option>
                                    <option value="barrating">Ratings</option>
+                                   <option value="personalDetails">Surveyee details</option>
                                    </select>
                                    </div>
                                </div>
@@ -115,10 +119,8 @@ class ClosedSurvey extends Component {
                                <div class="form-group row">
                                    <label for="staticEndDate" class="col-sm-2 col-form-label">Enter options:</label>
                                    <div class="col-sm-10">
-                    <input type="text" id="option" ref="opt" onBlur={(event)=>{
-                                             this.setState({options: this.state.options.concat(event.target.value)});}}
-                                             onChange={(event)=>{const value=event.target.value
-                                                        this.setState(() => { this.validateOpt(value) });}}/>
+                    <input type="text" id="option" ref="opt" onChange={(event)=>{const value=event.target.value
+                                                                      this.setState(() => { this.validateOpt(value) });}}/>
                     <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
                     </div>
                 </div>
@@ -137,8 +139,7 @@ class ClosedSurvey extends Component {
                     <div class="form-group row">
                         <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
                         <div class="col-sm-10">
-                    <input type="text" id="users" ref="users" onInput={(event)=>{
-                        this.setState({participants: this.state.participants.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                    <input type="text" id="users" ref="users" onChange={(event)=>{const value=event.target.value
                             this.setState(() => { this.validatePar(value) });}}/>
                             </div>
                         </div>

@@ -616,18 +616,10 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 	// submit loggedin surveys
 	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
-		Integer uid;
-		String emailId;
-		if(session.getAttribute("sess_userid")==null) {
-			uid=481;
-			System.out.println("open complete guest: "+uid);
-			emailId=guestservice.getGuestbyId(uid).getEmail();
-		}
-		else {
-			uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
-			System.out.println("session complete: "+uid);
-			emailId=userservice.getUserById(uid).getEmail();
-		}
+		Integer uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
+		System.out.println("session complete: "+uid);
+		String emailId=userservice.getUserById(uid).getEmail();
+		
 		
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);

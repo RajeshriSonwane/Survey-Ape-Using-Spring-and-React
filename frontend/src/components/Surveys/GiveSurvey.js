@@ -130,9 +130,9 @@ class GiveSurvey extends Component {
 
         });
         /* email confimation*/
-            surveyJSON.questions.push({type: "boolean",
-            name: "bool", title: "Email confirmation",
-            label: "Send confimation mail?",isRequired: true});
+            // surveyJSON.questions.push({type: "boolean",
+            // name: "bool", title: "Email confirmation",
+            // label: "Send confimation mail?",isRequired: true});
 
         surveyJSON.data = data;
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));

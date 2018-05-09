@@ -11,7 +11,8 @@ class ListSurvey extends Component {
         surveys: [],
         responses: [],
         completesurvey: false,
-        visible1: false
+        visible1: false,
+        user:{}
     };
 
     componentWillMount() {
@@ -24,6 +25,18 @@ class ListSurvey extends Component {
                     this.setState({surveys: output});
                 }
             });
+
+            API.getUserDetails()
+                .then((output) => {
+                    if (output == false) {
+                        alert("Login to continue or survey not available");
+                        console.log("No data");
+                    } else {
+                        this.setState({user: output});
+                        console.log("CHECK THIS: " + this.state.user.firstname);
+                        console.log("CHECK THIS: " + this.state.user.lastname);
+                    }
+                });
     }
 
     handleEdit = function (s) {
@@ -121,7 +134,7 @@ class ListSurvey extends Component {
                 <div>
                     {
                         this.state.visible1
-                            ? <ViewSurvey survey={this.state.viewsurvey} questions={this.state.viewsurvey.questions}/>
+                            ? <ViewSurvey survey={this.state.viewsurvey} questions={this.state.viewsurvey.questions} user={this.state.user}/>
                             : null
                     }
                 </div>
@@ -140,8 +153,10 @@ class ViewSurvey extends Component {
         surveyTitle: '',
         questions: [],
         surveyJSON: [],
-        survey: []
+        survey: [],
+        user:[]
     };
+
 
     createSurveyJson(questions, user) {
         console.log(questions);
@@ -149,8 +164,10 @@ class ViewSurvey extends Component {
         surveyJSON.questions = [];
         surveyJSON.elements = [];
         var data = {};
+        console.log("questions len: "+questions.length);
         questions.forEach(function (value) {
             var questionID = value.questionId;
+            console.log("val type*********: "+value.type);
             if (value.type == "checkbox") {
                 var choices1 = [];
 
@@ -229,16 +246,17 @@ class ViewSurvey extends Component {
                     data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "personalDetails") {
+
                 surveyJSON.questions.push({type: "text", name: "firstName", title: "First Name"});
                 surveyJSON.questions.push({type: "text", name: "lastName", title: "Last Name"});
                 surveyJSON.questions.push({type: "text", name: "emailID", title: "Email Id"});
                 surveyJSON.questions.push({type: "text", name: "phoneNo", title: "Phone No."});
-
                 if (user) {
-                    data["firstName"] = user["firstname"];
-                    data["lastName"] = user["lastname"];
-                    data["phoneNo"] = user["phoneNo"];
-                    data["emailID"] = user["email"];
+                  console.log("inside personalDetails: ");
+                  data["firstName"] = user["firstname"];
+                  data["lastName"] = user["lastname"];
+                  data["phoneNo"] = user["phoneNo"];
+                  data["emailID"] = user["email"];
                 }
             }
             else {
@@ -255,6 +273,7 @@ class ViewSurvey extends Component {
 
     componentWillMount() {
         console.log("props id: " + this.props.survey.surveyId);
+this.setState({user: this.props.user});
         API.getSurveyBySurveyid(this.props.survey.surveyId)
             .then((output) => {
                 console.log("CHECK THIS: " + output.surveyId);
@@ -266,7 +285,7 @@ class ViewSurvey extends Component {
                     this.setState({surveyId: output.surveyId});
                     this.setState({surveyTitle: output.surveyTitle});
                     this.setState({questions: output.questions});
-                    this.setState({survey: this.createSurveyJson(output.questions,output.user)});
+                    this.setState({survey: this.createSurveyJson(output.questions,this.state.user)});
                     console.log((this.state));
 
                 }

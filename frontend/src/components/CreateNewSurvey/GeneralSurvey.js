@@ -32,7 +32,9 @@ class GeneralSurvey extends Component {
     }
 
     nextQuestion() {
+      this.setState({questions: this.state.questions.concat(this.refs.ques.value)});
         this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
+
         console.log("ch: "+this.refs.qt.value);
         this.setState({options: this.state.options.concat("BREAK")});
         console.log("q: " + this.state.questions);
@@ -46,12 +48,14 @@ class GeneralSurvey extends Component {
     }
 
     nextOption() {
+        this.setState({options: this.state.options.concat(this.refs.opt.value)});
         console.log(this.state.options);
         this.setState({newo: false});
         this.refs.opt.value = "";
     }
 
     nextUser() {
+      this.setState({participants: this.state.participants.concat(this.refs.users.value)});
         console.log(this.state.participants);
         this.setState({newp: false});
         this.refs.users.value = "";
@@ -67,7 +71,7 @@ class GeneralSurvey extends Component {
 
     validatePar(value) {
         this.setState({newp: value.length !== 0});
-        console.log("par: "+value);
+        //console.log("par: "+value);
     }
 
     validateOpt(value) {
@@ -111,9 +115,7 @@ class GeneralSurvey extends Component {
                                 <div className="form-group row">
                                     <label for="staticQuest" className="col-sm-2 col-form-label">Enter question:</label>
                                     <div className="col-sm-2">
-                                        <input type="text" id="question" ref="ques" onBlur={(event) => {
-                                            this.setState({questions: this.state.questions.concat(event.target.value)});
-                                        }}
+                                        <input type="text" id="question" ref="ques"
                                                onChange={(event) => {
                                                    const value = event.target.value
                                                    this.setState(() => {
@@ -138,9 +140,7 @@ class GeneralSurvey extends Component {
                                 <div className="form-group row">
                                     <label for="staticEndDate" className="col-sm-2 col-form-label">Enter options:</label>
                                     <div className="col-sm-2">
-                                        <input type="text" id="option" ref="opt" onBlur={(event) => {
-                                            this.setState({options: this.state.options.concat(event.target.value)});
-                                        }}
+                                        <input type="text" id="option" ref="opt"
                                                onChange={(event) => {
                                                    const value = event.target.value
                                                    this.setState(() => {
@@ -170,8 +170,7 @@ class GeneralSurvey extends Component {
                                 <div class="form-group row">
                                     <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
                                     <div class="col-sm-10">
-                                <input type="text" id="users" ref="users" onInput={(event)=>{
-                                    this.setState({participants: this.state.participants.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                                <input type="text" id="users" ref="users" onChange={(event)=>{const value=event.target.value
                                         this.setState(() => { this.validatePar(value) });}}/>
                                         </div>
                                     </div>
@@ -179,11 +178,11 @@ class GeneralSurvey extends Component {
                                     <div class="form-group row">
                                         <label for="staticButton" class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
-                                <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next participant</button>
+                                <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Save & Add next participant</button>
                                 </div>
                             </div>
 
-                              
+
 <br/>
                                 <div className="form-group row">
                                     <label for="staticButton" className="col-sm-2 col-form-label"></label>
