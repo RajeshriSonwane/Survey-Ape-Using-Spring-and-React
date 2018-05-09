@@ -44,7 +44,7 @@ class FetchOpenSurvey extends Component {
         API.getOpenSurveys()
             .then((res) => {
                 console.log("CHECK THIS: " ,res);
-                if (res.length <0) {
+                if (res.length >0) {
                     this.setState({surveys: res, surId: res.surId});
                 } else {
                     console.log("No data");
@@ -57,7 +57,7 @@ class FetchOpenSurvey extends Component {
         API.getOpenSurveyQuestion(this.state, sid)
             .then((res) => {
                 console.log("CHECK retriev: ", res);
-                if (res.length <0) {
+                if (res.length >0) {
                     this.setState({
                         sur: res,
                         questions: res.questions,
