@@ -40,10 +40,11 @@ class FetchOpenSurvey extends Component {
         API.getOpenSurveys()
             .then((res) => {
                 console.log("CHECK THIS: " ,res);
-                if (res) {
+                if (res.length <0) {
                     this.setState({surveys: res, surId: res.surId});
                 } else {
                     console.log("No data");
+                    alert("Survey not available or unpublished.");
                 }
             });
     }
@@ -52,7 +53,7 @@ class FetchOpenSurvey extends Component {
         API.getOpenSurveyQuestion(this.state, sid)
             .then((res) => {
                 console.log("CHECK retriev: ", res);
-                if (res) {
+                if (res.length <0) {
                     this.setState({
                         sur: res,
                         questions: res.questions,
