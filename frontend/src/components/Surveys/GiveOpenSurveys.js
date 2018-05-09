@@ -40,7 +40,31 @@ class GiveOpenSurveys extends Component {
                     optionId.push(option.optionId);
                 });
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
+            }
+            else if (value.type == "barrating" ) {
 
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    ratingTheme: "css-stars",
+                    choices: ["1", "2", "3", "4", "5"]
+                });
+                data[questionID] = value.answers[0].answer;
+            }
+            else if (value.type == "dropdown") {
+                var choices1 = [];
+                value.options.forEach(function (option) {
+                    choices1.push(option.description);
+
+                });
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    colCount: 0,
+                    choices: choices1
+                });
             }
 
             else

@@ -55,6 +55,17 @@ class GiveOpenSurvey extends Component {
               });
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description,colCount: 0,choices: choices1})
             }
+            else if (value.type == "barrating" ) {
+
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    ratingTheme: "css-stars",
+                    choices: ["1", "2", "3", "4", "5"]
+                });
+                data[questionID] = value.answers[0].answer;
+            }
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
