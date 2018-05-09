@@ -26,12 +26,12 @@ public class ResponseService {
     	return responseRepository.findByResponseId(id);
     }
     
-    public Response getResponseBySurveyIdAndUserId(Integer surveyId, Integer userId) {
+    public List<Response> getResponseBySurveyIdAndUserId(Integer surveyId, Integer userId) {
     	return responseRepository.findBySurveyIdAndUserId(surveyId, userId);
     }
     
-    public Response getResponseBySurveyIdAndUserIdAndCompletedStatus(Integer surveyId, Integer userId, boolean CompletedStatus) {
-    	return responseRepository.findBySurveyIdAndUserIdAndCompletedStatus(surveyId, userId, CompletedStatus);
+    public Response getResponseBySurveyIdAndUserIdAndCounter(Integer surveyId, Integer userId, Integer counter) {
+    	return responseRepository.findBySurveyIdAndUserIdAndCounter(surveyId, userId, counter);
     }
     
     public List<Response> responsesBySurveyId(Integer surveyId){

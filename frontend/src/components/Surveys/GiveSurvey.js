@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
+import $ from 'jquery';
+import 'jquery-bar-rating';
+import 'jquery-bar-rating/dist/themes/css-stars.css';
+
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
+
+import * as widgets from 'surveyjs-widgets';
+window["$"] = window["jQuery"] = $;
 
 const queryString = require('query-string');
 
@@ -65,7 +72,7 @@ class GiveSurvey extends Component {
                 if(value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
-            else if (value.type == "rating") {
+            else if (value.type == "rating" ) {
 
                 surveyJSON.questions.push({
                     type: value.type,
@@ -73,6 +80,17 @@ class GiveSurvey extends Component {
                     title: value.description,
                     minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"
+                });
+                data[questionID] = value.answers[0].answer;
+            }
+            else if (value.type == "barrating" ) {
+
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    ratingTheme: "css-stars",
+                    choices: ["1", "2", "3", "4", "5"]
                 });
                 data[questionID] = value.answers[0].answer;
             }
@@ -135,6 +153,7 @@ class GiveSurvey extends Component {
     };
 
     componentWillMount() {
+        widgets.jquerybarrating(Survey);
         const parsed = queryString.parse(window.location.search);
         console.log(parsed.id);
         console.log(parsed.user);
@@ -187,7 +206,9 @@ class GiveSurvey extends Component {
                     }
                 });
         }
+
     }
+
 
 
     render() {
@@ -198,6 +219,8 @@ class GiveSurvey extends Component {
                 {elements: this.state.survey.elements}
             ]
         };
+
+
         console.log(JSON.stringify(json));
 
         Survey

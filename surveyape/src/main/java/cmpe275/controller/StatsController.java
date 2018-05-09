@@ -67,6 +67,7 @@ public class StatsController {
         
         List<Response> responses=responseService.responsesBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
+        int respsize = responses.size();
         int count=0;
         for(int i=0;i<responses.size();i++) {
         	if(responses.get(i).isCompletedStatus()==true)
@@ -86,7 +87,7 @@ public class StatsController {
         
         // create array of JSON of answer distribution [{"question": '', "options": [], "ansCount": []]}
         
-        ;
+        
 
 
        
@@ -109,11 +110,6 @@ public class StatsController {
         	dist.add(temp);
         }
         
-         
-        
-        
-        
-        
         for(int i=0;i<responses.size();i++) {
         	if(responses.get(i).isCompletedStatus()==true) {
         		int resid=responses.get(i).getResponseId();
@@ -121,6 +117,14 @@ public class StatsController {
         		
         	} 	
         }
+        
+        
+        
+        if(respsize<2) {
+        	return new ResponseEntity(false, HttpStatus.FOUND);
+        }
+        else {
+        
         StatDetails sd;       
      
         if(survey.getType()==3) // registered users
@@ -133,6 +137,7 @@ public class StatsController {
             return new ResponseEntity(sd, HttpStatus.FOUND);
         else
             return new ResponseEntity(false, HttpStatus.FOUND);
+        }
    }
 
 }
