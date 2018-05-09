@@ -107,7 +107,7 @@ class OpenSurvey extends Component {
                                               <option value="radiogroup">Radio</option>
                                               <option value="comment">Text Area</option>
                                               <option value="dropdown">Dropdown</option>
-                                              <option value="rating">Ratings</option>
+                                              <option value="barrating">Ratings</option>
                                               </select>
 
                                           </div>
