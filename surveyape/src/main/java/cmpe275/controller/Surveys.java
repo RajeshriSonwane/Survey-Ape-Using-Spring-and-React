@@ -691,8 +691,6 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Integer uid;
 		if(session.getAttribute("sess_userid")==null) {
-
-			uid=481;
 			uid=sr.getGuestid();
 			System.out.println("open guest: "+uid);
 		}
@@ -796,6 +794,7 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		Response res = null;
 		System.out.println("Session userid: " + uid);
+		
 		Survey s = surveyService.getSurvey(id);
 		Survey temp = s;
 		List<Response> r  = s.getResponses();
