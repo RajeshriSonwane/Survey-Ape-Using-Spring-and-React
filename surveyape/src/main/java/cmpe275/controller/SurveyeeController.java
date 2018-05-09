@@ -60,6 +60,9 @@ public class SurveyeeController {
 	// get all surveys started by a user
 	@GetMapping(path = "/startedsurveys", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> participantSurveys() {
+		if(session.getAttribute("sess_userid")==null) {
+			return new ResponseEntity(false, HttpStatus.FOUND);
+		}
 		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		System.out.println("Session surveyee: " + uid);
 		List<Survey> res=new ArrayList<Survey>();

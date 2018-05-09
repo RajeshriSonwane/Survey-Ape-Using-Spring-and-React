@@ -790,11 +790,10 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 	// get survey by surveyId
 	@GetMapping(path = "/getsurveybyid/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> getSurveyById(@PathVariable Integer id) {
-//		if(session.getAttribute("sess_userid")==null) {
-//			return new ResponseEntity(false, HttpStatus.FOUND);
-//		}
-//		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-		int uid = 3;
+		if(session.getAttribute("sess_userid")==null) {
+			return new ResponseEntity(false, HttpStatus.FOUND);
+		}
+		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
 		Response res = null;
 		System.out.println("Session userid: " + uid);
 		Survey s = surveyService.getSurvey(id);
