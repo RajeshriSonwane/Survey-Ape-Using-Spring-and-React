@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
-import GiveOpenSurveys from "./GiveOpenSurveys";
+import CompleteSurvey from "./CompleteSurvey";
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 const queryString = require('query-string');
@@ -9,7 +9,7 @@ class ListSurvey extends Component {
     state = {
         surveys: [],
         responses: [],
-        surveyId : "",
+        completesurvey : false,
         visible1:false
     };
 
@@ -25,18 +25,10 @@ class ListSurvey extends Component {
             });
     }
 
-    handleEdit = function (surveyId, type) {
-        console.log(surveyId + " " + type);
-        API.getGeneral(surveyId)
-            .then((output) => {
-                console.log(JSON.stringify(output))
-                this.setState({
-                    sur: output,
-                    questions: output.questions
-                });
-                this.setState({surveyId: ""});
-                this.setState({surveyId: surveyId});
-            });
+    handleEdit = function (s) {
+       console.log("id: "+s.surveyId+" type: "+s.type);
+        this.setState({completesurvey:!this.state.completesurvey});
+        this.setState({viewsurvey: s});
     }
 
     handleView = function (s) {
@@ -84,7 +76,7 @@ class ListSurvey extends Component {
                               (<div>
                                 <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
                                     <button className="btn btn-info" type="button"
-                                            onClick={() => this.handleEdit(s.surveyId, s.type)}>Continue
+                                            onClick={() => this.handleEdit(s)}>Continue
                                     </button>
                                 </div>
                                 <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
@@ -99,7 +91,7 @@ class ListSurvey extends Component {
                               : (<div>
                                 <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
                                     <button className="btn btn-info" type="button" disabled={true}
-                                            onClick={() => this.handleEdit(s.surveyId, s.type)}>Continue
+                                            onClick={() => this.handleEdit(s)}>Continue
                                     </button>
                                 </div>
                                 <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
@@ -118,8 +110,8 @@ class ListSurvey extends Component {
                 }
                 <div>
                     {
-                        this.state.surveyId != ""
-                            ? <GiveOpenSurveys survey={this.state.sur} questions={this.state.questions}/>
+                        this.state.completesurvey
+                            ? <CompleteSurvey survey={this.state.viewsurvey} questions={this.state.viewsurvey.questions}/>
                             : null
                     }
                 </div>
