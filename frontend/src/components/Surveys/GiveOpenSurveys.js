@@ -12,34 +12,66 @@ class GiveOpenSurveys extends Component {
         questions: [],
         surveyJSON: []
     };
-
     createSurveyJson(questions) {
         console.log(questions);
 
         var surveyJSON = {};
         surveyJSON.questions = [];
+        surveyJSON.elements = [];
+        var data = {};
         questions.forEach(function (value) {
-
-            if(value.type == "checkbox")
-            {
+            var questionID = value.questionId;
+            if (value.type == "checkbox") {
                 var choices1 = [];
-                var optionId = [];
-                value.options.forEach(function(option){
-                    choices1.push(option.description);
-                    optionId.push(option.optionId);
 
+                value.options.forEach(function (option) {
+                    choices1.push(option.description);
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0){
+                    var answers = [];
+                    value.answers.forEach(function (answer) {
+                        answers.push(answer.answer);
+                    });
+
+                    data[questionID] = answers;
+                }
+
 
             }
-            else if(value.type == "radiogroup"){
+            else if (value.type == "radiogroup") {
                 var choices1 = [];
-                var optionId = [];
-                value.options.forEach(function(option){
+                value.options.forEach(function (option) {
                     choices1.push(option.description);
-                    optionId.push(option.optionId);
+
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    isRequired: true,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
+            }
+            else if (value.type == "rating" ) {
+
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    minRateDescription: "Not Satisfied",
+                    maxRateDescription: "Completely satisfied"
+                });
+                data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "barrating" ) {
 
@@ -66,16 +98,19 @@ class GiveOpenSurveys extends Component {
                     choices: choices1
                 });
             }
+            else{
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
+                if(value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
+            }
 
-            else
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
-
-
-
-        console.log("SurveyJSON" + JSON.stringify(surveyJSON.questions));
-        return surveyJSON.questions;
+        surveyJSON.data = data;
+        console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
+        return surveyJSON;
     }
+
+
 
     surveySendResult = function (sender) {
 
