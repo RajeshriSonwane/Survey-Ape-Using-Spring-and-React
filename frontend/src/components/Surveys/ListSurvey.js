@@ -220,7 +220,7 @@ class ViewSurvey extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
-                        <Survey.Survey model={model} onComplete={false} onValueChanged={false} />
+                        <Survey.Survey model={model} onComplete={false} onValueChanged={false} mode ="display"/>
                     </div>
                 </div>
             </div>

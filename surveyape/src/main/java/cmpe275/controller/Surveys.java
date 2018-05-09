@@ -532,16 +532,20 @@ public class Surveys {
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
 
+	// submit loggedin surveys
 	@PostMapping(path = "/completeResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
 		Integer uid;
+		String emailId;
 		if(session.getAttribute("sess_userid")==null) {
 			uid=481;
 			System.out.println("open complete guest: "+uid);
+			emailId=guestservice.getGuestbyId(uid).getEmail();
 		}
 		else {
 			uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
 			System.out.println("session complete: "+uid);
+			emailId=userservice.getUserById(uid).getEmail();
 		}
 		
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
@@ -550,10 +554,37 @@ public class Surveys {
 			System.out.println("FOUND Response - submit survey");
 			res.setCompletedStatus(true);
 			responseService.saveResponse(res);
+			//send mail
+			String text = "Thank you! :)";
+			String subject = "Thank you for completing thesurvey";
+			sendInvitation.sendEmail(emailId, subject, text);
 		}
 
 		return new ResponseEntity(1, HttpStatus.CREATED);
 	}
+	
+	
+	@PostMapping(path = "/completeGuestResponse/{guestid}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> completeGuestResponse(@PathVariable Integer guestid,@RequestBody SurveyResponse sr) throws Exception {
+		Integer uid=guestid;
+		String emailId=guestservice.getGuestbyId(uid).getEmail();
+	System.out.println("guest id: "+uid);
+		Integer surveyId = Integer.parseInt(sr.getSurveyId());
+		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		if (res != null) {
+			System.out.println("FOUND Open Response - submit guest survey: "+emailId);
+			res.setCompletedStatus(true);
+			responseService.saveResponse(res);
+			//send mail
+			String text = "Thank you! :)";
+			String subject = "Thank you for completing thesurvey";
+			sendInvitation.sendEmail(emailId, subject, text);
+		}
+
+		return new ResponseEntity(1, HttpStatus.CREATED);
+	}
+	
+	
 
 	// save responses for open
 	@PostMapping(path = "/createOpenResponse", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -562,8 +593,8 @@ public class Surveys {
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Integer uid;
 		if(session.getAttribute("sess_userid")==null) {
-			uid=481;
-			System.out.println("open guest: ");
+			uid=sr.getGuestid();
+			System.out.println("open guest: "+uid);
 		}
 		else {
 			uid =Integer.parseInt(session.getAttribute("sess_userid").toString());
@@ -676,6 +707,15 @@ class SurveyResponse {
 	String surveyId;
 	String questions;
 	String response;
+	Integer guestid;
+
+	public Integer getGuestid() {
+		return guestid;
+	}
+
+	public void setGuestid(Integer guestid) {
+		this.guestid = guestid;
+	}
 
 	public String getSurveyId() {
 		return surveyId;

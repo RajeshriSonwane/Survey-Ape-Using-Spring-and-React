@@ -10,7 +10,8 @@ class GiveOpenSurvey extends Component {
         surveyId: '',
         surveyTitle: '',
         questions: [],
-        surveyJSON: []
+        surveyJSON: [],
+        guestid:''
     };
 
     createSurveyJson(questions) {
@@ -18,36 +19,47 @@ class GiveOpenSurvey extends Component {
 
         var surveyJSON = {};
         surveyJSON.questions = [];
-        surveyJSON.elements = [];
         questions.forEach(function (value) {
 
             if(value.type == "checkbox")
             {
                 var choices1 = [];
-
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
+
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1, optionId : optionId})
 
             }
             else if(value.type == "radiogroup"){
                 var choices1 = [];
+                var optionId = [];
                 value.options.forEach(function(option){
                     choices1.push(option.description);
+                    optionId.push(option.optionId);
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, ratingTheme: "fontawesome-stars", choices: choices1})
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
             }
             else if(value.type == "rating"){
 
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"})
             }
+            else if(value.type == "dropdown"){
+              var choices1 = [];
+              value.options.forEach(function(option){
+                  choices1.push(option.description);
+
+              });
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description,colCount: 0,choices: choices1})
+            }
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
-        console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
-        return surveyJSON;
+        console.log("SurveyJSON" + JSON.stringify(surveyJSON.questions));
+        return surveyJSON.questions;
     }
 
     surveySendResult = function (sender) {
@@ -55,7 +67,7 @@ class GiveOpenSurvey extends Component {
         var data = {
             surveyId: this.state.surveyId
         };
-        API.saveSurvey(data)
+        API.saveGuestSurvey(data,this.state.guestid)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
             });
@@ -71,7 +83,8 @@ class GiveOpenSurvey extends Component {
             var data = {
                 surveyId: this.state.surveyId,
                 questions: options.name,
-                response: options.value.toString()
+                response: options.value.toString(),
+                guestid:this.state.guestid
             }
             API.saveOpenResponse(data)
                 .then((output) => {
@@ -86,6 +99,7 @@ class GiveOpenSurvey extends Component {
         const parsed = queryString.parse(window.location.search);
         console.log("open qstring id: "+parsed.id);
         console.log("open qstring guest: "+parsed.guest);
+        this.setState({guestid:parsed.guest});
             API.giveOpenSurvey(parsed.id,parsed.guest)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
@@ -107,8 +121,7 @@ class GiveOpenSurvey extends Component {
 
     render() {
         var json = { title: this.state.surveyTitle, showProgressBar: "top", pages: [
-            {questions: this.state.survey.questions},
-            {elements: this.state.survey.elements}
+            {questions: this.state.survey}
         ]};
         Survey
             .StylesManager

@@ -457,6 +457,24 @@ export const saveSurvey = (payload) =>
             return error;
         });
 
+        // save complete survey for guests
+        export const saveGuestSurvey = (payload,id) =>
+            fetch(`${api}/completeGuestResponse/`+id, {
+                method: 'POST',
+                headers: {
+                    ...headers,
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(payload)
+            }).then(res => res.json())
+                .then(res => {
+                    return res;
+                })
+                .catch(error => {
+                    console.log("This is create general survey error");
+                    return error;
+                });
 
 // get all surveys started by a user
 export const startedSurveys = (payload) =>
@@ -496,4 +514,3 @@ export const getUserDetails = (payload) =>
             console.log("This is get getUserDetails error");
             return error;
         });
-

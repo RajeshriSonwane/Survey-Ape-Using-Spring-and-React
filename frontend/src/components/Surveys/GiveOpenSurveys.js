@@ -42,6 +42,7 @@ class GiveOpenSurveys extends Component {
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1, optionId : optionId})
 
             }
+
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
