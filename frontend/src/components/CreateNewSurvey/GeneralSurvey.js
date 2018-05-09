@@ -129,6 +129,7 @@ class GeneralSurvey extends Component {
                                             <option value="comment">Text Area</option>
                                             <option value="dropdown">Dropdown</option>
                                             <option value="barrating">Ratings</option>
+                                            <option value="personalDetails">Surveyee details</option>
                                         </select>
 
                                     </div>
