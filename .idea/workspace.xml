@@ -3,19 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="cc5a0843-65b6-46eb-bcb7-ed6114d60307" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/surveyape/target/classes/META-INF/maven/com.airlines/cmpe275lab2/pom.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/App.class" afterPath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/App.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Surveys.class" afterPath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Surveys.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Users.class" afterPath="$PROJECT_DIR$/surveyape/target/classes/cmpe275/controller/Users.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar.original" afterPath="$PROJECT_DIR$/surveyape/target/cmpe275lab2-0.0.1-SNAPSHOT.jar.original" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" afterPath="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/surveyape/src/main/resources/application.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/classes/application.properties" afterPath="$PROJECT_DIR$/surveyape/target/classes/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/surveyape/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/surefire-reports/TEST-cmpe275.AppTest.xml" afterPath="$PROJECT_DIR$/surveyape/target/surefire-reports/TEST-cmpe275.AppTest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/surveyape/target/surefire-reports/cmpe275.AppTest.txt" afterPath="$PROJECT_DIR$/surveyape/target/surefire-reports/cmpe275.AppTest.txt" />
     </list>
@@ -28,36 +23,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="API.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/api/API.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="177" column="39" lean-forward="false" selection-start-line="177" selection-start-column="32" selection-end-line="177" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/MainPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="15" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="15" />
-              <folding>
-                <marker date="1525636249194" expanded="true" signature="6952:6987" ph="&lt;div/&gt;" />
-                <marker date="1525636249194" expanded="true" signature="6952:7004" ph="{...}" />
-                <marker date="1525636249194" expanded="true" signature="6952:7006" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="47" column="13" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="47" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="-3087">
+              <caret line="45" column="47" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -65,11 +38,9 @@
       <file leaf-file-name="ListSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="378">
+              <caret line="130" column="35" lean-forward="false" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -77,10 +48,21 @@
       <file leaf-file-name="EditSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/EditSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3099">
+            <state relative-caret-position="147">
               <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <marker date="1525819550814" expanded="true" signature="838:1802" ph="{...}" />
+                <marker date="1525819550814" expanded="true" signature="869:1802" ph="&lt;div/&gt;" />
+                <marker date="1525819550814" expanded="true" signature="1391:1802" ph="{...}" />
+                <marker date="1525819550814" expanded="true" signature="1446:1802" ph="&lt;div/&gt;" />
+                <marker date="1525819550814" expanded="true" signature="5780:5819" ph="&lt;select/&gt;" />
+                <marker date="1525819550814" expanded="true" signature="5780:7783" ph="{...}" />
+                <marker date="1525819550814" expanded="true" signature="5907:6292" ph="&lt;input/&gt;" />
+                <marker date="1525819550814" expanded="true" signature="5965:6085" ph="{...}" />
+                <marker date="1525819550814" expanded="true" signature="6151:6289" ph="{...}" />
+                <marker date="1525819550814" expanded="true" signature="6504:6677" ph="&lt;button/&gt;" />
+                <marker date="1525819550814" expanded="true" signature="7047:7273" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -89,10 +71,42 @@
       <file leaf-file-name="GeneralSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="128" column="59" lean-forward="true" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
+            <state relative-caret-position="2667">
+              <caret line="128" column="59" lean-forward="false" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <marker date="1525819550802" expanded="true" signature="2092:9958" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="2123:9941" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="2202:9921" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="2250:9898" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="2296:9871" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="2437:9840" ph="&lt;form/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="3911:5630" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="4890:5591" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="4957:5547" ph="&lt;select/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="5664:7017" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="5855:6599" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="5922:6556" ph="&lt;input/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="5982:6142" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="6212:6553" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="6369:6502" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="6636:6978" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="6703:6935" ph="&lt;button/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7052:7612" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7228:7573" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7296:7530" ph="&lt;button/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7690:8604" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7889:8565" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="7958:8522" ph="&lt;input/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="8020:8190" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="8213:8519" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="8356:8475" ph="{...}" />
+                <marker date="1525819550802" expanded="true" signature="8638:9199" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="8814:9160" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="8882:9117" ph="&lt;button/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="9238:9802" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="9414:9763" ph="&lt;div/&gt;" />
+                <marker date="1525819550802" expanded="true" signature="9482:9720" ph="&lt;button/&gt;" />
               </folding>
             </state>
           </provider>
@@ -101,7 +115,7 @@
       <file leaf-file-name="FetchOpenSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
+            <state relative-caret-position="2016">
               <caret line="103" column="129" lean-forward="false" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -113,8 +127,8 @@
       <file leaf-file-name="GiveOpenSurveys.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1209">
-              <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+            <state relative-caret-position="-933">
+              <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -123,7 +137,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
+            <state relative-caret-position="84">
               <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -132,13 +146,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1398">
-              <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+            <state relative-caret-position="2268">
+              <caret line="111" column="11" lean-forward="false" selection-start-line="108" selection-start-column="8" selection-end-line="111" selection-end-column="11" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <marker date="1525764987207" expanded="true" signature="3863:3910" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -170,9 +185,9 @@
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js" />
+        <option value="$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js" />
       </list>
     </option>
   </component>
@@ -208,7 +223,6 @@
       <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -261,6 +275,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -379,11 +394,12 @@
       <workItem from="1524944903030" duration="2129000" />
       <workItem from="1525041462995" duration="85000" />
       <workItem from="1525041646050" duration="173000" />
+      <workItem from="1525819477601" duration="5558000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43616000" />
+    <option name="totallyTimeSpent" value="49178000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -398,13 +414,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Sequence" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23302108" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Sequence" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25725028" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26100966" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -412,31 +427,11 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3280543" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25725028" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,7 +441,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -495,9 +492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
           <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -512,7 +506,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-115">
           <caret line="73" column="4" lean-forward="false" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -520,7 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="454" column="11" lean-forward="false" selection-start-line="454" selection-start-column="11" selection-end-line="454" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -530,6 +525,38 @@
           <caret line="131" column="11" lean-forward="false" selection-start-line="131" selection-start-column="11" selection-end-line="131" selection-end-column="11" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+            <marker date="1525819550802" expanded="true" signature="2092:9958" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="2123:9941" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2202:9921" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2250:9898" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2296:9871" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2437:9840" ph="&lt;form/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="3911:5630" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="4890:5591" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="4957:5547" ph="&lt;select/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5664:7017" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5855:6599" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5922:6556" ph="&lt;input/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5982:6142" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6212:6553" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6369:6502" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6636:6978" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="6703:6935" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7052:7612" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7228:7573" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7296:7530" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7690:8604" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7889:8565" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7958:8522" ph="&lt;input/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8020:8190" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8213:8519" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8356:8475" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8638:9199" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8814:9160" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8882:9117" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9238:9802" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9414:9763" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9482:9720" ph="&lt;button/&gt;" />
           </folding>
         </state>
       </provider>
@@ -644,19 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1000">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <marker date="1525567295644" expanded="true" signature="1037:1059" ph="{&quot;email&quot;: userdata.email...}" />
-            <marker date="1525567295644" expanded="true" signature="1037:1075" ph="{...}" />
-            <marker date="1525567295644" expanded="true" signature="1037:1083" ph="{...}" />
-            <marker date="1525567295644" expanded="true" signature="1779:2543" ph="&lt;div/&gt;" />
-            <marker date="1525567295644" expanded="true" signature="1884:2488" ph="&lt;input/&gt;" />
-            <marker date="1525567295644" expanded="true" signature="2184:2485" ph="{...}" />
-            <marker date="1525567295644" expanded="true" signature="2592:3534" ph="&lt;div/&gt;" />
-            <marker date="1525567295644" expanded="true" signature="2669:3479" ph="&lt;div/&gt;" />
-            <marker date="1525567295644" expanded="true" signature="2743:3420" ph="&lt;div/&gt;" />
-            <marker date="1525567295644" expanded="true" signature="2842:3357" ph="&lt;input/&gt;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -676,9 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -699,23 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="89" column="21" lean-forward="false" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <marker date="1525676432661" expanded="true" signature="2590:7611" ph="{...}" />
-            <marker date="1525676432661" expanded="true" signature="2621:7594" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2643:7575" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2703:7249" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2755:7222" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2844:7191" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2919:7156" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="2982:7117" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="3789:7074" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="3862:7027" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="3932:6976" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="6720:6921" ph="&lt;div/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="7337:7552" ph="&lt;Route/&gt;" />
-            <marker date="1525676432661" expanded="true" signature="7403:7527" ph="&lt;Home/&gt;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -793,7 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-14805">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -806,7 +799,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
+        <state relative-caret-position="84">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -888,9 +881,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
           <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -903,10 +893,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/EditSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3099">
+        <state relative-caret-position="147">
           <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+            <marker date="1525819550814" expanded="true" signature="838:1802" ph="{...}" />
+            <marker date="1525819550814" expanded="true" signature="869:1802" ph="&lt;div/&gt;" />
+            <marker date="1525819550814" expanded="true" signature="1391:1802" ph="{...}" />
+            <marker date="1525819550814" expanded="true" signature="1446:1802" ph="&lt;div/&gt;" />
+            <marker date="1525819550814" expanded="true" signature="5780:5819" ph="&lt;select/&gt;" />
+            <marker date="1525819550814" expanded="true" signature="5780:7783" ph="{...}" />
+            <marker date="1525819550814" expanded="true" signature="5907:6292" ph="&lt;input/&gt;" />
+            <marker date="1525819550814" expanded="true" signature="5965:6085" ph="{...}" />
+            <marker date="1525819550814" expanded="true" signature="6151:6289" ph="{...}" />
+            <marker date="1525819550814" expanded="true" signature="6504:6677" ph="&lt;button/&gt;" />
+            <marker date="1525819550814" expanded="true" signature="7047:7273" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -915,24 +916,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="177" column="39" lean-forward="false" selection-start-line="177" selection-start-column="32" selection-end-line="177" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/FetchOpenSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
+        <state relative-caret-position="2016">
           <caret line="103" column="129" lean-forward="false" selection-start-line="103" selection-start-column="97" selection-end-line="103" selection-end-column="129" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -941,34 +931,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/CreateNewSurvey/GeneralSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="128" column="59" lean-forward="true" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
+        <state relative-caret-position="2667">
+          <caret line="128" column="59" lean-forward="false" selection-start-line="128" selection-start-column="59" selection-end-line="128" selection-end-column="59" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+            <marker date="1525819550802" expanded="true" signature="2092:9958" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="2123:9941" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2202:9921" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2250:9898" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2296:9871" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="2437:9840" ph="&lt;form/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="3911:5630" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="4890:5591" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="4957:5547" ph="&lt;select/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5664:7017" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5855:6599" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5922:6556" ph="&lt;input/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="5982:6142" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6212:6553" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6369:6502" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="6636:6978" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="6703:6935" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7052:7612" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7228:7573" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7296:7530" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7690:8604" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7889:8565" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="7958:8522" ph="&lt;input/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8020:8190" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8213:8519" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8356:8475" ph="{...}" />
+            <marker date="1525819550802" expanded="true" signature="8638:9199" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8814:9160" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="8882:9117" ph="&lt;button/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9238:9802" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9414:9763" ph="&lt;div/&gt;" />
+            <marker date="1525819550802" expanded="true" signature="9482:9720" ph="&lt;button/&gt;" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="47" column="13" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="47" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1209">
-          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1398">
-          <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        <state relative-caret-position="2268">
+          <caret line="111" column="11" lean-forward="false" selection-start-line="108" selection-start-column="8" selection-end-line="111" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <marker date="1525764987207" expanded="true" signature="3863:3910" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveOpenSurveys.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-933">
+          <caret line="35" column="28" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/ListSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="130" column="35" lean-forward="false" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Surveys/GiveSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3087">
+          <caret line="45" column="47" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="47" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
