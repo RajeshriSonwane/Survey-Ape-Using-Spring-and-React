@@ -21,43 +21,83 @@ class GiveSurvey extends Component {
         var surveyJSON = {};
         surveyJSON.questions = [];
         surveyJSON.elements = [];
+        var data = {};
         questions.forEach(function (value) {
-
-            if(value.type == "checkbox")
-            {
+            var questionID = value.questionId;
+            if (value.type == "checkbox") {
                 var choices1 = [];
 
-                value.options.forEach(function(option){
+                value.options.forEach(function (option) {
                     choices1.push(option.description);
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, colCount: 4, choices: choices1})
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0){
+                    var answers = [];
+                    value.answers.forEach(function (answer) {
+                        answers.push(answer.answer);
+                    });
+
+                    data[questionID] = answers;
+                }
+
 
             }
-            else if(value.type == "radiogroup"){
+            else if (value.type == "radiogroup") {
                 var choices1 = [];
-                value.options.forEach(function(option){
+                value.options.forEach(function (option) {
                     choices1.push(option.description);
 
                 });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, isRequired: true,colCount: 4, choices: choices1})
-
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    isRequired: true,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
             }
-            else if(value.type == "rating"){
+            else if (value.type == "rating") {
 
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description, minRateDescription: "Not Satisfied",
-                    maxRateDescription: "Completely satisfied"})
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    minRateDescription: "Not Satisfied",
+                    maxRateDescription: "Completely satisfied"
+                });
+                data[questionID] = value.answers[0].answer;
             }
-            else if(value.type == "dropdown"){
-              var choices1 = [];
-              value.options.forEach(function(option){
-                  choices1.push(option.description);
+            else if (value.type == "dropdown") {
+                var choices1 = [];
+                value.options.forEach(function (option) {
+                    choices1.push(option.description);
 
-              });
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description,colCount: 0,choices: choices1})
+                });
+                surveyJSON.questions.push({
+                    type: value.type,
+                    name: value.questionId,
+                    title: value.description,
+                    colCount: 0,
+                    choices: choices1
+                });
             }
-            else
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
+            else{
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
+                if(value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
+            }
+
         });
+        surveyJSON.data = data;
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
         return surveyJSON;
     }
@@ -78,8 +118,8 @@ class GiveSurvey extends Component {
         var mySurvey = sender;
         var questionName = options.name;
         var newValue = options.value;
-        if(options.value){
-            console.log(questionName + " "+ newValue);
+        if (options.value) {
+            console.log(questionName + " " + newValue);
             var data = {
                 surveyId: this.state.surveyId,
                 questions: options.name,
@@ -103,7 +143,7 @@ class GiveSurvey extends Component {
             .then((output) => {
                 console.log("CHECK THIS: " + output.firstname);
                 console.log("CHECK THIS: " + output.phoneNo);
-                if (output==false) {
+                if (output == false) {
                     alert("Login to continue or survey not available");
                     console.log("No data");
                 } else {
@@ -116,16 +156,16 @@ class GiveSurvey extends Component {
             API.getGeneral(parsed.id)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
-                    if (output==false) {
-                      alert("Login to continue or survey not available");
-                      console.log("No data");
+                    if (output == false) {
+                        alert("Login to continue or survey not available");
+                        console.log("No data");
                     }
                     else {
-                      this.setState({surveyId: output.surveyId});
-                      this.setState({surveyTitle: output.surveyTitle});
-                      this.setState({questions: output.questions});
-                      this.setState({survey: this.createSurveyJson(output.questions)});
-                      console.log((this.state));
+                        this.setState({surveyId: output.surveyId});
+                        this.setState({surveyTitle: output.surveyTitle});
+                        this.setState({questions: output.questions});
+                        this.setState({survey: this.createSurveyJson(output.questions)});
+                        console.log((this.state));
 
                     }
                 });
@@ -137,13 +177,13 @@ class GiveSurvey extends Component {
             API.getClosed(parsed.id, parsed.user)
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
-                    if (output==false) {
-                      alert("Login to continue or survey not available");
-                      console.log("No data");
+                    if (output == false) {
+                        alert("Login to continue or survey not available");
+                        console.log("No data");
                     } else {
-                      this.setState({surveyId: output.surveyId});
-                      this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
-                      this.setState({survey: this.createSurveyJson(output.questions)});
+                        this.setState({surveyId: output.surveyId});
+                        this.setState({surveyTitle: output.surveyTitle, questions: output.questions});
+                        this.setState({survey: this.createSurveyJson(output.questions)});
                     }
                 });
         }
@@ -152,24 +192,28 @@ class GiveSurvey extends Component {
 
     render() {
 
-        var json = { title: this.state.surveyTitle, showProgressBar: "top", pages: [
-            {questions: this.state.survey.questions},
-            {elements: this.state.survey.elements}
-        ]};
+        var json = {
+            title: this.state.surveyTitle, showProgressBar: "top", pages: [
+                {questions: this.state.survey.questions},
+                {elements: this.state.survey.elements}
+            ]
+        };
         console.log(JSON.stringify(json));
+
         Survey
             .StylesManager
             .applyTheme("winterstone");
         var model = new Survey.Model(json);
 
-
-
+        model.data = this.state.survey.data;
+        //model.mode = 'display';
         return (
             <div className="w3-container w3-panel">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <Survey.Survey model={model} onComplete={this.surveySendResult.bind(this)} onValueChanged={this.surveyValueChanged.bind(this)} />
+                            <Survey.Survey model={model} onComplete={this.surveySendResult.bind(this)}
+                                           onValueChanged={this.surveyValueChanged.bind(this)}/>
                         </div>
                     </div>
                 </div>
