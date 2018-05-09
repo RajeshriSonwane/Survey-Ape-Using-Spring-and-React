@@ -242,6 +242,7 @@ export const getOpenSurveys = (payload) =>
             ...headers,
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(payload)
     }).then(res => res.json())
         .then(res => {
@@ -365,6 +366,7 @@ export const getOpenSurveyQuestion = (payload, sid) =>
             ...headers,
             'Content-Type': 'application/json'
         },
+        credentials: 'include'
     }).then(res => res.json())
         .then(res => {
             console.log(res);
