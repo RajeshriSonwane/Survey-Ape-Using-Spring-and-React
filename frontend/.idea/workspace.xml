@@ -12,92 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FetchOpenSurvey.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Surveys/FetchOpenSurvey.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="55" column="33" lean-forward="false" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GiveOpenSurveys.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveOpenSurveys.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-212">
-              <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-                <marker date="1525844340367" expanded="true" signature="239:4590" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="2675:2889" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="2697:2750" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="2811:2880" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="2944:3486" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="3081:3478" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="3161:3315" ph="{&quot;questions&quot;: options.name...}" />
-                <marker date="1525844340367" expanded="true" signature="3389:3466" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="3514:3819" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="3835:4588" ph="{...}" />
-                <marker date="1525844340367" expanded="true" signature="3856:3975" ph="{&quot;showProgressBar&quot;: &quot;top&quot;...}" />
-                <marker date="1525844340367" expanded="true" signature="4135:4570" ph="&lt;div/&gt;" />
-                <marker date="1525844340367" expanded="true" signature="4191:4551" ph="&lt;div/&gt;" />
-                <marker date="1525844340367" expanded="true" signature="4239:4528" ph="&lt;div/&gt;" />
-                <marker date="1525844340367" expanded="true" signature="4285:4501" ph="&lt;div/&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GiveOpenSurvey.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveOpenSurvey.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-              <folding>
-                <marker date="1525844340361" expanded="true" signature="238:6614" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="407:2458" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="606:2458" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="2127:2458" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="3960:4198" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="3982:4035" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="4120:4189" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="4253:4839" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="4390:4831" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="4470:4668" ph="{&quot;questions&quot;: options.name...}" />
-                <marker date="1525844340361" expanded="true" signature="4742:4819" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="4867:5843" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="5181:5835" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="5289:5416" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="5442:5817" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="5859:6612" ph="{...}" />
-                <marker date="1525844340361" expanded="true" signature="5880:5999" ph="{&quot;showProgressBar&quot;: &quot;top&quot;...}" />
-                <marker date="1525844340361" expanded="true" signature="6159:6594" ph="&lt;div/&gt;" />
-                <marker date="1525844340361" expanded="true" signature="6215:6575" ph="&lt;div/&gt;" />
-                <marker date="1525844340361" expanded="true" signature="6263:6552" ph="&lt;div/&gt;" />
-                <marker date="1525844340361" expanded="true" signature="6309:6525" ph="&lt;div/&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GiveSurvey.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../BackUp project/cmpe275_SurveyApe/frontend/src/components/Surveys/GiveSurvey.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="75" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+              <caret line="255" column="16" lean-forward="false" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -135,6 +54,8 @@
         <option value="$PROJECT_DIR$/src/components/Surveys/GiveOpenSurveys.js" />
         <option value="$PROJECT_DIR$/src/components/Surveys/GiveOpenSurvey.js" />
         <option value="$PROJECT_DIR$/src/components/Surveys/FetchOpenSurvey.js" />
+        <option value="$PROJECT_DIR$/src/components/Surveys/SurveyStats.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -326,7 +247,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15312000" />
+    <option name="totallyTimeSpent" value="15998000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="877" extended-state="6" />
@@ -382,13 +303,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/SignUp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="176" column="107" lean-forward="false" selection-start-line="176" selection-start-column="72" selection-end-line="176" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Surveys/EditSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
@@ -611,6 +525,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -657,13 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MainPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -686,13 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Surveys/SurveyStats.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="50" column="25" lean-forward="false" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/API.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4148">
@@ -701,20 +602,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="255" column="16" lean-forward="true" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveOpenSurveys.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-212">
-          <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+          <caret line="73" column="5" lean-forward="false" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
             <marker date="1525844340367" expanded="true" signature="239:4590" ph="{...}" />
@@ -739,7 +630,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveOpenSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="451">
-          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
             <marker date="1525844340361" expanded="true" signature="238:6614" ph="{...}" />
             <marker date="1525844340361" expanded="true" signature="407:2458" ph="{...}" />
@@ -766,11 +657,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Surveys/SurveyStats.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Surveys/FetchOpenSurvey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="55" column="33" lean-forward="false" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+        <state relative-caret-position="136">
+          <caret line="46" column="53" lean-forward="false" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Surveys/GiveSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="255" column="16" lean-forward="false" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../BackUp project/cmpe275_SurveyApe/frontend/src/components/Surveys/GiveSurvey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
-import Plot from 'react-plotly.js';
 import datasets from "react-chartjs-2";
-import * as d from "plotly.js";
 
 var BarChart = require("react-chartjs").Bar;
 var LineChart = require("react-chartjs").Line;
