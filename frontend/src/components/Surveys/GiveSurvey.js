@@ -81,6 +81,7 @@ class GiveSurvey extends Component {
                     minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"
                 });
+                if(value.answers.length > 0)
                 data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "barrating" ) {
@@ -92,6 +93,7 @@ class GiveSurvey extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
+                if(value.answers.length > 0)
                 data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "dropdown") {
