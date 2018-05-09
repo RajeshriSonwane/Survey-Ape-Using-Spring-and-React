@@ -669,6 +669,12 @@ public class Surveys {
 		return new ResponseEntity(res, HttpStatus.FOUND);
 	}
 	
+	// get survey by surveyId
+	@GetMapping(path = "/getsurveybyid/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<?> getSurveyById(@PathVariable Integer id) {
+		Survey s = surveyService.getSurvey(id);
+		return new ResponseEntity(s, HttpStatus.FOUND);
+	}
 	
 	// get all user details for auto populate.
 		@GetMapping(path = "/getuserdetails", produces = MediaType.APPLICATION_JSON_VALUE)

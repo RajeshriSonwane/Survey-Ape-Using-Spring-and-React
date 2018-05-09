@@ -376,7 +376,24 @@ export const getOpenSurveyQuestion = (payload, sid) =>
         });
 
 
-
+// get survey by surveyid
+export const getSurveyBySurveyid = (payload) =>
+fetch(`${api}/getsurveybyid/` + payload, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include',
+  //body: JSON.stringify(payload)
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is get survey error");
+  return error;
+});
 
 /* SURVEY STATS APIs */
 
