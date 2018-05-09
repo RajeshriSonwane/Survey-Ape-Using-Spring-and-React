@@ -136,7 +136,7 @@ class GiveSurvey extends Component {
 
         surveyJSON.data = data;
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
-        return surveyJSON;
+        return surveyJSON.questions;
     }
 
     surveySendResult = function (sender) {
@@ -251,7 +251,7 @@ class GiveSurvey extends Component {
             .applyTheme("winterstone");
         var model = new Survey.Model(json);
 
-        model.data = this.state.survey.data;
+      //  model.data = this.state.survey.data;
         //model.mode = 'display';
         return (
             <div className="w3-container w3-panel">

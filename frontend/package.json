@@ -3,16 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.7.2",
     "nodemon": "^1.12.1",
     "query-string": "^6.0.0",
     "react": "^16.3.2",
+    "react-chartjs": "^1.2.0",
+    "react-chartjs-2": "^2.7.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "w3-css": "^4.0.4",
     "survey-react": "^1.0.1",
     "surveyjs-editor": "^1.0.1",
-    "surveyjs-widgets": "^1.0.1"
+    "surveyjs-widgets": "^1.0.1",
+    "w3-css": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
