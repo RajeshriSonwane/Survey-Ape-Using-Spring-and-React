@@ -22,7 +22,7 @@ class GiveSurvey extends Component {
         survey: []
     };
 
-    createSurveyJson(questions) {
+    createSurveyJson(questions, user) {
         console.log(questions);
 
         var surveyJSON = {};
@@ -110,6 +110,19 @@ class GiveSurvey extends Component {
                     choices: choices1
                 });
             }
+            else if(value.type == "personalDetails"){
+                surveyJSON.questions.push({type: "text", name: "firstName", title: "First Name"});
+                surveyJSON.questions.push({type: "text", name: "lastName", title: "Last Name"});
+                surveyJSON.questions.push({type: "text", name: "emailID", title: "Email Id"});
+                surveyJSON.questions.push({type: "text", name: "phoneNo", title: "Phone No."});
+
+                if(user){
+                    data["firstName"] = user["firstname"];
+                    data["lastName"] = user["lastname"];
+                    data["phoneNo"] = user["phoneNo"];
+                    data["emailID"] = user["email"];
+                }
+            }
             else{
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
                 if(value.answers.length > 0)
@@ -185,7 +198,7 @@ class GiveSurvey extends Component {
                         this.setState({surveyId: output.surveyId});
                         this.setState({surveyTitle: output.surveyTitle});
                         this.setState({questions: output.questions});
-                        this.setState({survey: this.createSurveyJson(output.questions)});
+                        this.setState({survey: this.createSurveyJson(output.questions, this.state.user)});
                         console.log((this.state));
 
                     }
@@ -221,9 +234,6 @@ class GiveSurvey extends Component {
                 {elements: this.state.survey.elements}
             ]
         };
-
-
-        console.log(JSON.stringify(json));
 
         Survey
             .StylesManager
