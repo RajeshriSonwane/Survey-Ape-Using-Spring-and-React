@@ -790,8 +790,27 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 	// get survey by surveyId
 	@GetMapping(path = "/getsurveybyid/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<?> getSurveyById(@PathVariable Integer id) {
+//		if(session.getAttribute("sess_userid")==null) {
+//			return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
+//		Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+		int uid = 3;
+		Response res = null;
+		System.out.println("Session userid: " + uid);
 		Survey s = surveyService.getSurvey(id);
-		return new ResponseEntity(s, HttpStatus.FOUND);
+		Survey temp = s;
+		List<Response> r  = s.getResponses();
+		ArrayList<Response> fin  = new ArrayList<Response>();
+		for(int i=0; i<r.size(); i++) {
+			res = r.get(i);
+			if(res.getUserId() == uid) {
+				System.out.println("inside the if");
+				fin.add(res);
+			}
+		}
+		temp.setResponses(null);
+		temp.setResponses(fin);
+		return new ResponseEntity(temp, HttpStatus.FOUND);
 	}
 	
 	// get all user details for auto populate.
