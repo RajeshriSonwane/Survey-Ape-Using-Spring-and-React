@@ -67,6 +67,7 @@ class GeneralSurvey extends Component {
 
     validatePar(value) {
         this.setState({newp: value.length !== 0});
+        console.log("par: "+value);
     }
 
     validateOpt(value) {
@@ -165,29 +166,23 @@ class GeneralSurvey extends Component {
 
                                 <br/><br/>
 
-                                <div className="form-group row">
-                                    <label for="staticParticipant" className="col-sm-2 col-form-label">Enter Participant:</label>
-                                    <div className="col-sm-10">
-
-                                        <input type="text" id="users" ref="users" onInput={(event) => {
-                                            this.setState({participants: this.state.participants.concat(event.target.value)});
-                                        }} onChange={(event) => {
-                                            const value = event.target.value
-                                            this.setState(() => {
-                                                this.validatePar(value)
-                                            });
-                                        }}/>
+                                <div class="form-group row">
+                                    <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
+                                    <div class="col-sm-10">
+                                <input type="text" id="users" ref="users" onInput={(event)=>{
+                                    this.setState({participants: this.state.participants.concat(event.target.value)});}} onChange={(event)=>{const value=event.target.value
+                                        this.setState(() => { this.validatePar(value) });}}/>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="form-group row">
-                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
-                                    <div className="col-sm-10">
-                                        <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button"
-                                                onClick={() => this.nextUser()}>Add next participant
-                                        </button>
-                                    </div>
+                                    <div class="form-group row">
+                                        <label for="staticButton" class="col-sm-2 col-form-label"></label>
+                                        <div class="col-sm-10">
+                                <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Add next participant</button>
                                 </div>
+                            </div>
+
+                              
 <br/>
                                 <div className="form-group row">
                                     <label for="staticButton" className="col-sm-2 col-form-label"></label>

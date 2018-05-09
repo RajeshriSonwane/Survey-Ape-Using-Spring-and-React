@@ -19,7 +19,8 @@ class GiveSurvey extends Component {
         questions: [],
         surveyJSON: [],
         user: [],
-        survey: []
+        survey: [],
+        confimBool:true
     };
 
     createSurveyJson(questions) {
@@ -52,8 +53,6 @@ class GiveSurvey extends Component {
 
                     data[questionID] = answers;
                 }
-
-
             }
             else if (value.type == "radiogroup") {
                 var choices1 = [];
@@ -117,6 +116,11 @@ class GiveSurvey extends Component {
             }
 
         });
+        /* email confimation*/
+            surveyJSON.questions.push({type: "boolean",
+            name: "bool", title: "Email confirmation",
+            label: "Send confimation mail?",isRequired: true});
+
         surveyJSON.data = data;
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
         return surveyJSON;
@@ -125,7 +129,8 @@ class GiveSurvey extends Component {
     surveySendResult = function (sender) {
 
         var data = {
-            surveyId: this.state.surveyId
+            surveyId: this.state.surveyId,
+            confimBool: this.state.confimBool
         };
         API.saveSurvey(data)
             .then((output) => {
@@ -138,6 +143,8 @@ class GiveSurvey extends Component {
         var mySurvey = sender;
         var questionName = options.name;
         var newValue = options.value;
+        console.log(options.value+" :options value: "+questionName);
+        if(questionName!="bool"){
         if (options.value) {
             console.log(questionName + " " + newValue);
             var data = {
@@ -150,7 +157,11 @@ class GiveSurvey extends Component {
                     console.log("CHECK THIS: " + output);
                 });
         }
-
+      }
+      else{
+        this.setState({confimBool: options.value});
+        console.log("bool state: "+this.state.confimBool);
+      }
 
     };
 

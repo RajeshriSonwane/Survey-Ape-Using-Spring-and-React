@@ -82,7 +82,7 @@ public class Surveys {
 		if(ns.getEndtime() == "") {
 			ns.setEndtime("2038-01-01T01:00");
 		}
-		System.out.println("End: " + ns.getEndtime());
+		
 		LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
 		Survey s = new Survey(uid, ns.getTitle(), 1, 0, 0, endtime);
 		Survey s1 = surveyService.addSurvey(s);
@@ -112,6 +112,7 @@ public class Surveys {
 		for (int i = 0; i < l; i++) {
 			Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
 			participantsService.addParticipant(pq);
+			System.out.println("Email check: " + pq.getParticipantEmail());
 			String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
 					+ s1.getSurveyId();
 			String subject = "Inviation for survey";
