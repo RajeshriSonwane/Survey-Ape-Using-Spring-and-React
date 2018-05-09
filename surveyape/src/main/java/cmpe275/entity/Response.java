@@ -20,17 +20,21 @@ public class Response {
     
     private boolean completedStatus;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "responseId")
+    private Integer counter;
+   
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "responseId")
     private List<Answer> answers;
 
     public Response() {
     	
     }
-	public Response(Integer surveyId, Integer userId, boolean completedStatus) {
+	public Response(Integer surveyId, Integer userId, boolean completedStatus, Integer c) {
 		
 		this.surveyId = surveyId;
 		this.userId = userId;
 		this.completedStatus = completedStatus;
+		this.counter = c;
 	}
 
 	public Integer getResponseId() {
@@ -71,6 +75,13 @@ public class Response {
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
+	}
+	
+    public Integer getCounter() {
+		return counter;
+	}
+	public void setCounter(Integer counter) {
+		this.counter = counter;
 	}
     
 

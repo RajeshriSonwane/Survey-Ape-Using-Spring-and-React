@@ -237,24 +237,11 @@ public class Surveys {
 	// get general survey by id
 	@GetMapping(path = "/getsurvey/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
-		
-
 		Boolean flag = false;
-
 		List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
-//		Survey s = surveyService.getSurvey(id);
-//		if (s != null && s.getStatus() == 1) {
-//
-//			return new ResponseEntity(s, HttpStatus.FOUND);
-//		} else {
-//			return new ResponseEntity(false, HttpStatus.FOUND);
-//		}
-
-		 //change after sessions
 		if(session.getAttribute("sess_userid")==null) {
 			return new ResponseEntity(false, HttpStatus.FOUND);
 		}
-		
 		 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
 		 System.out.println("session found in general:" + uid);
 		 User u = userservice.getUserById(uid);
@@ -266,36 +253,40 @@ public class Surveys {
 			  System.out.println("looking for participant...");
 			  for (int i = 0; i < participantslist.size(); i++) { 
 				  System.out.println("participants in the list: "+participantslist.get(i).getParticipantEmail());
-		if(participantslist.get(i).getParticipantEmail().equals(u.getEmail()) )
-			  { 
-			flag = true; 
-			System.out.println("Found participant");
-			  break; 
-			  } 
+				  if(participantslist.get(i).getParticipantEmail().equals(u.getEmail()) )
+				  { 
+					  flag = true; 
+					  System.out.println("Found participant");
+					  break; 
+				  } 
 			  } 
 		  }
 		  else {
 			  System.out.println("participant not found in general:");
 			  return new ResponseEntity(false, HttpStatus.FOUND);
 		  }
-		  if(flag == true) {
 		  
-		  System.out.println("Survey id: " + id); 
-		  Survey s = surveyService.getSurvey(id); 
-		  System.out.println("Survey end time: " + s.getEndDate());
-		  System.out.println("Current Time: " + LocalDateTime.now());
-		  if(LocalDateTime.now().isBefore(s.getEndDate())) 
-		  { System.out.println("check: " + s); 
-		  if(s!=null && s.getStatus()==1) 
-			  return new ResponseEntity(s, HttpStatus.FOUND); 
-		  else return new ResponseEntity(false, HttpStatus.FOUND); 
-		  }
-		  else 
-		  { 
-			  s.setStatus(0); return new ResponseEntity(false, HttpStatus.FOUND); 
-		}
+		  if(flag == true) {
+			  System.out.println("Survey id: " + id); 
+			  Survey s = surveyService.getSurvey(id); 
+			  System.out.println("Survey end time: " + s.getEndDate());
+			  System.out.println("Current Time: " + LocalDateTime.now());
+			  if(LocalDateTime.now().isBefore(s.getEndDate())) 
+			  { 
+				  System.out.println("check: " + s); 
+				  if(s!=null && s.getStatus()==1) 
+					  return new ResponseEntity(s, HttpStatus.FOUND); 
+				  else 
+					  return new ResponseEntity(false, HttpStatus.FOUND); 
+			  }
+			  else 
+			  { 
+				 s.setStatus(0); 
+				 return new ResponseEntity(false, HttpStatus.FOUND); 
+			  }
 		  } 
-		  else return new ResponseEntity(false, HttpStatus.FOUND);
+		  else 
+			  return new ResponseEntity(false, HttpStatus.FOUND);
 		 
 
 	}
@@ -321,14 +312,25 @@ public class Surveys {
 					 System.out.println("participant found in closed:");
 				 }
 				 if(p.getGiven() == 0) {
-						 Response r  = new Response();
-						 r = responseService.getResponseBySurveyIdAndUserId(id,user);
+					 System.out.println("in given ==0");
+						 List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(id, uid);
+							
+							int maxcounter = 0;
+							for(int i=0;i<res1.size(); i++) {
+								if(res1.get(i).getCounter()>maxcounter) {
+									maxcounter = res1.get(i).getCounter();
+								}
+							}
+							System.out.println("maxcounter:" + maxcounter);
+							Response r = responseService.getResponseBySurveyIdAndUserIdAndCounter(id, uid, maxcounter);
+
 						 if(r == null) {
+							 System.out.println("in r == null");
 							 System.out.println("Survey user: " + user);
 							 Survey s = surveyService.getSurvey(id);
 							 if(s.getStatus()==1) {
 								 if(LocalDateTime.now().isBefore(s.getEndDate())) {
-									 return new ResponseEntity(s, HttpStatus.FOUND);
+									 return new ResponseEntity(s, HttpStatus.FOUND);	
 								 }
 								 else
 									 return new ResponseEntity(false, HttpStatus.FOUND);
@@ -338,6 +340,7 @@ public class Surveys {
 							 
 						 }
 						 if(r.isCompletedStatus()== true) {
+							 System.out.println("in completed is true");
 							 p.setGiven(1);
 							 participantsService.addParticipant(p);
 							 return new ResponseEntity(false, HttpStatus.FOUND);
@@ -357,7 +360,10 @@ public class Surveys {
 						 }
 				 }
 				 else
-				 return new ResponseEntity(false, HttpStatus.FOUND);
+				 {
+					 System.out.println("in given !=0");
+					 return new ResponseEntity(false, HttpStatus.FOUND);
+				 }
 			 }
 			 else
 			 return new ResponseEntity(false, HttpStatus.FOUND);
@@ -367,16 +373,63 @@ public class Surveys {
 		@GetMapping(path = "/getOpenSurveyQuestion/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<?> getOpenSurveyQuestion(@PathVariable Integer id) {
 			Survey s = surveyService.getSurvey(id);
-			 if(s.getStatus()==1) {
-			// if(LocalDateTime.now().isBefore(s.getEndDate())) {
-				 return new ResponseEntity(s, HttpStatus.FOUND);
-			// }
-			// else
-				// return new ResponseEntity(false, HttpStatus.FOUND);
-		 }
-		 else
-			 return new ResponseEntity(false, HttpStatus.FOUND);
-		}
+			if(session.getAttribute("sess_userid")==null) {
+				System.out.println("session not found in open logged in");
+				return new ResponseEntity(false, HttpStatus.FOUND);
+			}
+			
+			 Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+			 System.out.println("session found in open logged in: " + uid);
+			 List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(id, uid);
+				
+				int maxcounter = 0;
+				for(int i=0;i<res1.size(); i++) {
+					if(res1.get(i).getCounter()>maxcounter) {
+						maxcounter = res1.get(i).getCounter();
+					}
+				}
+				Response r = responseService.getResponseBySurveyIdAndUserIdAndCounter(id, uid, maxcounter);
+
+			 if(r == null) {
+				 System.out.println("in r == null");
+				 if(s.getStatus()==1) {
+					 if(LocalDateTime.now().isBefore(s.getEndDate())) {
+						 
+						 return new ResponseEntity(s, HttpStatus.FOUND);
+					 }
+					 else {
+						 System.out.println("Sorry survey is closed");
+						 return new ResponseEntity(false, HttpStatus.FOUND);
+					 }
+				 }
+				 else {
+					 System.out.println("status problem");
+					 return new ResponseEntity(false, HttpStatus.FOUND);
+				 }
+				 
+			 }
+			 else if(r.isCompletedStatus()!=true) {
+				 System.out.println("Not null but not complete");
+				 if(s.getStatus()==1) {
+					 if(LocalDateTime.now().isBefore(s.getEndDate())) {
+						 return new ResponseEntity(s, HttpStatus.FOUND);
+					 }
+					 else
+						 return new ResponseEntity(false, HttpStatus.FOUND);
+				 }
+				 else {
+					 System.out.println("status problem");
+					 return new ResponseEntity(false, HttpStatus.FOUND);
+				 }
+				 
+			 }
+			 else
+			 {
+				 System.out.println("Done everything");
+				 return new ResponseEntity(false, HttpStatus.FOUND);
+			 }
+			 }
+		
 
 		// get open survey for not logged in user
 		@GetMapping(path = "/giveOpenSurvey/{id}", params = "guest", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -386,8 +439,16 @@ public class Surveys {
 		
 		//if survey is not taken
 		 if(g.getGiven() == 0) {
-		 Response r  = new Response();
-		 r = responseService.getResponseBySurveyIdAndUserId(id,user);
+		 List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(id, user);
+			
+			int maxcounter = 0;
+			for(int i=0;i<res1.size(); i++) {
+				if(res1.get(i).getCounter()>maxcounter) {
+					maxcounter = res1.get(i).getCounter();
+				}
+			}
+			Response r = responseService.getResponseBySurveyIdAndUserIdAndCounter(id, user, maxcounter);
+
 		 System.out.println("guest: "+r);
 		 // response is null
 		 if(r==null){
@@ -486,13 +547,32 @@ public class Surveys {
 //		Integer uid = 1;
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
-		if (res != null) {
+List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		
+		int maxcounter = 0;
+		for(int i=0;i<res1.size(); i++) {
+			if(res1.get(i).getCounter()>maxcounter) {
+				maxcounter = res1.get(i).getCounter();
+			}
+		}
+		Response res = responseService.getResponseBySurveyIdAndUserIdAndCounter(surveyId, uid, maxcounter);
+		
+		if (res != null && res.isCompletedStatus()!=true) {
 			System.out.println("FOUND Response");
 			responseId = res.getResponseId();
-		} else {
-			System.out.println("NOT FOUND response");
-			Response r = new Response(surveyId, uid, false);
+		}
+		else if(res != null && res.isCompletedStatus()==true) {
+			System.out.println("Once completed");
+			maxcounter++;
+			Response r = new Response(surveyId, uid, false,maxcounter);
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+
+		} 
+		
+		else {
+			System.out.println("First time giving a response");
+			Response r = new Response(surveyId, uid, false,0);
 			Response r1 = responseService.addResponse(r);
 			responseId = r1.getResponseId();
 		}
@@ -549,7 +629,16 @@ public class Surveys {
 		}
 		
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		
+		int maxcounter = 0;
+		for(int i=0;i<res1.size(); i++) {
+			if(res1.get(i).getCounter()>maxcounter) {
+				maxcounter = res1.get(i).getCounter();
+			}
+		}
+		Response res = responseService.getResponseBySurveyIdAndUserIdAndCounter(surveyId, uid, maxcounter);
+		
 		if (res != null) {
 			System.out.println("FOUND Response - submit survey");
 			res.setCompletedStatus(true);
@@ -570,7 +659,16 @@ public class Surveys {
 		String emailId=guestservice.getGuestbyId(uid).getEmail();
 	System.out.println("guest id: "+uid);
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		
+		int maxcounter = 0;
+		for(int i=0;i<res1.size(); i++) {
+			if(res1.get(i).getCounter()>maxcounter) {
+				maxcounter = res1.get(i).getCounter();
+			}
+		}
+		Response res = responseService.getResponseBySurveyIdAndUserIdAndCounter(surveyId, uid, maxcounter);
+
 		if (res != null) {
 			System.out.println("FOUND Open Response - submit guest survey: "+emailId);
 			res.setCompletedStatus(true);
@@ -593,6 +691,8 @@ public class Surveys {
 		// System.out.println("Session userid: " + session.getAttribute("sess_userid"));
 		Integer uid;
 		if(session.getAttribute("sess_userid")==null) {
+
+			uid=481;
 			uid=sr.getGuestid();
 			System.out.println("open guest: "+uid);
 		}
@@ -603,13 +703,31 @@ public class Surveys {
 
 		Integer surveyId = Integer.parseInt(sr.getSurveyId());
 		Integer responseId;
-		Response res = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
-		if (res != null) {
+		List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
+		
+		int maxcounter = 0;
+		for(int i=0;i<res1.size(); i++) {
+			if(res1.get(i).getCounter()>maxcounter) {
+				maxcounter = res1.get(i).getCounter();
+			}
+		}
+		Response res = responseService.getResponseBySurveyIdAndUserIdAndCounter(surveyId, uid, maxcounter);
+		
+		if (res != null && res.isCompletedStatus()!=true) {
 			System.out.println("FOUND Response");
 			responseId = res.getResponseId();
-		} else {
-			System.out.println("NOT FOUND response");
-			Response r = new Response(surveyId, uid, false);
+		}
+		else if(res != null && res.isCompletedStatus()==true) {
+			System.out.println("Once completed");
+			Response r = new Response(surveyId, uid, false,maxcounter);
+			Response r1 = responseService.addResponse(r);
+			responseId = r1.getResponseId();
+
+		} 
+		
+		else {
+			System.out.println("First time giving a response");
+			Response r = new Response(surveyId, uid, false,0);
 			Response r1 = responseService.addResponse(r);
 			responseId = r1.getResponseId();
 		}
