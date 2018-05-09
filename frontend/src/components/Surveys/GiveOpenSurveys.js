@@ -46,6 +46,9 @@ class GiveOpenSurveys extends Component {
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
+
+
+
         console.log("SurveyJSON" + JSON.stringify(surveyJSON.questions));
         return surveyJSON.questions;
     }

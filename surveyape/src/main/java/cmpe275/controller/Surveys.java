@@ -671,7 +671,7 @@ public class Surveys {
 	
 	// get survey by surveyId
 	@GetMapping(path = "/getsurveybyid/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<?> getSurveyById(@PathVariable Integer id) {
+	public ResponseEntity<?> getSurveyById(@PathVariable Integer id) {
 		Survey s = surveyService.getSurvey(id);
 		return new ResponseEntity(s, HttpStatus.FOUND);
 	}
