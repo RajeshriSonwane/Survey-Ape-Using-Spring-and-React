@@ -57,7 +57,7 @@ class FetchOpenSurvey extends Component {
         API.getOpenSurveyQuestion(this.state, sid)
             .then((res) => {
                 console.log("CHECK retriev: ", res);
-                if (res.length >0) {
+                if (res) {
                     this.setState({
                         sur: res,
                         questions: res.questions,
