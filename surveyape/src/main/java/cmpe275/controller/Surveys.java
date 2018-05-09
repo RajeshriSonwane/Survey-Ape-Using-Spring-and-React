@@ -638,7 +638,7 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 			responseService.saveResponse(res);
 			//send mail
 			String text = "Thank you! :)";
-			String subject = "Thank you for completing thesurvey";
+			String subject = "Thank you for completing the survey";
 			sendInvitation.sendEmail(emailId, subject, text);
 		}
 
@@ -668,7 +668,7 @@ List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, u
 			responseService.saveResponse(res);
 			//send mail
 			String text = "Thank you! :)";
-			String subject = "Thank you for completing thesurvey";
+			String subject = "Thank you for completing the survey";
 			sendInvitation.sendEmail(emailId, subject, text);
 		}
 
