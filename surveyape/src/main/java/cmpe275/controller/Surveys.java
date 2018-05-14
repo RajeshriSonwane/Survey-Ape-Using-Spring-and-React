@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +50,6 @@ public class Surveys {
     @Autowired
     private GuestService guestservice;
 
-
     @Autowired
     private SendInvitation sendInvitation;
 
@@ -59,7 +59,10 @@ public class Surveys {
     @Autowired
     private UserService userservice;
 
-    private static final String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
+
+
+    @Autowired
+    private static JavaMailSender emailSender;
 
 
 	/* ==================== CREATE SURVEYS ==================== */
@@ -99,26 +102,26 @@ public class Surveys {
         String[] participants = ns.getParticipants();
         l = participants.length;
         System.out.println("check len: " + l);
+        String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
         for (int i = 0; i < l; i++) {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             participantsService.addParticipant(pq);
             System.out.println("Email check: " + pq.getParticipantEmail());
             String QRCodeURL = "http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId();
             try {
-                generateQRCodeImage(QRCodeURL, 350, 350, QR_CODE_IMAGE_PATH);
+                 generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
 
             } catch (WriterException e) {
                 System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
             } catch (IOException e) {
                 System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
             }
-            String inlineImage = "<img src=\"MyQRCode.png\"></img><br/>";
 
-            String text = inlineImage + "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
+            String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
                     + s1.getSurveyId();
             String subject = "Inviation for survey";
 
-            sendInvitation.sendEmail(participants[i], subject, text);
+            sendInvitation.sendQREmail(participants[i], subject, text);
         }
         return new ResponseEntity(1, HttpStatus.CREATED);
     }
@@ -133,8 +136,6 @@ public class Surveys {
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
         System.out.println("QR code generated");
     }
-
-  
 
     // create closed survey
     @PostMapping(path = "/createclosed", consumes = MediaType.APPLICATION_JSON_VALUE)
