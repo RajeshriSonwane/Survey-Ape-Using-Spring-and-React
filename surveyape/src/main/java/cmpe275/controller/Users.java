@@ -1,25 +1,29 @@
 package cmpe275.controller;
 
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-
 import cmpe275.entity.Guest;
 import cmpe275.entity.User;
 import cmpe275.service.GuestService;
 import cmpe275.service.UserService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
-
-import org.json.JSONObject;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -37,6 +41,9 @@ public class Users {
 
     @Autowired
     HttpSession session;
+
+    @Autowired
+    private SendInvitation sendInvitation;
 
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,7 +79,7 @@ public class Users {
 
         System.out.println("Signup successful");
         try {
-            sendEmail(user.getEmail(), "Verify Email ID", "Click on the following link to validate " + user.getValidCode());
+            sendInvitation.sendEmail(user.getEmail(), "Verify Email ID", "Click on the following link to validate " + user.getValidCode());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +104,7 @@ public class Users {
             int code = Integer.parseInt(jsonObject.getString("verificationCode"));
             if (code == b.get(0).getValidCode()) {
                 try {
-                    sendEmail(jsonObject.getString("email"), "Email ID verification Successful", "Congratz.. Account validated");
+                    sendInvitation.sendEmail(jsonObject.getString("email"), "Email ID verification Successful", "Congratz.. Account validated");
                     session.setAttribute("sess_userid", b.get(0).getUserId());
                     session.setAttribute("sess_email", jsonObject.getString("email").toString());
                     System.out.println("set sess: " + session.getAttribute("sess_userid"));
@@ -123,22 +130,33 @@ public class Users {
         System.out.println(jsonObject.get("surId"));
         Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()), 0);
         int gid = guestService.addGuest(ng).getGuestId();
+        String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
+        String QRCodeURL = "http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid;
+        try {
+            generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
+        } catch (WriterException e) {
+            System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
+        }
 
         try {
-            sendEmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid);
+            sendInvitation.sendQREmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    public void sendEmail(String to, String subject, String text) throws Exception {
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setTo(to);
-        helper.setText(text);
-        helper.setSubject(subject);
-        sender.send(message);
+    private static void generateQRCodeImage(String text, int width, int height, String filePath)
+            throws WriterException, IOException {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+
+        Path path = FileSystems.getDefault().getPath(filePath);
+
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+        System.out.println("QR code generated");
     }
 
     @PostMapping(value = "/logout")

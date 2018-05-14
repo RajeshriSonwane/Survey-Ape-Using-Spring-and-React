@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,13 +58,7 @@ public class Surveys {
     @Autowired
     private UserService userservice;
 
-
-
-    @Autowired
-    private static JavaMailSender emailSender;
-
-
-	/* ==================== CREATE SURVEYS ==================== */
+    	/* ==================== CREATE SURVEYS ==================== */
 
     // create general survey
     @PostMapping(path = "/creategeneral", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -170,13 +163,24 @@ public class Surveys {
         String[] participants = ns.getParticipants();
         System.out.println("check title: " + ns.getTitle());
         System.out.println("check par: " + ns.getParticipants());
+        String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
         l = participants.length;
         for (int i = 0; i < l; i++) {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             Participants np = participantsService.addParticipant(pq);
+
+            String QRCodeURL = "http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
+            try {
+                generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
+            } catch (WriterException e) {
+                System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
+            }
+
             String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
             String subject = "Inviation for survey";
-            sendInvitation.sendEmail(participants[i], subject, text);
+            sendInvitation.sendQREmail(participants[i], subject, text);
         }
         return new ResponseEntity(1, HttpStatus.CREATED);
     }
@@ -823,50 +827,6 @@ public class Surveys {
         }
         return res;
     }
-
-//    public void generateQRCode() {
-//        String myCodeText = "https://localhost/";
-//        String filePath = "/Users/appshah/Documents/CrunchifyQR.png";
-//        int size = 250;
-//        String fileType = "png";
-//        File myFile = new File(filePath);
-//        try {
-//
-//            Map<EncodeHintType, Object> hintMap = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
-//            hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-//
-//            // Now with zxing version 3.2.1 you could change border size (white border size to just 1)
-//            hintMap.put(EncodeHintType.MARGIN, 1); /* default = 4 */
-//            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-//
-//            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-//            BitMatrix byteMatrix = qrCodeWriter.encode(myCodeText, BarcodeFormat.QR_CODE, size,
-//                    size, hintMap);
-//            int CrunchifyWidth = byteMatrix.getWidth();
-//            BufferedImage image = new BufferedImage(CrunchifyWidth, CrunchifyWidth,
-//                    BufferedImage.TYPE_INT_RGB);
-//            image.createGraphics();
-//
-//            Graphics2D graphics = (Graphics2D) image.getGraphics();
-//            graphics.setColor(Color.WHITE);
-//            graphics.fillRect(0, 0, CrunchifyWidth, CrunchifyWidth);
-//            graphics.setColor(Color.BLACK);
-//
-//            for (int i = 0; i < CrunchifyWidth; i++) {
-//                for (int j = 0; j < CrunchifyWidth; j++) {
-//                    if (byteMatrix.get(i, j)) {
-//                        graphics.fillRect(i, j, 1, 1);
-//                    }
-//                }
-//            }
-//            ImageIO.write(image, fileType, myFile);
-//        } catch (WriterException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("\n\nYou have successfully created QR Code.");
-//    }
 }
 
 class SurveyResponse {
