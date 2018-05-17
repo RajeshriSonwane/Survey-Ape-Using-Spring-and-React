@@ -129,3 +129,31 @@ body {
   width: 500px;
   margin: auto;
 }
+
+.containerCss input {
+  height: 35px;
+  width: 300px;
+  border-radius: 5px;
+  border-style: double;
+  border-width: thin;
+}
+
+.questionType{
+  margin-left: 25px;
+  height: 30px;
+  margin-top: 2px;
+}
+
+.addNextBuuton{
+  margin-left: 123px;
+  height: 33px;
+  margin-top: 1px;
+  width: 126px;
+}
+
+.addNextBuutonClosed{
+  margin-left: 25px;
+  height: 33px;
+  margin-top: 1px;
+  width: 126px;
+}

@@ -83,7 +83,7 @@ class GeneralSurvey extends Component {
         return (
             <div className="w3-container">
                 <br/><br/><br/>
-                <div className="container">
+                <div className="container containerCss">
                     <div className="row">
                         <div className="col-md-12">
                             <h3 align="center">Create General Survey</h3>
@@ -114,7 +114,7 @@ class GeneralSurvey extends Component {
 
                                 <div className="form-group row">
                                     <label for="staticQuest" className="col-sm-2 col-form-label">Enter question:</label>
-                                    <div className="col-sm-2">
+                                    <div className="col-sm-3">
                                         <input type="text" id="question" ref="ques"
                                                onChange={(event) => {
                                                    const value = event.target.value
@@ -123,8 +123,8 @@ class GeneralSurvey extends Component {
                                                    });
                                                }}/>
                                     </div>
-                                    <div className="col-sm-8">
-                                        <select ref="qt">
+                                    <div className="col-sm-7">
+                                        <select ref="qt" className="questionType">
                                             <option value="text" defaultValue>Text</option>
                                             <option value="checkbox">Checkbox</option>
                                             <option value="radiogroup">Radio</option>
@@ -149,7 +149,7 @@ class GeneralSurvey extends Component {
                                                }}/>
                                     </div>
                                     <div className="col-sm-8">
-                                        <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button"
+                                        <button disabled={!this.state.newo} className="btn btn-default btn-sm addNextBuuton" type="button"
                                                 onClick={() => this.nextOption()}>Add next option
                                         </button>
                                     </div>
