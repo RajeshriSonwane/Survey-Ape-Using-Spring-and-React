@@ -173,6 +173,23 @@ export const createOpen = (payload) =>
         });
 
 
+// upload image
+export const uploadimage = (payload) =>
+fetch(`${api}/uploadimage`, {
+  method: 'POST',
+  credentials: 'include',
+  body: payload
+}).then(res=>res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is file upload error");
+  return error;
+});
+
+
+
 // get general survey by id
 export const getGeneral = (payload) =>
     fetch(`${api}/getsurvey/` + payload, {

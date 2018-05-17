@@ -15,6 +15,7 @@ class GeneralSurvey extends Component {
         newq: false,
         newp: false,
         newo: false,
+        newimg: false,
         endtime: ''
     };
 
@@ -54,6 +55,16 @@ class GeneralSurvey extends Component {
         this.refs.opt.value = "";
     }
 
+    nextImage() {
+        var imgname = (this.refs.img.value).substring((this.refs.img.value).lastIndexOf("\\") + 1);
+        console.log("New file name: "+imgname);
+        imgname="/Users/anjana/Desktop/cmpe275_SurveyApe/uploads/"+imgname;
+        this.setState({options: this.state.options.concat(imgname)});
+        console.log(this.state.options);
+        this.setState({newimg: false});
+        this.refs.img.value = "";
+    }
+
     nextUser() {
       this.setState({participants: this.state.participants.concat(this.refs.users.value)});
         console.log(this.state.participants);
@@ -78,6 +89,21 @@ class GeneralSurvey extends Component {
         this.setState({newo: value.length !== 0});
     }
 
+    handleUpload = (event) => {
+      this.setState({newimg: event.target.files.length !== 0});
+      const payload=new FormData();
+      payload.append('file', event.target.files[0]);
+        API.uploadimage(payload)
+            .then((output) => {
+                if (output === 1) {
+                  this.setState({uploadstatus: 'File uploaded.'});
+                    console.log("File uploaded");
+                } else {
+                  this.setState({uploadstatus: 'File not uploaded.'});
+                    console.log("File not uploaded");
+                }
+            });
+    };
 
     render() {
         return (
@@ -131,6 +157,7 @@ class GeneralSurvey extends Component {
                                             <option value="comment">Text Area</option>
                                             <option value="dropdown">Dropdown</option>
                                             <option value="barrating">Ratings</option>
+                                            <option value="image">Image</option>
                                             <option value="personalDetails">Surveyee details</option>
                                             <option value="yesNo">Yes/No</option>
                                         </select>
@@ -151,10 +178,29 @@ class GeneralSurvey extends Component {
                                     </div>
                                     <div className="col-sm-8">
                                         <button disabled={!this.state.newo} className="btn btn-default btn-sm addNextBuuton" type="button"
-                                                onClick={() => this.nextOption()}>Add next option
+                                                onClick={() => this.nextOption()}>Save & Add next option
                                         </button>
                                     </div>
                                 </div>
+
+
+
+
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Upload image:</label>
+                                    <div className="col-sm-2">
+                                    <input id="newfile" ref="img" type="file" name="file" onChange={this.handleUpload}/>
+                                    </div>
+                                    <div className="col-sm-8">
+                                        <button disabled={!this.state.newimg} className="btn btn-default btn-sm addNextBuuton" type="button"
+                                                onClick={() => this.nextImage()}>Save & Add next image
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+
 
 
                                 <div className="form-group row">
