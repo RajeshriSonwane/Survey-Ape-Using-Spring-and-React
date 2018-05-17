@@ -124,6 +124,7 @@ class OpenSurvey extends Component {
                                             <option value="dropdown">Dropdown</option>
                                             <option value="barrating">Ratings</option>
                                             <option value="personalDetails">Surveyee details</option>
+                                            <option value="yesNo">Yes/No</option>
                                         </select>
 
                                     </div>

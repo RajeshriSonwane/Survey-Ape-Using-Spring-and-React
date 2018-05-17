@@ -54,14 +54,14 @@ class GiveSurvey extends Component {
                     data[questionID] = answers;
                 }
             }
-            else if (value.type == "radiogroup") {
+            else if (value.type == "radiogroup" || value.type == "yesNo") {
                 var choices1 = [];
                 value.options.forEach(function (option) {
                     choices1.push(option.description);
 
                 });
                 surveyJSON.questions.push({
-                    type: value.type,
+                    type: "radiogroup",
                     name: value.questionId,
                     title: value.description,
                     isRequired: true,
@@ -178,7 +178,7 @@ class GiveSurvey extends Component {
         var questionName = options.name;
         var newValue = options.value;
         console.log(options.value+" :options value: "+questionName);
-        if(questionName!="bool"){
+        if(questionName!="bool" || questionName!="lastName" || questionName!="emailID" || questionName!="firstName" || questionName!="phoneNo"){
         if (options.value) {
             console.log(questionName + " " + newValue);
             var data = {
@@ -278,7 +278,7 @@ class GiveSurvey extends Component {
             .add(function (model, options) {
                 //convert the mardown text to html
                 var str = converter.makeHtml(options.text);
-                console.log("options.text "+options.text);
+                //console.log("options.text "+options.text);
                 //remove root paragraphs <p></p>
                 str = str.substring(3);
                 str = str.substring(0, str.length - 4);

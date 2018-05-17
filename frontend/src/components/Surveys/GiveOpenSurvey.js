@@ -47,14 +47,14 @@ class GiveOpenSurvey extends Component {
 
 
             }
-            else if (value.type == "radiogroup") {
+            else if (value.type == "radiogroup" || value.type == "yesNo") {
                 var choices1 = [];
                 value.options.forEach(function (option) {
                     choices1.push(option.description);
 
                 });
                 surveyJSON.questions.push({
-                    type: value.type,
+                    type: "radiogroup",
                     name: value.questionId,
                     title: value.description,
                     isRequired: true,

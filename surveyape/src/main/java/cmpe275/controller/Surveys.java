@@ -82,7 +82,13 @@ public class Surveys {
         for (int i = 0; i < l; i++) {
             Question q = new Question(questions[i], type[i], s1.getSurveyId());
             Question newq = questionService.addQuestion(q);
-            if (type[i].equalsIgnoreCase("text") == false) {
+            if(type[i].equalsIgnoreCase("yesNo") == true) {
+            	Options yes = new Options("Yes", newq.getQuestionId());
+                optionService.addOption(yes);
+            	Options no = new Options("No", newq.getQuestionId());
+                optionService.addOption(no);
+            }
+            else if (type[i].equalsIgnoreCase("text") == false) {
                 while (temp < options.length && options[temp].equalsIgnoreCase("break") == false) {
                     System.out.println(options[temp] + "  " + newq.getQuestionId());
                     Options o = new Options(options[temp], newq.getQuestionId());
