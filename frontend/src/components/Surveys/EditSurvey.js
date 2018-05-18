@@ -31,6 +31,25 @@ class EditSurvey extends Component {
         this.setState({visible: !this.state.visible});
     };
 
+    handleExport=(surDeatils) =>{
+      console.log(surDeatils.questions);
+      var jsoncontent=surDeatils.questions;
+      for(var i=0;i<jsoncontent.length;i++){
+          delete jsoncontent[i].questionId;
+          delete jsoncontent[i].surveyId;
+          delete jsoncontent[i].answers;
+          for(var j=0;j<(jsoncontent[i].options).length;j++){
+            delete jsoncontent[i].options[j].optionId;
+            delete jsoncontent[i].options[j].questionId;
+          }
+        }
+      var element = document.createElement("a");
+      var file = new Blob([JSON.stringify(jsoncontent)], {type: 'text/plain'});
+      element.href = URL.createObjectURL(file);
+      element.download = "surveyExport.txt";
+      element.click();
+    }
+
 
     render() {
         return (
@@ -60,6 +79,11 @@ class EditSurvey extends Component {
                                           onClick={() => this.handleEdit(s.surveyId, s.type)}>Edit
                                   </button>
                               </div>
+                              <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+
+                                  <button className="btn btn-info" type="button"
+                                          onClick={() =>this.handleExport(s)}>Export</button>
+                              </div>
                               <br/><br/></div>
                             ):
                             (<div>
@@ -68,9 +92,14 @@ class EditSurvey extends Component {
                                           onClick={() => this.handleEdit(s.surveyId, s.type)}>Edit
                                   </button>
                               </div>
+                              <div className="col-sm-2 col-md-2 col-lg-2 col-xs-2 mt">
+                                  <button className="btn btn-info" type="button"
+                                          onClick={() =>this.handleExport(s)}>Export</button>
+                              </div>
                               <br/><br/></div>
                             )
                           }
+
                         </div>
                     )
                 })

@@ -81,10 +81,10 @@ class OpenSurvey extends Component {
                             <h3 align="center">Create Open Survey</h3>
                             <br/><br/>
                             <form>
-                                <div class="form-group row">
-                                    <label for="staticSurveyTitle" class="col-sm-2 col-form-label">Survey
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Survey
                                         Title: </label>
-                                    <div class="col-sm-10">
+                                    <div className="col-sm-10">
                                         <input type="text" id="surveytitle" onChange={(event) => {
                                             const value = event.target.value
                                             this.setState({surveyTitle: event.target.value}, () => {
@@ -95,9 +95,9 @@ class OpenSurvey extends Component {
                                 </div>
                                 <br/>
 
-                                <div class="form-group row">
-                                    <label for="staticEndDate" class="col-sm-2 col-form-label">Enter end: </label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Enter end: </label>
+                                    <div className="col-sm-10">
                                         <input id="datetime" type="datetime-local"
                                                onChange={(event) => {
                                                    this.setState({endtime: event.target.value});
@@ -106,9 +106,9 @@ class OpenSurvey extends Component {
                                 </div>
                                 <br/><br/>
 
-                                <div class="form-group row">
-                                    <label for="staticQuest" class="col-sm-2 col-form-label">Enter question:</label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Enter question:</label>
+                                    <div className="col-sm-10">
                                         <input type="text" id="question" ref="ques" onChange={(event) => {
                                             const value = event.target.value
                                             this.setState(() => {
@@ -130,9 +130,9 @@ class OpenSurvey extends Component {
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="staticEndDate" class="col-sm-2 col-form-label">Enter options:</label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Enter options:</label>
+                                    <div className="col-sm-10">
                                         <input type="text" id="option" ref="opt" onChange={(event) => {
                                             const value = event.target.value
                                             this.setState(() => {
@@ -146,9 +146,9 @@ class OpenSurvey extends Component {
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="staticButton" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-10">
                                         <button disabled={!this.state.newq} className="btn btn-default btn-sm"
                                                 type="button" onClick={() => this.nextQuestion()}>Save & Add next
                                         </button>
@@ -156,9 +156,9 @@ class OpenSurvey extends Component {
                                 </div>
 
                                 <br/>
-                                <div class="form-group row">
-                                    <label for="staticButton" class="col-sm-2 col-form-label"></label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-10">
                                         <button disabled={!this.state.formValid} className="btn btn-info" type="button"
                                                 onClick={() => this.createNewSurvey(this.state)}>Save Survey
                                         </button>

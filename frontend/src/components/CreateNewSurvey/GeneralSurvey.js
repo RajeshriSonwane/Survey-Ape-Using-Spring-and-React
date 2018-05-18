@@ -116,7 +116,7 @@ class GeneralSurvey extends Component {
 <br/><br/>
                             <form>
                                 <div className="form-group row">
-                                    <label for="staticSurveyTitle" className="col-sm-2 col-form-label">Survey Title: </label>
+                                    <label className="col-sm-2 col-form-label">Survey Title: </label>
                                     <div className="col-sm-10">
                                         <input type="text" id="surveytitle" onChange={(event) => {
                                             const value = event.target.value
@@ -129,7 +129,7 @@ class GeneralSurvey extends Component {
                                 <br/>
 
                                 <div className="form-group row">
-                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter end: </label>
+                                    <label className="col-sm-2 col-form-label">Enter end: </label>
                                     <div className="col-sm-10">
                                         <input id="datetime" type="datetime-local" onChange={(event) => {
                                             this.setState({endtime: event.target.value});
@@ -139,7 +139,7 @@ class GeneralSurvey extends Component {
                                 <br/><br/>
 
                                 <div className="form-group row">
-                                    <label for="staticQuest" className="col-sm-2 col-form-label">Enter question:</label>
+                                    <label className="col-sm-2 col-form-label">Enter question:</label>
                                     <div className="col-sm-3">
                                         <input type="text" id="question" ref="ques"
                                                onChange={(event) => {
@@ -166,7 +166,7 @@ class GeneralSurvey extends Component {
                                 </div>
 
                                 <div className="form-group row">
-                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter options:</label>
+                                    <label className="col-sm-2 col-form-label">Enter options:</label>
                                     <div className="col-sm-2">
                                         <input type="text" id="option" ref="opt"
                                                onChange={(event) => {
@@ -204,7 +204,7 @@ class GeneralSurvey extends Component {
 
 
                                 <div className="form-group row">
-                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                                    <label className="col-sm-2 col-form-label"></label>
                                     <div className="col-sm-10">
                                         <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextQuestion()}>Save & Add next
@@ -215,7 +215,7 @@ class GeneralSurvey extends Component {
                                 <br/><br/>
 
                                 <div class="form-group row">
-                                    <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
+                                    <label class="col-sm-2 col-form-label">Enter Participant:</label>
                                     <div class="col-sm-10">
                                 <input type="text" id="users" ref="users" onChange={(event)=>{const value=event.target.value
                                         this.setState(() => { this.validatePar(value) });}}/>
@@ -223,7 +223,7 @@ class GeneralSurvey extends Component {
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="staticButton" class="col-sm-2 col-form-label"></label>
+                                        <label class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
                                 <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Save & Add next participant</button>
                                 </div>
@@ -232,7 +232,7 @@ class GeneralSurvey extends Component {
 
 <br/>
                                 <div className="form-group row">
-                                    <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                                    <label className="col-sm-2 col-form-label"></label>
                                     <div className="col-sm-10">
                                         <button disabled={!this.state.formValid} className="btn btn-info" type="button"
                                                 onClick={() => this.createNewSurvey(this.state)}>Save Survey
