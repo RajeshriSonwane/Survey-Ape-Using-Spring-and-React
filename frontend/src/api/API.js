@@ -42,6 +42,26 @@ export const checklogin = (payload) =>
             return error;
         });
 
+
+//check session
+export const checksession = (payload) =>
+fetch(`${api}/user/checksession`, {
+  method: 'GET',
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  credentials: 'include'
+}).then(res => res.json())
+.then(res => {
+  return res;
+})
+.catch(error => {
+  console.log("This is check session error" + error);
+  return error;
+});
+
+
 //verify user account
 export const verifyUser = (payload) =>
     fetch(`${api}/user/verifyUser`, {
