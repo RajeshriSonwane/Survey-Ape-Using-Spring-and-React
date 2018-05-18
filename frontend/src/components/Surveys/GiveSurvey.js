@@ -124,25 +124,25 @@ class GiveSurvey extends Component {
             }
             else{
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
-                surveyJSON.questions.push({
-
-                        type: "radiogroup",
-                        name: "choosepicture",
-                        "hasOther": false,
-                        title: "What animal would you like to see first ?",
-                        "choices": [
-                            {
-                                "value": "1",
-                                "text": "![A dog](https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg =100x75)"
-                            }, {
-                                "value": "2",
-                                "text": "![A cat](https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg =100x75)"
-                            }, {
-                                "value": "3",
-                                "text": "![A parrot](https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg =100x75)"
-                            }
-                        ]
-                    });
+                // surveyJSON.questions.push({
+                //
+                //         type: "radiogroup",
+                //         name: "choosepicture",
+                //         "hasOther": false,
+                //         title: "What animal would you like to see first ?",
+                //         "choices": [
+                //             {
+                //                 "value": "1",
+                //                 "text": "![A dog](https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg =100x75)"
+                //             }, {
+                //                 "value": "2",
+                //                 "text": "![A cat](https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg =100x75)"
+                //             }, {
+                //                 "value": "3",
+                //                 "text": "![A parrot](https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg =100x75)"
+                //             }
+                //         ]
+                //     });
                 if (value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
 

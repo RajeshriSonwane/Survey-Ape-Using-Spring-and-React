@@ -200,10 +200,22 @@ class StatDetails extends Component {
                                     <div className="col-sm-2 col-md-2 col-lg-2"></div>
                                     <b>Question: {(d.question)}</b><br/>
                                     {
-                                        d.options.length <= 0 ?
+                                        d.type == "text" ?
                                             (<div>
                                                 <div className="col-sm-2 col-md-2 col-lg-2"></div>
-                                                <p>Text question</p>
+                                                <div className="col-sm-4 col-md-4 col-lg-4">
+                                                    {
+                                                        d.options.map(op => {
+                                                            return (
+                                                                <div key={Math.random()}>
+                                                                    <div className="col-sm-8 col-md-8 col-lg-8">
+                                                                        <p>{(op)}</p>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
                                             </div>) :
                                             (<div>
                                                 <div className="col-sm-2 col-md-2 col-lg-2"></div>
@@ -233,10 +245,11 @@ class StatDetails extends Component {
                                                     }
                                                 </div>
 
-
+                                                <BarChart data={chartData} width="600" height="250"/>
                                             </div>)
+
                                     }
-                                    <BarChart data={chartData} width="600" height="250"/>
+
                                     <br/>
                                 </div>
                             )

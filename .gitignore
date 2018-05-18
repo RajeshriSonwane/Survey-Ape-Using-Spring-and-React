@@ -40,3 +40,4 @@ typings/
 *.xml
 surveyape/target/classes/cmpe275/controller/Surveys.class
 frontend/package-lock.json
+*.properties

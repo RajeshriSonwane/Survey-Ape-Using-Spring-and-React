@@ -27,7 +27,7 @@ class GeneralSurvey extends Component {
         API.createGeneral(data)
             .then((output) => {
                 console.log("CHECK THIS: " + JSON.stringify(output));
-                alert("Survey created!");
+                alert("Survey created! Now PUBLISH this survey");
             });
     }
 
@@ -103,7 +103,7 @@ class GeneralSurvey extends Component {
                                 <br/>
 
                                 <div className="form-group row">
-                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter end: </label>
+                                    <label for="staticEndDate" className="col-sm-2 col-form-label">Enter End Time: </label>
                                     <div className="col-sm-10">
                                         <input id="datetime" type="datetime-local" onChange={(event) => {
                                             this.setState({endtime: event.target.value});

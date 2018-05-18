@@ -26,7 +26,7 @@ class ClosedSurvey extends Component {
         API.createClosed(data)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
-                alert("Survey created!");
+                alert("Survey created! Now PUBLISH this survey");
             });
     }
 

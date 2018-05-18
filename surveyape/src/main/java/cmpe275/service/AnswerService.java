@@ -37,6 +37,14 @@ public class AnswerService {
     	return answerRepository.findByResponseId(r);
     }
     
+    public List<Answer> findByQuestionId(Integer r){
+    	return answerRepository.findByQuestionId(r);
+    }
+    
+    public List<Answer> findByAnswer(String r){
+    	return answerRepository.findByAnswer(r);
+    }
+    
     public List<Answer> getAnswerByOptionId(Integer OptionId) {
     	return answerRepository.findByOptionId(OptionId);
     }

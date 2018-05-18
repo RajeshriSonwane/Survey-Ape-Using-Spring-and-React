@@ -107,7 +107,8 @@ class EditForm extends Component {
             questions: this.state.questions,
             qtype: this.state.qtype,
             options:this.state.options,
-            participants: this.state.participants
+            participants: this.state.participants,
+            endtime:this.state.endtime
         };
         API.editSurvey(data, this.props.sid)
             .then((output) => {
@@ -117,9 +118,14 @@ class EditForm extends Component {
     }
 
     nextQuestion() {
-      this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
-      this.setState({options: this.state.options.concat("BREAK")});
+        this.setState({questions: this.state.questions.concat(this.refs.ques.value)});
+        this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
 
+        console.log("ch: "+this.refs.qt.value);
+        this.setState({options: this.state.options.concat("BREAK")});
+        console.log("q: " + this.state.questions);
+        console.log("qt: " + this.state.qtype);
+        console.log("o: " + this.state.options);
         this.setState({newq: false});
         this.setState({newo: false});
         this.setState({temp: []});
@@ -127,24 +133,31 @@ class EditForm extends Component {
         this.refs.opt.value = "";
     }
 
-    nextUser() {
-        console.log(this.state.participants);
-        this.setState({newp: false});
-        this.refs.users.value = "";
-    }
-
     nextOption() {
+        this.setState({options: this.state.options.concat(this.refs.opt.value)});
         console.log(this.state.options);
         this.setState({newo: false});
         this.refs.opt.value = "";
     }
 
-    validatePar(value) {
-        this.setState({newp: value.length !== 0});
+    nextUser() {
+        this.setState({participants: this.state.participants.concat(this.refs.users.value)});
+        console.log(this.state.participants);
+        this.setState({newp: false});
+        this.refs.users.value = "";
+    }
+
+    validateField(value) {
+        this.setState({formValid: value.length !== 0});
     }
 
     validateQues(value) {
         this.setState({newq: value.length !== 0});
+    }
+
+    validatePar(value) {
+        this.setState({newp: value.length !== 0});
+        //console.log("par: "+value);
     }
 
     validateOpt(value) {
@@ -158,55 +171,100 @@ class EditForm extends Component {
                 Add questions/participants
                 <br/><br/>
                 <form>
-                    Enter question:
-                    <input type="text" id="question" ref="ques" onBlur={(event) => {
-                        this.setState({questions: this.state.questions.concat(event.target.value)});
-                    }} onChange={(event) => {
-                        const value = event.target.value
-                        this.setState(() => {
-                            this.validateQues(value)
-                        });
-                    }}/>
-                    <select ref="qt">
-                    <option value="text" defaultValue>Text</option>
-                    <option value="checkbox">Checkbox</option>
-                    <option value="radiogroup">Radio</option>
-                    <option value="comment">Text Area</option>
-                    <option value="dropdown">Dropdown</option>
-                    <option value="barrating">Ratings</option>
-                    </select>
+
+                    <div className="form-group row">
+                        <label for="staticEndDate" className="col-sm-2 col-form-label">Enter End Time: </label>
+                        <div className="col-sm-10">
+                            <input id="datetime" type="datetime-local" onChange={(event) => {
+                                this.setState({endtime: event.target.value});
+                            }}/>
+                        </div>
+                    </div>
                     <br/><br/>
 
-                    Enter options:
-                    <input type="text" id="option" ref="opt" onBlur={(event)=>{
-                                             this.setState({options: this.state.options.concat(event.target.value)});}}
-                                             onChange={(event)=>{const value=event.target.value
-                                                        this.setState(() => { this.validateOpt(value) });}}/>
-                    <button disabled={!this.state.newo} className="btn btn-default btn-sm" type="button" onClick={() => this.nextOption()}>Add next option</button>
-                    <br/>
+                    <div className="form-group row">
+                        <label for="staticQuest" className="col-sm-2 col-form-label">Enter question:</label>
+                        <div className="col-sm-3">
+                            <input type="text" id="question" ref="ques"
+                                   onChange={(event) => {
+                                       const value = event.target.value
+                                       this.setState(() => {
+                                           this.validateQues(value)
+                                       });
+                                   }}/>
+                        </div>
+                        <div className="col-sm-7">
+                            <select ref="qt" className="questionType">
+                                <option value="text" defaultValue>Text</option>
+                                <option value="checkbox">Checkbox</option>
+                                <option value="radiogroup">Radio</option>
+                                <option value="comment">Text Area</option>
+                                <option value="dropdown">Dropdown</option>
+                                <option value="barrating">Ratings</option>
+                                <option value="personalDetails">Surveyee details</option>
+                                <option value="yesNo">Yes/No</option>
+                            </select>
 
-                    <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
-                            onClick={() => this.nextQuestion()}>Save & Add next</button>
-                    <br/><br/>
+                        </div>
+                    </div>
 
-                    {
-                        this.props.st !== 3 ? (<div>
-                            Enter user: <input type="text" id="users" ref="users" onBlur={(event) => {
-                            this.setState({participants: this.state.participants.concat(event.target.value)});
-                        }} onChange={(event) => {
-                            const value = event.target.value
-                            this.setState(() => {
-                                this.validatePar(value)
-                            });
-                        }}/>
-                            <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button"
-                                    onClick={() => this.nextUser()}>Add next user
+                    <div className="form-group row">
+                        <label for="staticEndDate" className="col-sm-2 col-form-label">Enter options:</label>
+                        <div className="col-sm-2">
+                            <input type="text" id="option" ref="opt"
+                                   onChange={(event) => {
+                                       const value = event.target.value
+                                       this.setState(() => {
+                                           this.validateOpt(value)
+                                       });
+                                   }}/>
+                        </div>
+                        <div className="col-sm-8">
+                            <button disabled={!this.state.newo} className="btn btn-default btn-sm addNextBuuton" type="button"
+                                    onClick={() => this.nextOption()}>Add next option
                             </button>
-                            <br/><br/><br/></div>) : null}
+                        </div>
+                    </div>
 
 
-                    Submit Survey:
-                    <button className="btn btn-info" type="button" onClick={() => this.editSurvey()}>Save</button>
+                    <div className="form-group row">
+                        <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10">
+                            <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
+                                    onClick={() => this.nextQuestion()}>Save & Add next
+                            </button>
+                        </div>
+                    </div>
+
+                    <br/><br/>
+
+                    <div class="form-group row">
+                        <label for="staticParticipant" class="col-sm-2 col-form-label">Enter Participant:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="users" ref="users" onChange={(event)=>{const value=event.target.value
+                                this.setState(() => { this.validatePar(value) });}}/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="staticButton" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-10">
+                            <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Save & Add next participant</button>
+                        </div>
+                    </div>
+
+
+                    <br/>
+                    <div className="form-group row">
+                        <label for="staticButton" className="col-sm-2 col-form-label"></label>
+                        <div className="col-sm-10">
+                            <button className="btn btn-info" type="button"
+                                    onClick={() => this.editSurvey()}>Save Survey
+                            </button>
+                        </div>
+                    </div>
+
+
                 </form>
 
             </div>

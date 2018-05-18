@@ -493,6 +493,14 @@ public class Surveys {
         String[] type = ns.getQtype();
         String[] options = ns.getOptions();
         String[] participants = ns.getParticipants();
+        System.out.println(ns.getEndtime());
+        if (ns.getEndtime() == null) {
+            ns.setEndtime(s.getEndDate().toString());
+        }
+        System.out.println(ns.getEndtime());
+        LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
+        s.setEndDate(endtime);
+        surveyService.saveSurvey(s);
         int l = questions.length;
         int temp = 0;
         for (int i = 0; i < l; i++) {

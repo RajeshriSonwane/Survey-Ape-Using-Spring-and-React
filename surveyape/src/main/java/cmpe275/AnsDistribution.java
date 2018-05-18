@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class AnsDistribution {
 	private String question;
+	private String type;
 	private ArrayList<String> options;
 	private ArrayList<Integer> answerCount;
 	
@@ -11,8 +12,9 @@ public class AnsDistribution {
 	public AnsDistribution() {		
 	}
 	
-	public AnsDistribution(String q, ArrayList<String> optionname, ArrayList<Integer> anscount) {
+	public AnsDistribution(String q, String t, ArrayList<String> optionname, ArrayList<Integer> anscount) {
 		question=q;
+		type = t;
 		options=optionname;
 		answerCount=anscount;
 	}
@@ -29,6 +31,14 @@ public class AnsDistribution {
 	public void setOptions(ArrayList<String> options) {
 		this.options = options;
 	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public ArrayList<Integer> getAnswerCount() {
 		return answerCount;
 	}

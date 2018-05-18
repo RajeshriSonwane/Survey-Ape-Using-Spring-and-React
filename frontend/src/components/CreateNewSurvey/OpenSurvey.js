@@ -25,7 +25,7 @@ class OpenSurvey extends Component {
         API.createOpen(data)
             .then((output) => {
                 console.log("CHECK THIS: " + output);
-                alert("Survey created!");
+                alert("Survey created! Now PUBLISH this survey");
             });
     }
 
