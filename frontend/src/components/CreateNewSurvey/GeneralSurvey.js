@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
+import ReactFileReader from 'react-file-reader';
+import { Base64 } from 'js-base64';
 
 const queryString = require('query-string');
 
@@ -105,6 +107,27 @@ class GeneralSurvey extends Component {
             });
     };
 
+    importQuestions= files => {
+      var contentString = Base64.decode(files.base64);
+      contentString=contentString.substring(contentString.indexOf('['))
+      console.log("file string: "+contentString);
+      var contentJson=JSON.parse(contentString);
+      console.log("file json len: "+contentJson.length);
+      for(var i=0;i<contentJson.length;i++){
+        console.log(contentJson[i].description);
+        this.setState({questions: this.state.questions.concat(contentJson[i].description)});
+        this.setState({qtype: this.state.qtype.concat(contentJson[i].type)});
+        for(var j=0;j<(contentJson[i].options).length;j++){
+          this.setState({options: this.state.options.concat(contentJson[i].options[j].description)});
+        }
+        if((contentJson[i].options).length>0)
+        this.setState({options: this.state.options.concat("BREAK")});
+      }
+      console.log("options: "+this.state.options);
+      console.log("question: "+this.state.questions);
+      console.log("question: "+this.state.qtype);
+    }
+
     render() {
         return (
             <div className="w3-container">
@@ -137,6 +160,7 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
                                 <br/><br/>
+
 
                                 <div className="form-group row">
                                     <label className="col-sm-2 col-form-label">Enter question:</label>
@@ -199,32 +223,36 @@ class GeneralSurvey extends Component {
                                 </div>
 
 
-
-
-
-
                                 <div className="form-group row">
                                     <label className="col-sm-2 col-form-label"></label>
-                                    <div className="col-sm-10">
+                                    <div className="col-sm-3 col-md-3">
                                         <button disabled={!this.state.newq} className="btn btn-default btn-sm" type="button"
                                                 onClick={() => this.nextQuestion()}>Save & Add next
                                         </button>
                                     </div>
                                 </div>
 
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-2 col-md-2">
+                                    <ReactFileReader fileTypes={[".txt"]} base64={true} multipleFiles={true} handleFiles={this.importQuestions}>
+                                    <a>Import questions</a></ReactFileReader>
+                                    </div>
+                                </div>
+
                                 <br/><br/>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Enter Participant:</label>
-                                    <div class="col-sm-10">
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label">Enter Participant:</label>
+                                    <div className="col-sm-10">
                                 <input type="text" id="users" ref="users" onChange={(event)=>{const value=event.target.value
                                         this.setState(() => { this.validatePar(value) });}}/>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label"></label>
-                                        <div class="col-sm-10">
+                                    <div className="form-group row">
+                                        <label className="col-sm-2 col-form-label"></label>
+                                        <div className="col-sm-10">
                                 <button disabled={!this.state.newp} className="btn btn-default btn-sm" type="button" onClick={() => this.nextUser()}>Save & Add next participant</button>
                                 </div>
                             </div>
@@ -234,7 +262,7 @@ class GeneralSurvey extends Component {
                                 <div className="form-group row">
                                     <label className="col-sm-2 col-form-label"></label>
                                     <div className="col-sm-10">
-                                        <button disabled={!this.state.formValid} className="btn btn-info" type="button"
+                                        <button disabled={!this.state.formValid} className="btn btn-success" type="button"
                                                 onClick={() => this.createNewSurvey(this.state)}>Save Survey
                                         </button>
                                     </div>
