@@ -1,6 +1,7 @@
 package cmpe275.controller;
 
 import cmpe275.Newsurvey;
+
 import cmpe275.entity.*;
 import cmpe275.service.*;
 import com.google.zxing.BarcodeFormat;
@@ -14,11 +15,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -631,4 +636,26 @@ public class Surveys {
         }
         return res;
     }
+    
+    
+    // upload image to public folder
+    @PostMapping(path="/uploadimage")
+	public ResponseEntity<?> fileUpload(@RequestBody MultipartFile file) {
+    	String UPLOAD_FOLDER = "/Users/anjana/Desktop/cmpe275_SurveyApe/uploads/";
+    	System.out.println("API SUCCESS---------"+UPLOAD_FOLDER);
+		if (file.isEmpty()) {
+			System.out.println("****Empty file: ");
+			return new ResponseEntity(0,HttpStatus.NOT_FOUND);
+		}
+		try {
+			System.out.println("****TRY file: "+file.getOriginalFilename());
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
+			Files.write(path, bytes);
+	     
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity(1,HttpStatus.CREATED);
+	} 
 }

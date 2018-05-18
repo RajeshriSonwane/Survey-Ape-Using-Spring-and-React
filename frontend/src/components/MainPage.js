@@ -101,8 +101,8 @@ class MainPage extends Component {
             partial = <div>
                 <div className="col-sm-2 col-md-2 col-lg-2"></div>
                 <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/Login'>Login</Link></div>
-                <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/SignUp'>Register</Link>
-                </div>
+                <div className="col-sm-2 col-md-2 col-lg-2"><Link to='/SignUp'>Register</Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/FetchOpenSurvey'>Open Surveys</Link></div>
             </div>
         }
         else {
@@ -111,9 +111,10 @@ class MainPage extends Component {
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/newsurvey'>Create Survey</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/editsurvey'>Edit Survey</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/publishsurvey'>Publish/Close</Link></div>
-                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/listsurvey'>List All</Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/listsurvey'>Given Surveys</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/stats'>Stats</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/home/givesurvey'></Link></div>
+                <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/FetchOpenSurvey'>Open Surveys</Link></div>
                 <div className="col-sm-1 col-md-1 col-lg-1"><button className="btn btn-danger"
                                                             onClick={() => this.handleLogout(this.state)}>Logout</button></div>
             </div>
@@ -124,12 +125,11 @@ class MainPage extends Component {
                     <h1 align="center">SURVEY APE</h1>
                     <br/><br/>
                     <div className="row">
-                    <div className="col-sm-1 col-md-1 col-lg-1"></div>
-                        <div className="col-sm-2 col-md-2 col-lg-2"><h5 style={{fontWeight: 'bold', color: '1234kcj'}}>
-                            Welcome {this.state.email}</h5></div>
+
+                        <div className="col-sm-3 col-md-3 col-lg-3"><h5 style={{fontWeight: 'bold', color: '1234kcj'}}>
+                            &nbsp;&nbsp; Welcome {this.state.email}</h5></div>
                         {partial}
-                        <div className="col-sm-1 col-md-1 col-lg-1"><Link to='/FetchOpenSurvey'>Open Surveys</Link>
-                        </div>
+
                     </div>
                     <hr/>
                 </div>
