@@ -3,6 +3,13 @@ import * as API from '../../api/API';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 
+import $ from 'jquery';
+import 'jquery-bar-rating';
+import 'jquery-bar-rating/dist/themes/css-stars.css';
+import 'survey-react/survey.css';
+import * as widgets from 'surveyjs-widgets';
+window["$"] = window["jQuery"] = $;
+
 const queryString = require('query-string');
 
 class GiveOpenSurvey extends Component {
@@ -149,6 +156,7 @@ class GiveOpenSurvey extends Component {
 
     componentWillMount() {
         const parsed = queryString.parse(window.location.search);
+        widgets.jquerybarrating(Survey);
         console.log("open qstring id: "+parsed.id);
         console.log("open qstring guest: "+parsed.guest);
         this.setState({guestid:parsed.guest});

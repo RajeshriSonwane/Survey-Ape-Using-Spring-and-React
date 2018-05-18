@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import * as API from '../../api/API';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
+import $ from 'jquery';
+import 'jquery-bar-rating';
+import 'jquery-bar-rating/dist/themes/css-stars.css';
+import 'survey-react/survey.css';
+import * as widgets from 'surveyjs-widgets';
+window["$"] = window["jQuery"] = $;
 
 const queryString = require('query-string');
 
@@ -120,6 +126,7 @@ class GiveOpenSurveys extends Component {
     };
 
     componentWillMount() {
+        widgets.jquerybarrating(Survey);
         this.setState({surveyId: this.props.survey.surveyId});
         this.setState({surveyTitle: this.props.survey.surveyTitle, questions: this.props.questions});
         this.setState({survey: this.createSurveyJson(this.props.questions)});
