@@ -165,8 +165,18 @@ public class SurveyeeController {
     public ResponseEntity<?> completeResponse(@RequestBody SurveyResponse sr) throws Exception {
         Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
         System.out.println("session complete: " + uid);
-        String emailId = userservice.getUserById(uid).getEmail();
-
+        String emailId="";
+        if((Integer)session.getAttribute("notlogged")==1) {
+        	if(uid==-5)
+        		return new ResponseEntity(1, HttpStatus.CREATED);
+        Participants p = participantsService.getParticipantsById(uid);
+        System.out.println("participant id: " +uid);
+        emailId = p.getParticipantEmail();
+        }
+        else {
+        	User u= userservice.getUserById(uid);
+        	emailId = u.getEmail();
+        }
 
         Integer surveyId = Integer.parseInt(sr.getSurveyId());
         List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(surveyId, uid);
@@ -188,6 +198,8 @@ public class SurveyeeController {
             String subject = "Thank you for completing the survey";
             sendInvitation.sendEmail(emailId, subject, text);
         }
+        if((Integer)session.getAttribute("notlogged")==1)
+        	session.invalidate();
 
         return new ResponseEntity(1, HttpStatus.CREATED);
     }

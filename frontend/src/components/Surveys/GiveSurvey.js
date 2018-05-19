@@ -210,7 +210,7 @@ class GiveSurvey extends Component {
                 console.log("CHECK THIS: " + output.firstname);
                 console.log("CHECK THIS: " + output.phoneNo);
                 if (output == false) {
-                    alert("Login to continue or survey not available");
+                    //alert("Survey not available 1");
                     console.log("No data");
                 } else {
                     this.setState({user: output});
@@ -223,7 +223,7 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output == false) {
-                        alert("Login to continue or survey not available");
+                        alert("Survey not available 2");
                         console.log("No data");
                     }
                     else {
@@ -244,7 +244,7 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output == false) {
-                        alert("Login to continue or survey not available");
+                        alert("Survey not available 3");
                         console.log("No data");
                     } else {
                         this.setState({surveyId: output.surveyId});

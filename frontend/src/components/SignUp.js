@@ -77,7 +77,7 @@ class SignUp extends Component {
                 fieldValidationErrors.lastname = lastnameValid ? '' : ' is invalid';
                 break;
             case 'phoneNo':
-                phoneValid = value.match(/^([2-9]\d{2}-\d{3}-\d{4})$/i);
+                phoneValid = value.match(/^([1-9]\d{2}-\d{3}-\d{4})$/i);
                 fieldValidationErrors.phoneNo = phoneValid ? '' : ' is invalid';
                 break;
             case 'email':

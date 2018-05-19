@@ -232,6 +232,14 @@ class ViewSurvey extends Component {
                     colCount: 0,
                     choices: choices1
                 });
+                if (value.answers.length > 0) {
+                    var answers = [];
+                    value.answers.forEach(function (answer) {
+                        answers.push(answer.answer);
+                    });
+
+                    data[questionID] = answers;
+                }
             }
             else if (value.type == "barrating") {
 
@@ -242,6 +250,7 @@ class ViewSurvey extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
+                console.log("rating: "+value.answers[0].answer);
                 if (value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
@@ -266,6 +275,7 @@ class ViewSurvey extends Component {
             }
         });
         surveyJSON.data = data;
+        console.log("SurveyAnswers: " + JSON.stringify(data));
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
         return surveyJSON;
     }

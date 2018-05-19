@@ -179,7 +179,7 @@ public class Surveys {
         for (int i = 0; i < l; i++) {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             Participants np = participantsService.addParticipant(pq);
-
+            System.out.println("Participants ID: "+np.getParticipantsId());
             String QRCodeURL = "http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
             try {
                 generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
@@ -188,7 +188,6 @@ public class Surveys {
             } catch (IOException e) {
                 System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
             }
-
             String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
             String subject = "Inviation for survey";
             sendInvitation.sendQREmail(participants[i], subject, text);
@@ -271,48 +270,74 @@ public class Surveys {
     public ResponseEntity<?> getGeneralSurvey(@PathVariable Integer id) {
         Boolean flag = false;
         List<Participants> participantslist = participantsService.getAllParticipantsBySurveryId(id);
-        if (session.getAttribute("sess_userid") == null) {
-            return new ResponseEntity(false, HttpStatus.FOUND);
+        Participants p = participantsService.getParticipantsById(id);
+         
+        
+        // not loggedin users
+        if(session.getAttribute("sess_userid")==null) {
+        	session.setAttribute("sess_userid",-5);
+        	session.setAttribute("notlogged",1);
         }
-        Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-        System.out.println("session found in general:" + uid);
-        User u = userservice.getUserById(uid);
-        System.out.println("session's email found in general:" + u.getEmail());
-        System.out.println("sessions id: " + uid);
-
-
-        if (participantslist != null) {
-            System.out.println("looking for participant...");
-            for (int i = 0; i < participantslist.size(); i++) {
-                System.out.println("participants in the list: " + participantslist.get(i).getParticipantEmail());
-                if (participantslist.get(i).getParticipantEmail().equals(u.getEmail())) {
-                    flag = true;
-                    System.out.println("Found participant");
-                    break;
-                }
-            }
-        } else {
-            System.out.println("participant not found in general:");
-            return new ResponseEntity(false, HttpStatus.FOUND);
-        }
-
-        if (flag == true) {
-            System.out.println("Survey id: " + id);
-            Survey s = surveyService.getSurvey(id);
-            System.out.println("Survey end time: " + s.getEndDate());
-            System.out.println("Current Time: " + LocalDateTime.now());
+        
+        Integer uid =(Integer) session.getAttribute("sess_userid");
+        
+        	Survey s = surveyService.getSurvey(id);
+        	System.out.println("Survey end time: " + s.getEndDate());
+         System.out.println("Current Time: " + LocalDateTime.now());
             if (LocalDateTime.now().isBefore(s.getEndDate())) {
                 System.out.println("check: " + s);
                 if (s != null && s.getStatus() == 1)
                     return new ResponseEntity(s, HttpStatus.FOUND);
                 else
                     return new ResponseEntity(false, HttpStatus.FOUND);
-            } else {
+            } 
+            else {
                 s.setStatus(0);
                 return new ResponseEntity(false, HttpStatus.FOUND);
-            }
-        } else
-            return new ResponseEntity(false, HttpStatus.FOUND);
+            } 
+        
+//        if(session.getAttribute("sess_userid")==null) {
+//			return new ResponseEntity(false, HttpStatus.FOUND);
+//		}
+//        Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
+//        System.out.println("session found in general:" + uid);
+//        User u = userservice.getUserById(uid);
+//        System.out.println("session's email found in general:" + u.getEmail());
+//        System.out.println("sessions id: " + uid);
+//
+//
+//        if (participantslist != null) {
+//            System.out.println("looking for participant...");
+//            for (int i = 0; i < participantslist.size(); i++) {
+//                System.out.println("participants in the list: " + participantslist.get(i).getParticipantEmail());
+//                if (participantslist.get(i).getParticipantEmail().equals(u.getEmail())) {
+//                    flag = true;
+//                    System.out.println("Found participant");
+//                    break;
+//                }
+//            }
+//        } else {
+//            System.out.println("participant not found in general:");
+//            return new ResponseEntity(false, HttpStatus.FOUND);
+//        }
+//
+//        if (flag == true) {
+//            System.out.println("Survey id: " + id);
+//            Survey s = surveyService.getSurvey(id);
+//            System.out.println("Survey end time: " + s.getEndDate());
+//            System.out.println("Current Time: " + LocalDateTime.now());
+//            if (LocalDateTime.now().isBefore(s.getEndDate())) {
+//                System.out.println("check: " + s);
+//                if (s != null && s.getStatus() == 1)
+//                    return new ResponseEntity(s, HttpStatus.FOUND);
+//                else
+//                    return new ResponseEntity(false, HttpStatus.FOUND);
+//            } else {
+//                s.setStatus(0);
+//                return new ResponseEntity(false, HttpStatus.FOUND);
+//            }
+//        } else
+//            return new ResponseEntity(false, HttpStatus.FOUND);
 
 
     }
@@ -320,22 +345,21 @@ public class Surveys {
     // get closed survey by id
     @GetMapping(path = "/getsurvey/{id}", params = "user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getClosedSurvey(@PathVariable Integer id, @RequestParam(value = "user") Integer user) {
-        if (session.getAttribute("sess_userid") == null) {
-            return new ResponseEntity(false, HttpStatus.FOUND);
-        }
+    	
+    	if(session.getAttribute("sess_userid")==null) {
+			session.setAttribute("sess_userid", user);//return new ResponseEntity(false, HttpStatus.FOUND);
+			session.setAttribute("notlogged",1);
+		}
 
         Integer uid = Integer.parseInt(session.getAttribute("sess_userid").toString());
-        System.out.println("user id in param: " + user);
+        System.out.println("Inside closed! "+uid);
+        
         Participants p = participantsService.getByparticipantsIdAndsurveyId(user, id);
         if (p == null) {
             return new ResponseEntity(false, HttpStatus.FOUND);
         }
-        User u = userservice.getUserById(uid);
-        if (u.getEmail().equals(p.getParticipantEmail())) {
-            System.out.println("session and user id is the same!!");
-            if (p != null) {
-                System.out.println("participant found in closed:");
-            }
+  
+          
             if (p.getGiven() == 0) {
                 System.out.println("in given ==0");
                 List<Response> res1 = responseService.getResponseBySurveyIdAndUserId(id, uid);
@@ -382,8 +406,6 @@ public class Surveys {
                 System.out.println("in given !=0");
                 return new ResponseEntity(false, HttpStatus.FOUND);
             }
-        } else
-            return new ResponseEntity(false, HttpStatus.FOUND);
     }
 
     // get open survey for logged in user
@@ -499,10 +521,10 @@ public class Surveys {
         String[] options = ns.getOptions();
         String[] participants = ns.getParticipants();
         System.out.println(ns.getEndtime());
-        if (ns.getEndtime() == null) {
+        if (ns.getEndtime() == null || ns.getEndtime() == "") {
             ns.setEndtime(s.getEndDate().toString());
         }
-        System.out.println(ns.getEndtime());
+        System.out.println("time:"+ns.getEndtime());
         LocalDateTime endtime = LocalDateTime.parse(ns.getEndtime());
         s.setEndDate(endtime);
         surveyService.saveSurvey(s);
@@ -523,6 +545,7 @@ public class Surveys {
         }
 
         l = participants.length;
+        System.out.println("length: " + l);
         for (int i = 0; i < l; i++) {
             Participants pq = new Participants(participants[i], surId, 0);
             Participants np = participantsService.addParticipant(pq);

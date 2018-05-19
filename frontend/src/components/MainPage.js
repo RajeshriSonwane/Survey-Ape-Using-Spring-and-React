@@ -82,8 +82,24 @@ class MainPage extends Component {
                 this.props.history.push("/");
                 console.log('logout data', this.state.islogged);
             });
-
     };
+
+
+    checkSession() {
+        API.checksession()
+            .then((data) => {
+              console.log("data: "+data);
+                if (data!=false) {
+
+                    this.setState({
+                        email: data.email, islogged: true});
+                    //this.props.history.push("/home");
+                }
+                else  {
+                    this.setState({isLoggedIn: false});
+                }
+            });
+    }
 
     componentWillMount() {
         this.setState({
@@ -93,6 +109,7 @@ class MainPage extends Component {
             islogged: false,
             message: ''
         });
+        this.checkSession();
     }
 
     render() {

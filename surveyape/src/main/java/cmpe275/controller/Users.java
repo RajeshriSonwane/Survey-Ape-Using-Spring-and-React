@@ -66,6 +66,7 @@ public class Users {
             System.out.println("Login Hit - ok");
             session.setAttribute("sess_userid", b.get(0).getUserId());
             session.setAttribute("sess_email", jsonObject.getString("email").toString());
+            session.setAttribute("notlogged",0);
             System.out.println("set sess: " + session.getAttribute("sess_userid"));
             return new ResponseEntity(HttpStatus.OK);
 
@@ -147,7 +148,20 @@ public class Users {
         }
         return new ResponseEntity(HttpStatus.OK);
     }
+    
+    // check session
+    @GetMapping(path = "/checksession", consumes = MediaType.APPLICATION_JSON_VALUE) // Map
+    public @ResponseBody ResponseEntity<?> checkSession() {
+    	if (session.getAttribute("sess_userid") == null) {
+            return new ResponseEntity(false, HttpStatus.FOUND);
+        }
+    	System.out.println("check session: "+session.getAttribute("sess_userid"));
+    	Integer uid=Integer.parseInt(session.getAttribute("sess_userid").toString());
+    	User u=userService.getUserById(uid);
+        return new ResponseEntity(u,HttpStatus.FOUND);
+    }
 
+    // QR code
     private static void generateQRCodeImage(String text, int width, int height, String filePath)
             throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

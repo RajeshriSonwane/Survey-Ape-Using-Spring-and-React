@@ -152,9 +152,14 @@ class EditForm extends Component {
     }
 
     nextQuestion() {
+      this.setState({questions: this.state.questions.concat(this.refs.ques.value)});
         this.setState({qtype: this.state.qtype.concat(this.refs.qt.value)});
-        this.setState({options: this.state.options.concat("BREAK")});
 
+        console.log("ch: "+this.refs.qt.value);
+        this.setState({options: this.state.options.concat("BREAK")});
+        console.log("q: " + this.state.questions);
+        console.log("qt: " + this.state.qtype);
+        console.log("o: " + this.state.options);
         this.setState({newq: false});
         this.setState({newo: false});
         this.setState({temp: []});
@@ -162,13 +167,8 @@ class EditForm extends Component {
         this.refs.opt.value = "";
     }
 
-    nextUser() {
-        console.log(this.state.participants);
-        this.setState({newp: false});
-        this.refs.users.value = "";
-    }
-
     nextOption() {
+        this.setState({options: this.state.options.concat(this.refs.opt.value)});
         console.log(this.state.options);
         this.setState({newo: false});
         this.refs.opt.value = "";
@@ -184,12 +184,24 @@ class EditForm extends Component {
         this.refs.img.value = "";
     }
 
-    validatePar(value) {
-        this.setState({newp: value.length !== 0});
+    nextUser() {
+      this.setState({participants: this.state.participants.concat(this.refs.users.value)});
+        console.log(this.state.participants);
+        this.setState({newp: false});
+        this.refs.users.value = "";
+    }
+
+    validateField(value) {
+        this.setState({formValid: value.length !== 0});
     }
 
     validateQues(value) {
         this.setState({newq: value.length !== 0});
+    }
+
+    validatePar(value) {
+        this.setState({newp: value.length !== 0});
+        //console.log("par: "+value);
     }
 
     validateOpt(value) {
