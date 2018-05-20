@@ -664,7 +664,7 @@ public class Surveys {
     // upload image to public folder
     @PostMapping(path="/uploadimage")
 	public ResponseEntity<?> fileUpload(@RequestBody MultipartFile file) {
-    	String UPLOAD_FOLDER = "/Users/anjana/Desktop/cmpe275_SurveyApe/uploads/";
+    	String UPLOAD_FOLDER = "D:/CMPE 275/cmpe275_SurveyApe/frontend/public/uploads/";
     	System.out.println("API SUCCESS---------"+UPLOAD_FOLDER);
 		if (file.isEmpty()) {
 			System.out.println("****Empty file: ");

@@ -122,27 +122,26 @@ class GiveSurvey extends Component {
                     data["emailID"] = user["email"];
                 }
             }
+            else if(value.type == "image"){
+                var choices1 = [];
+
+                value.options.forEach(function (option) {
+                    choices1.push({value: option.optionId, text: "![A] ("+option.description+" =100x75)"});
+                });
+                //choices1.push({value: "A", text: "![A] (/uploads/owl.jpg =100x75)"});
+
+                surveyJSON.questions.push({
+
+                    type: "radiogroup",
+                    name: value.questionId,
+                    "hasOther": false,
+                    title: value.description,
+                    choices: choices1
+                });
+            }
             else{
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
-                // surveyJSON.questions.push({
-                //
-                //         type: "radiogroup",
-                //         name: "choosepicture",
-                //         "hasOther": false,
-                //         title: "What animal would you like to see first ?",
-                //         "choices": [
-                //             {
-                //                 "value": "1",
-                //                 "text": "![A dog](https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg =100x75)"
-                //             }, {
-                //                 "value": "2",
-                //                 "text": "![A cat](https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg =100x75)"
-                //             }, {
-                //                 "value": "3",
-                //                 "text": "![A parrot](https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg =100x75)"
-                //             }
-                //         ]
-                //     });
+
                 if (value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
 
@@ -210,7 +209,7 @@ class GiveSurvey extends Component {
                 console.log("CHECK THIS: " + output.firstname);
                 console.log("CHECK THIS: " + output.phoneNo);
                 if (output == false) {
-                    //alert("Survey not available 1");
+                    alert("Login to continue or survey not available");
                     console.log("No data");
                 } else {
                     this.setState({user: output});
@@ -223,7 +222,7 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output == false) {
-                        alert("Survey not available 2");
+                        alert("Login to continue or survey not available");
                         console.log("No data");
                     }
                     else {
@@ -244,7 +243,7 @@ class GiveSurvey extends Component {
                 .then((output) => {
                     console.log("CHECK THIS: " + output.surveyId);
                     if (output == false) {
-                        alert("Survey not available 3");
+                        alert("Login to continue or survey not available");
                         console.log("No data");
                     } else {
                         this.setState({surveyId: output.surveyId});
