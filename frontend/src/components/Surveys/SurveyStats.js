@@ -138,6 +138,7 @@ class StatDetails extends Component {
                             <div className="col-sm-2 col-md-2 col-lg-2"></div>
                             <div className="col-sm-2 col-md-2 col-lg-2">
                                 <b>PARTICIPANTS:</b>
+                                <p>(The users who are invited for the survey)</p>
                             </div>
                             <div className="col-sm-5 col-md-5 col-lg-5">
                                 {this.props.sur.numParticipants}<br/><br/>
@@ -157,17 +158,9 @@ class StatDetails extends Component {
                         <div className="row">
                             <div className="col-sm-2 col-md-2 col-lg-2"></div>
                             <div className="col-sm-2 col-md-2 col-lg-2">
-                                <b>INVITED:</b>
-                            </div>
-                            <div className="col-sm-5 col-md-5 col-lg-5">
-                                {this.props.sur.invited}<br/><br/>
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <div className="col-sm-2 col-md-2 col-lg-2"></div>
-                            <div className="col-sm-2 col-md-2 col-lg-2">
                                 <b>REGISTERED:</b>
+                                <p>(The users who are a part of the applications and completed the survey)</p>
+                                <p>(not applicable for closed)</p>
                             </div>
                             <div className="col-sm-5 col-md-5 col-lg-5">
                                 {this.props.sur.registered}<br/><br/>

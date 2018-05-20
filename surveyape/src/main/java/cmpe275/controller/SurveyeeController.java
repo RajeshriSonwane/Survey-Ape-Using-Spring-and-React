@@ -167,8 +167,10 @@ public class SurveyeeController {
         System.out.println("session complete: " + uid);
         String emailId="";
         if((Integer)session.getAttribute("notlogged")==1) {
-        	if(uid==-5)
+        	if(uid<0) {
+        		session.invalidate();
         		return new ResponseEntity(1, HttpStatus.CREATED);
+        	}
         Participants p = participantsService.getParticipantsById(uid);
         System.out.println("participant id: " +uid);
         emailId = p.getParticipantEmail();
