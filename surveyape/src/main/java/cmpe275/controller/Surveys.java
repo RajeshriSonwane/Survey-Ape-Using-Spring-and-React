@@ -62,6 +62,8 @@ public class Surveys {
 
     @Autowired
     private UserService userservice;
+    
+    String urlip="54.245.167.26";
 
     	/* ==================== CREATE SURVEYS ==================== */
 
@@ -111,7 +113,7 @@ public class Surveys {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             participantsService.addParticipant(pq);
             System.out.println("Email check: " + pq.getParticipantEmail());
-            String QRCodeURL = "http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId();
+            String QRCodeURL = "http://"+urlip+":3000/home/givesurvey?id=" + s1.getSurveyId();
             try {
                  generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
 
@@ -121,7 +123,7 @@ public class Surveys {
                 System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
             }
 
-            String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
+            String text = "Click on the follwing link to give the survey: http://"+urlip+":3000/home/givesurvey?id="
                     + s1.getSurveyId();
             String subject = "Inviation for survey";
 
@@ -180,7 +182,7 @@ public class Surveys {
             Participants pq = new Participants(participants[i], s1.getSurveyId(), 0);
             Participants np = participantsService.addParticipant(pq);
             System.out.println("Participants ID: "+np.getParticipantsId());
-            String QRCodeURL = "http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
+            String QRCodeURL = "http://"+urlip+":3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
             try {
                 generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
             } catch (WriterException e) {
@@ -188,7 +190,7 @@ public class Surveys {
             } catch (IOException e) {
                 System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
             }
-            String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
+            String text = "Click on the following link to give the survey: http://"+urlip+":3000/home/givesurvey?id=" + s1.getSurveyId() + "&user=" + np.getParticipantsId();
             String subject = "Inviation for survey";
             sendInvitation.sendQREmail(participants[i], subject, text);
         }
@@ -640,7 +642,7 @@ public class Surveys {
             Participants np = participantsService.addParticipant(pq);
             // for general survey
             if (s.getType() == 1) {
-                String text = "Click on the follwing link to give the survey: http://localhost:3000/home/givesurvey?id="
+                String text = "Click on the follwing link to give the survey: http://"+urlip+":3000/home/givesurvey?id="
                         + s.getSurveyId();
                 String subject = "Inviation for survey";
                 try {
@@ -652,7 +654,7 @@ public class Surveys {
             }
             // for closed survey
             else if (s.getType() == 2) {
-                String text = "Click on the following link to give the survey: http://localhost:3000/home/givesurvey?id="
+                String text = "Click on the following link to give the survey: http://"+urlip+":3000/home/givesurvey?id="
                         + s.getSurveyId() + "&user=" + np.getParticipantsId();
                 String subject = "Inviation for survey";
                 try {
@@ -752,7 +754,7 @@ public class Surveys {
     // upload image to public folder
     @PostMapping(path="/uploadimage")
 	public ResponseEntity<?> fileUpload(@RequestBody MultipartFile file) {
-    	String UPLOAD_FOLDER = "/Users/anjana/Desktop/cmpe275_SurveyApe/frontend/public/uploads/";
+    	String UPLOAD_FOLDER = "/home/ubuntu/cmpe275_SurveyApe/frontend/public/uploads/";
     	System.out.println("API SUCCESS---------"+UPLOAD_FOLDER);
 		if (file.isEmpty()) {
 			System.out.println("****Empty file: ");
