@@ -9,20 +9,18 @@ public class StatDetails {
 	LocalDateTime endtime;
 	int numParticipants;
 	int submissions;
-	int invited;
 	int registered;
 	ArrayList<AnsDistribution> distribution;
 	
 	public StatDetails(){		
 	}
 	
-	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s,int i, int r, ArrayList<AnsDistribution> dist){
+	public StatDetails(String t,LocalDateTime st,LocalDateTime et,int p,int s, int r, ArrayList<AnsDistribution> dist){
 		title=t;
 		starttime=st;
 		endtime=et;
 		numParticipants=p;
 		submissions=s;
-		invited=i;
 		registered=r;
 		distribution=dist;
 	}
@@ -56,12 +54,6 @@ public class StatDetails {
 	}
 	public void setSubmissions(int submissions) {
 		this.submissions = submissions;
-	}
-	public int getInvited() {
-		return invited;
-	}
-	public void setInvited(int invited) {
-		this.invited = invited;
 	}
 	public int getRegistered() {
 		return registered;

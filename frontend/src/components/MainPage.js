@@ -109,7 +109,7 @@ class MainPage extends Component {
             islogged: false,
             message: ''
         });
-        this.checkSession();
+        //this.checkSession();
     }
 
     render() {

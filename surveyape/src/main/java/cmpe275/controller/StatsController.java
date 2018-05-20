@@ -74,14 +74,17 @@ public class StatsController {
         //System.out.println("Check subm: "+responses.size());
         int respsize = responses.size();
         int count=0;
+        int count1=0;
         for(int i=0;i<responses.size();i++) {
         	if(responses.get(i).isCompletedStatus()==true)
         		count++;
+        	if(responses.get(i).getUserId()>0)
+        		count1++;
         }
         
-        int numpar=responses.size();
-        int submissions=responses.size()-count;
-        int invited=participants.size();
+        int numpar=participants.size();
+        int submissions=count;
+        int reg1 = count1;
         
         List<Guest> guests=guestService.guestBySurveyId(id);
         System.out.println("Check subm: "+responses.size());
@@ -161,10 +164,10 @@ public class StatsController {
         StatDetails sd;       
      
         if(survey.getType()==3) // registered users
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions,guests.size(),reg,dist);
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions,reg,dist);
         
         else // general, closed - registered users=num of participants
-        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions, invited, numpar,dist);
+        		sd=new StatDetails(survey.getSurveyTitle(), survey.getStartDate(), survey.getEndDate(), numpar, submissions, reg1,dist);
         	
         if (survey!=null)
             return new ResponseEntity(sd, HttpStatus.FOUND);
