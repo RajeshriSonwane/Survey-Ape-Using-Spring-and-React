@@ -5,7 +5,6 @@ cmpe275\entity\Survey.class
 cmpe275\App.class
 cmpe275\entity\Question.class
 cmpe275\service\OptionService.class
-cmpe275\controller\SurveyResponse.class
 cmpe275\repository\AnswerRepository.class
 cmpe275\service\GuestService.class
 cmpe275\controller\StatsController.class
@@ -32,3 +31,4 @@ cmpe275\controller\Users.class
 cmpe275\AnsDistribution.class
 cmpe275\entity\Participants.class
 cmpe275\service\ResponseService.class
+cmpe275\SurveyResponse.class
