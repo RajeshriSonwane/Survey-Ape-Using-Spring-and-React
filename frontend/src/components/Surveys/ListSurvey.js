@@ -164,10 +164,8 @@ class ViewSurvey extends Component {
         surveyJSON.questions = [];
         surveyJSON.elements = [];
         var data = {};
-        console.log("questions len: "+questions.length);
         questions.forEach(function (value) {
             var questionID = value.questionId;
-            console.log("val type*********: "+value.type);
             if (value.type == "checkbox") {
                 var choices1 = [];
 
@@ -181,7 +179,7 @@ class ViewSurvey extends Component {
                     colCount: 4,
                     choices: choices1
                 });
-                if (value.answers.length > 0) {
+                if(value.answers.length > 0){
                     var answers = [];
                     value.answers.forEach(function (answer) {
                         answers.push(answer.answer);
@@ -190,21 +188,21 @@ class ViewSurvey extends Component {
                     data[questionID] = answers;
                 }
             }
-            else if (value.type == "radiogroup" || value.type == "yesNo") {
+            else if (value.type == "radiogroup") {
                 var choices1 = [];
                 value.options.forEach(function (option) {
                     choices1.push(option.description);
 
                 });
                 surveyJSON.questions.push({
-                    type: "radiogroup",
+                    type: value.type,
                     name: value.questionId,
                     title: value.description,
                     isRequired: true,
                     colCount: 4,
                     choices: choices1
                 });
-                if (value.answers.length > 0)
+                if(value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "rating") {
@@ -216,8 +214,7 @@ class ViewSurvey extends Component {
                     minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"
                 });
-                if (value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
+                data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "dropdown") {
                 var choices1 = [];
@@ -232,16 +229,8 @@ class ViewSurvey extends Component {
                     colCount: 0,
                     choices: choices1
                 });
-                if (value.answers.length > 0) {
-                    var answers = [];
-                    value.answers.forEach(function (answer) {
-                        answers.push(answer.answer);
-                    });
-
-                    data[questionID] = answers;
-                }
             }
-            else if (value.type == "barrating") {
+            else if (value.type == "barrating" ) {
 
                 surveyJSON.questions.push({
                     type: value.type,
@@ -250,32 +239,47 @@ class ViewSurvey extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
-                console.log("rating: "+value.answers[0].answer);
-                if (value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
+                data[questionID] = value.answers[0].answer;
             }
-            else if (value.type == "personalDetails") {
-
+            else if(value.type == "personalDetails"){
                 surveyJSON.questions.push({type: "text", name: "firstName", title: "First Name"});
                 surveyJSON.questions.push({type: "text", name: "lastName", title: "Last Name"});
                 surveyJSON.questions.push({type: "text", name: "emailID", title: "Email Id"});
                 surveyJSON.questions.push({type: "text", name: "phoneNo", title: "Phone No."});
-                if (user) {
-                  console.log("inside personalDetails: ");
-                  data["firstName"] = user["firstname"];
-                  data["lastName"] = user["lastname"];
-                  data["phoneNo"] = user["phoneNo"];
-                  data["emailID"] = user["email"];
+
+                if(user){
+                    data["firstName"] = user["firstname"];
+                    data["lastName"] = user["lastname"];
+                    data["phoneNo"] = user["phoneNo"];
+                    data["emailID"] = user["email"];
                 }
             }
-            else {
-                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
+            else if(value.type == "image"){
+                var choices1 = [];
+
+                value.options.forEach(function (option) {
+                    choices1.push({value: option.optionId, text: "![A] ("+option.description+" =100x75)"});
+                });
+                //choices1.push({value: "A", text: "![A] (/uploads/owl.jpg =100x75)"});
+
+                surveyJSON.questions.push({
+
+                    type: "radiogroup",
+                    name: value.questionId,
+                    "hasOther": false,
+                    title: value.description,
+                    choices: choices1
+                });
                 if (value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
+            }
+            else{
+                surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
+                if(value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
         });
         surveyJSON.data = data;
-        console.log("SurveyAnswers: " + JSON.stringify(data));
         console.log("SurveyJSON: " + JSON.stringify(surveyJSON));
         return surveyJSON;
     }
@@ -315,6 +319,16 @@ this.setState({user: this.props.user});
             .StylesManager
             .applyTheme("winterstone");
         var model = new Survey.Model(json);
+        var showdown  = require('showdown')
+        var converter = new showdown.Converter();
+        model
+            .onTextMarkdown
+            .add(function (model, options) {
+                var str = converter.makeHtml(options.text);
+                str = str.substring(3);
+                str = str.substring(0, str.length - 4);
+                options.html = str;
+            });
 
         model.data = this.state.survey.data;
         model.mode = 'display';

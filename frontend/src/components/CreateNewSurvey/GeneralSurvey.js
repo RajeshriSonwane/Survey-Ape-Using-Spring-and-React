@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import * as API from '../../api/API';
+import { Base64 } from 'js-base64';
+import ReactFileReader from 'react-file-reader';
 
 const queryString = require('query-string');
 
@@ -105,6 +107,28 @@ class GeneralSurvey extends Component {
             });
     };
 
+    importQuestions= files => {
+      var contentString = Base64.decode(files.base64);
+      contentString=contentString.substring(contentString.indexOf('['))
+      console.log("file string: "+contentString);
+      var contentJson=JSON.parse(contentString);
+      console.log("file json len: "+contentJson.length);
+      for(var i=0;i<contentJson.length;i++){
+        console.log(contentJson[i].description);
+        this.setState({questions: this.state.questions.concat(contentJson[i].description)});
+        this.setState({qtype: this.state.qtype.concat(contentJson[i].type)});
+        for(var j=0;j<(contentJson[i].options).length;j++){
+          this.setState({options: this.state.options.concat(contentJson[i].options[j].description)});
+        }
+        if((contentJson[i].options).length>0)
+        this.setState({options: this.state.options.concat("BREAK")});
+      }
+      console.log("options: "+this.state.options);
+      console.log("question: "+this.state.questions);
+      console.log("question: "+this.state.qtype);
+    }
+
+
     render() {
         return (
             <div className="w3-container">
@@ -187,14 +211,13 @@ class GeneralSurvey extends Component {
 
 
                                 <div className="form-group row">
-                                    <label className="col-sm-2 col-form-label">Upload image:</label>
+                                    <label className="col-sm-2 col-form-label">Upload image<font style={{color: 'Red'}}>(max dimesnions 500 x 500)</font>:</label>
                                     <div className="col-sm-2">
                                     <input id="newfile" ref="img" type="file" name="file" onChange={this.handleUpload}/>
                                     </div>
                                     <div className="col-sm-8">
                                         <button disabled={!this.state.newimg} className="btn btn-default btn-sm addNextBuuton" type="button"
-                                                onClick={() => this.nextImage()}>Save & Add next image
-                                        </button>
+                                                onClick={() => this.nextImage()}>Save & Add next image</button>
                                     </div>
                                 </div>
 
@@ -212,6 +235,13 @@ class GeneralSurvey extends Component {
                                     </div>
                                 </div>
 
+                                <div className="form-group row">
+                                    <label className="col-sm-2 col-form-label"></label>
+                                    <div className="col-sm-2 col-md-2">
+                                    <ReactFileReader fileTypes={[".txt"]} base64={true} multipleFiles={true} handleFiles={this.importQuestions}>
+                                    <a>Import questions</a></ReactFileReader>
+                                    </div>
+                                </div>
                                 <br/><br/>
 
                                 <div class="form-group row">

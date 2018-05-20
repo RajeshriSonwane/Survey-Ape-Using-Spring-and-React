@@ -650,8 +650,7 @@ public class Surveys {
     Iterable<Survey> getOpenSurveys() {
         List<Survey> res = new ArrayList<Survey>();
         List<Survey> surveylist = surveyService.getAllSurveys();
-        System.out.println(
-                "get open survey: " + surveylist.get(0).getSurveyId() + "-" + surveylist.get(0).getSurveyTitle());
+       // System.out.println("get open survey: " + surveylist.get(0).getSurveyId() + "-" + surveylist.get(0).getSurveyTitle());
         for (int i = 0; i < surveylist.size(); i++) {
             Survey temp = surveylist.get(i);
             if (temp.getType() == 3)
@@ -664,7 +663,7 @@ public class Surveys {
     // upload image to public folder
     @PostMapping(path="/uploadimage")
 	public ResponseEntity<?> fileUpload(@RequestBody MultipartFile file) {
-    	String UPLOAD_FOLDER = "D:/CMPE 275/cmpe275_SurveyApe/frontend/public/uploads/";
+    	String UPLOAD_FOLDER = "/Users/anjana/Desktop/cmpe275_SurveyApe/frontend/public/uploads/";
     	System.out.println("API SUCCESS---------"+UPLOAD_FOLDER);
 		if (file.isEmpty()) {
 			System.out.println("****Empty file: ");

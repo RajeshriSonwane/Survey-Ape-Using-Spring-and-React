@@ -111,14 +111,14 @@ class FetchOpenSurvey extends Component {
 
                                     (<div className="col-sm-3 col-md-3 col-lg-3 col-xs-3 mt">
                                         <button className="btn btn-primary"
-                                                onClick={() => this.hideshow(s.surveyId)}>Start
-                                        </button>
+                                                onClick={() => this.hideshow(s.surveyId)}>Start</button>
                                     </div>)
                                 }
-
+<br/><br/><br/><br/>
                             </div>
                         )
-                    })}
+                    }              
+                  )}
                 </div>
 
 

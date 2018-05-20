@@ -105,7 +105,7 @@ public class Users {
             int code = Integer.parseInt(jsonObject.getString("verificationCode"));
             if (code == b.get(0).getValidCode()) {
                 try {
-                    sendInvitation.sendEmail(jsonObject.getString("email"), "Email ID verification Successful", "Congratz.. Account validated");
+                    sendInvitation.sendEmail(jsonObject.getString("email"), "Email ID verification Successful", "Congralutaions! Account validated");
                     session.setAttribute("sess_userid", b.get(0).getUserId());
                     session.setAttribute("sess_email", jsonObject.getString("email").toString());
                     System.out.println("set sess: " + session.getAttribute("sess_userid"));

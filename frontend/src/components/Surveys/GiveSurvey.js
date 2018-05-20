@@ -275,17 +275,12 @@ class GiveSurvey extends Component {
         model
             .onTextMarkdown
             .add(function (model, options) {
-                //convert the mardown text to html
                 var str = converter.makeHtml(options.text);
-                //console.log("options.text "+options.text);
-                //remove root paragraphs <p></p>
                 str = str.substring(3);
                 str = str.substring(0, str.length - 4);
-                //set html
                 options.html = str;
             });
-        //model.data = this.state.survey.data;
-        //model.mode = 'display';
+
         return (
             <div className="w3-container w3-panel">
                 <div className="container">

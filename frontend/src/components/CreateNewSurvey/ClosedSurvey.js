@@ -55,7 +55,7 @@ class ClosedSurvey extends Component {
     nextImage() {
         var imgname = (this.refs.img.value).substring((this.refs.img.value).lastIndexOf("\\") + 1);
         console.log("New file name: "+imgname);
-        imgname="/Users/anjana/Desktop/cmpe275_SurveyApe/uploads/"+imgname;
+        imgname="/uploads/"+imgname;
         this.setState({options: this.state.options.concat(imgname)});
         console.log(this.state.options);
         this.setState({newimg: false});

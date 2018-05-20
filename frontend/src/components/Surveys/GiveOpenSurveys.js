@@ -86,6 +86,21 @@ class GiveOpenSurveys extends Component {
                     choices: choices1
                 });
             }
+            else if(value.type == "image"){
+                var choices1 = [];
+
+                value.options.forEach(function (option) {
+                    choices1.push({value: option.optionId, text: "![A] ("+option.description+" =100x75)"});
+                });
+                surveyJSON.questions.push({
+
+                    type: "radiogroup",
+                    name: value.questionId,
+                    "hasOther": false,
+                    title: value.description,
+                    choices: choices1
+                });
+            }
             else
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description})
         });
@@ -144,6 +159,17 @@ class GiveOpenSurveys extends Component {
             .StylesManager
             .applyTheme("winterstone");
         var model = new Survey.Model(json);
+
+        var showdown  = require('showdown')
+        var converter = new showdown.Converter();
+        model
+            .onTextMarkdown
+            .add(function (model, options) {
+                var str = converter.makeHtml(options.text);
+                str = str.substring(3);
+                str = str.substring(0, str.length - 4);
+                options.html = str;
+            });
 
 
         return (
