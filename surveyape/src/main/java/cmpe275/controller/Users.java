@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 @Controller
-@CrossOrigin(origins = "http://54.245.17.59:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping(path = "/user")
 public class Users {
 
@@ -45,7 +45,7 @@ public class Users {
     @Autowired
     private SendInvitation sendInvitation;
     
-    String urlip="54.245.17.59";//"54.245.167.26";
+    String urlip="localhost";//"54.245.167.26";
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
