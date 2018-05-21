@@ -198,7 +198,7 @@ class GiveSurvey extends Component {
 
     };
 
-    componentWillMount() {
+    componentDidMount() {
         widgets.jquerybarrating(Survey);
         const parsed = queryString.parse(window.location.search);
         console.log(parsed.id);
@@ -209,7 +209,7 @@ class GiveSurvey extends Component {
                 console.log("CHECK THIS: " + output.firstname);
                 console.log("CHECK THIS: " + output.phoneNo);
                 if (output == false) {
-                    alert("Login to continue or survey not available");
+                    //alert("Login to continue or survey not available");
                     console.log("No data");
                 } else {
                     this.setState({user: output});
