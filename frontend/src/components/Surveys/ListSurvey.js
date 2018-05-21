@@ -256,14 +256,29 @@ class ViewSurvey extends Component {
                     data["emailID"] = user["email"];
                 }
             }
+            else if (value.type == "radiogroup" || value.type == "yesNo") {
+                var choices1 = [];
+                value.options.forEach(function (option) {
+                    choices1.push(option.description);
+
+                });
+                surveyJSON.questions.push({
+                    type: "radiogroup",
+                    name: value.questionId,
+                    title: value.description,
+                    isRequired: true,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0)
+                    data[questionID] = value.answers[0].answer;
+            }
             else if(value.type == "image"){
                 var choices1 = [];
 
                 value.options.forEach(function (option) {
                     choices1.push({value: option.optionId, text: "![A] ("+option.description+" =100x75)"});
                 });
-                //choices1.push({value: "A", text: "![A] (/uploads/owl.jpg =100x75)"});
-
                 surveyJSON.questions.push({
 
                     type: "radiogroup",

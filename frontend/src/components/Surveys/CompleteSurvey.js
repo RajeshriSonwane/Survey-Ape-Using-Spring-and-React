@@ -60,6 +60,23 @@ class CompleteSurvey extends Component {
                 if(value.answers.length > 0)
                     data[questionID] = value.answers[0].answer;
             }
+            else if (value.type == "radiogroup" || value.type == "yesNo") {
+                var choices1 = [];
+                value.options.forEach(function (option) {
+                    choices1.push(option.description);
+
+                });
+                surveyJSON.questions.push({
+                    type: "radiogroup",
+                    name: value.questionId,
+                    title: value.description,
+                    isRequired: true,
+                    colCount: 4,
+                    choices: choices1
+                });
+                if(value.answers.length > 0)
+                   data[questionID] = value.answers[0].answer;
+            }
             else if (value.type == "rating") {
 
                 surveyJSON.questions.push({
@@ -96,6 +113,7 @@ class CompleteSurvey extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
+                if(value.answers.length > 0)
                 data[questionID] = value.answers[0].answer;
             }
             else if(value.type == "personalDetails"){
