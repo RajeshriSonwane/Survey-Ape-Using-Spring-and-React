@@ -30,7 +30,7 @@ class GeneralSurvey extends Component {
         API.createGeneral(data)
             .then((output) => {
                 console.log("CHECK THIS: " + JSON.stringify(output));
-                alert("Survey created!");
+                alert("Survey created! Now PUBLISH this survey");
             });
     }
 
