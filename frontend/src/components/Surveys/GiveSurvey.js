@@ -51,7 +51,7 @@ class GiveSurvey extends Component {
                         answers.push(answer.answer);
                     });
 
-                    data[questionID] = answers;
+                    //data[questionID] = answers;
                 }
             }
             else if (value.type == "radiogroup" || value.type == "yesNo") {
@@ -68,8 +68,8 @@ class GiveSurvey extends Component {
                     colCount: 4,
                     choices: choices1
                 });
-                if(value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
+                //if(value.answers.length > 0)
+                //    data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "rating" ) {
 
@@ -80,8 +80,8 @@ class GiveSurvey extends Component {
                     minRateDescription: "Not Satisfied",
                     maxRateDescription: "Completely satisfied"
                 });
-                if(value.answers.length > 0)
-                data[questionID] = value.answers[0].answer;
+                //if(value.answers.length > 0)
+                //data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "barrating" ) {
 
@@ -92,8 +92,8 @@ class GiveSurvey extends Component {
                     ratingTheme: "css-stars",
                     choices: ["1", "2", "3", "4", "5"]
                 });
-                if(value.answers.length > 0)
-                data[questionID] = value.answers[0].answer;
+                //if(value.answers.length > 0)
+                //data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "dropdown") {
                 var choices1 = [];
@@ -142,8 +142,8 @@ class GiveSurvey extends Component {
             else{
                 surveyJSON.questions.push({type: value.type, name: value.questionId, title: value.description});
 
-                if (value.answers.length > 0)
-                    data[questionID] = value.answers[0].answer;
+                //if (value.answers.length > 0)
+                //    data[questionID] = value.answers[0].answer;
 
 
             }
@@ -269,7 +269,7 @@ class GiveSurvey extends Component {
             .StylesManager
             .applyTheme("winterstone");
         var model = new Survey.Model(json);
-
+        model.data = this.state.survey.data;
         var showdown  = require('showdown')
         var converter = new showdown.Converter();
         model
