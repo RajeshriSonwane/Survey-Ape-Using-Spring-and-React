@@ -44,7 +44,8 @@ public class Users {
 
     @Autowired
     private SendInvitation sendInvitation;
-
+    
+    String urlip="54.245.167.26";
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -132,7 +133,7 @@ public class Users {
         Guest ng=new Guest(jsonObject.getString("email"),Integer.parseInt(jsonObject.get("surId").toString()), 0);
         int gid = guestService.addGuest(ng).getGuestId();
         String QR_CODE_IMAGE_PATH = "./MyQRCode.png";
-        String QRCodeURL = "http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid;
+        String QRCodeURL = "http://"+urlip+":3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid;
         try {
             generateQRCodeImage(QRCodeURL, 250, 250, QR_CODE_IMAGE_PATH);
         } catch (WriterException e) {
@@ -142,7 +143,7 @@ public class Users {
         }
 
         try {
-            sendInvitation.sendQREmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://localhost:3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid);
+            sendInvitation.sendQREmail(jsonObject.getString("email"), "Inviation for survey", "Click on the following link to give the survey: http://"+urlip+":3000/home/giveOpenSurvey?id=" + jsonObject.get("surId")+ "&guest=" + gid);
         } catch (Exception e) {
             e.printStackTrace();
         }

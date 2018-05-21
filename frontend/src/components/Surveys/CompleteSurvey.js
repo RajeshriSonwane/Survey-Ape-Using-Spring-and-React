@@ -84,6 +84,8 @@ class CompleteSurvey extends Component {
                     colCount: 0,
                     choices: choices1
                 });
+                if(value.answers.length > 0)
+                data[questionID] = value.answers[0].answer;
             }
             else if (value.type == "barrating" ) {
 

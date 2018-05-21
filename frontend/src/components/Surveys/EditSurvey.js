@@ -315,7 +315,7 @@ class EditForm extends Component {
 
 
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Upload image:</label>
+                        <label className="col-sm-2 col-form-label">Upload image<font style={{color: 'Red'}}>(max dimesnions 500 x 500)</font>:</label>
                         <div className="col-sm-2">
                         <input id="newfile" ref="img" type="file" name="file" onChange={this.handleUpload}/>
                         </div>
