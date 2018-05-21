@@ -45,7 +45,7 @@ public class Users {
     @Autowired
     private SendInvitation sendInvitation;
     
-    String urlip="54.245.167.26";
+    String urlip="localhost";//"54.245.167.26";
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

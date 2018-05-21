@@ -63,7 +63,7 @@ public class Surveys {
     @Autowired
     private UserService userservice;
     
-    String urlip="54.245.167.26";
+    String urlip="localhost";//"54.245.167.26";
 
     	/* ==================== CREATE SURVEYS ==================== */
 

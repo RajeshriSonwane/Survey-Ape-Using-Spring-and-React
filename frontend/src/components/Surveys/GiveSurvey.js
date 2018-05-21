@@ -264,7 +264,7 @@ class GiveSurvey extends Component {
                 {elements: this.state.survey.elements}
             ]
         };
-var model = new Survey.Model(json);
+//var model = new Survey.Model(json);
         Survey
             .StylesManager
             .applyTheme("winterstone");
