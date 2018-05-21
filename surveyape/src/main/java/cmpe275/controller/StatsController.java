@@ -35,7 +35,7 @@ import cmpe275.service.SurveyService;
 
 
 @Controller
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://54.245.17.59:3000", allowCredentials = "true")
 public class StatsController {
 	
     @Autowired
